@@ -1,0 +1,22 @@
+{
+  "Module":{
+    "module_gate":[
+      {
+        "Id":"module_gate",
+        "ProcessID":"development"
+      }
+    ],
+    "module_lobby":[
+      {
+        "Id":"module_lobby",
+        "ProcessID":"development"
+      }
+    ],
+    "module_http":[
+      {
+        "Id":"module_http",
+        "ProcessID":"development"
+      }
+    ]
+  }
+}
