@@ -2,6 +2,9 @@ package module_http
 
 import (
 	"context"
+	"crypto/md5"
+	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"github.com/liangdas/mqant/log"
 	"github.com/liangdas/mqant/registry"
@@ -10,9 +13,46 @@ import (
 	"io"
 	"math/rand"
 	"net/http"
+	"server/pb/pb_common"
+	"server/pb/pb_lobby"
 	"sync"
 	"time"
 )
+
+var key = "天王盖地虎"
+
+func md5V(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+func (self *moduleHttp) entry(w http.ResponseWriter, r *http.Request) {
+	secret := md5V(key)
+	req := &pb_lobby.ReqEntry{
+		Secret: r.PostFormValue("Secret"),
+	}
+
+	log.Info("[entry],secret=%s, req.Secret=%s\n", secret, req.Secret)
+	resp := new(pb_lobby.RespEntry)
+	//if secret == req.Secret {
+		resp.ErrCode = pb_common.ErrorCode_OK
+		resp.LoginUrl = self.loginUrl
+		resp.RegisterUrl = self.registerUrl
+		resp.WebSocketUrl = self.websocketUrl
+		resp.TcpUrl = self.tcpUrl
+	//} else {
+	//	resp.ErrCode = pb_common.ErrorCode_EntryError
+	//}
+
+	jsonData, err := json.Marshal(resp)
+	log.Info("[entry] result=%v\n", resp)
+	if err != nil {
+		return
+	}
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Write(jsonData)
+}
 
 //login 用户通过http登录
 func (self *moduleHttp) login(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +61,7 @@ func (self *moduleHttp) login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ctx, _ := context.WithTimeout(context.TODO(), time.Second*3)
-	rstr, err := mqrpc.String(
+	result, err := mqrpc.String(
 		self.Call(
 			ctx,
 			"module_lobby", //要访问的moduleType
@@ -57,9 +97,9 @@ func (self *moduleHttp) login(w http.ResponseWriter, r *http.Request) {
 		),
 	)
 
-	log.Info("RpcCall %v , err %v", rstr, err)
+	log.Info("RpcCall %v , err %v", result, err)
 	if err != nil {
 		_, _ = io.WriteString(w, err.Error())
 	}
-	_, _ = io.WriteString(w, rstr)
+	_, _ = io.WriteString(w, result)
 }

@@ -1,20 +1,26 @@
 {
+  "Settings": {
+    "WebsocketUrl": "127.0.0.1:3653",
+    "TcpUrl": "127.0.0.1:3563",
+    "LoginUrl": "127.0.0.1:8088/Login",
+    "RegisterUrl": "127.0.0.1:8088/Register"
+  },
   "Module":{
-    "module_gate":[
+    "SV_Gate":[
       {
-        "Id":"module_gate",
+        "Id":"SV_Gate",
         "ProcessID":"development"
       }
     ],
-    "module_lobby":[
+    "SV_Lobby":[
       {
-        "Id":"module_lobby",
+        "Id":"SV_Lobby",
         "ProcessID":"development"
       }
     ],
-    "module_http":[
+    "SV_Http":[
       {
-        "Id":"module_http",
+        "Id":"SV_Http",
         "ProcessID":"development"
       }
     ]

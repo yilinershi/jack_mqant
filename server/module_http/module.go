@@ -18,11 +18,15 @@ var Module = func() module.Module {
 
 type moduleHttp struct {
 	basemodule.BaseModule
+	loginUrl     string
+	registerUrl  string
+	websocketUrl string
+	tcpUrl       string
 }
 
 func (self *moduleHttp) GetType() string {
 	//很关键,需要与配置文件中的Module配置对应
-	return "module_http"
+	return "SV_Http"
 }
 
 func (self *moduleHttp) Version() string {
@@ -31,13 +35,17 @@ func (self *moduleHttp) Version() string {
 }
 
 func (self *moduleHttp) OnInit(app module.App, settings *conf.ModuleSettings) {
+	self.loginUrl = app.GetSettings().Settings["LoginUrl"].(string)
+	self.registerUrl = app.GetSettings().Settings["RegisterUrl"].(string)
+	self.websocketUrl = app.GetSettings().Settings["WebsocketUrl"].(string)
+	self.tcpUrl = app.GetSettings().Settings["TcpUrl"].(string)
 	self.BaseModule.OnInit(self, app, settings)
 }
 
 func (self *moduleHttp) startHttpServer() *http.Server {
 	srv := &http.Server{Addr: ":8088"}
-
-	http.HandleFunc("/login/", self.login)
+	http.HandleFunc("/entry", self.entry)
+	http.HandleFunc("/login", self.login)
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {

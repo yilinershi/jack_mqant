@@ -21,7 +21,7 @@ type module_lobby struct {
 
 func (self *module_lobby) GetType() string {
 	//很关键,需要与配置文件中的Module配置对应
-	return "module_lobby"
+	return "SV_Lobby"
 }
 
 func (self *module_lobby) Version() string {
@@ -37,8 +37,9 @@ func (self *module_lobby) OnAppConfigurationLoaded(app module.App) {
 func (self *module_lobby) OnInit(app module.App, settings *conf.ModuleSettings) {
 	self.BaseModule.OnInit(self, app, settings)
 	self.GetServer().Options().Metadata["state"] = "alive"
-	self.GetServer().RegisterGO("onRegister", self.onLogin) //handler
-	self.GetServer().RegisterGO("onLogin", self.onRegister)
+	self.GetServer().RegisterGO("HD_Register", self.onRegister) //handler
+	self.GetServer().RegisterGO("HD_Login", self.onLogin)
+	self.GetServer().RegisterGO("HD_Test", self.onTest)
 	log.Info("%v模块初始化完成...", self.GetType())
 }
 

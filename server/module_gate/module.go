@@ -4,10 +4,15 @@
 package module_gate
 
 import (
+	//"encoding/json"
 	"github.com/liangdas/mqant/conf"
 	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/gate/base"
 	"github.com/liangdas/mqant/module"
+	//"google.golang.org/protobuf/proto"
+	"log"
+	"server/module_gate/router_custom"
+	//"server/pb/pb_lobby"
 )
 
 var Module = func() module.Module {
@@ -20,18 +25,29 @@ type Gate struct {
 }
 
 func (this *Gate) GetType() string {
-	//很关键,需要与配置文件中的Module配置对应
-	return "module_gate"
+	return "SV_Gate"
 }
 
 func (this *Gate) Version() string {
-	//可以在监控时了解代码版本
 	return "1.0.0"
 }
 
 func (this *Gate) OnInit(app module.App, settings *conf.ModuleSettings) {
+	//注意这里一定要用 gate.Gate 而不是 module.BaseModule
+	wsUrl := app.GetSettings().Settings["WebsocketUrl"].(string)
+	tcpUrl := app.GetSettings().Settings["TcpUrl"].(string)
 	this.Gate.OnInit(this, app, settings,
-		gate.WsAddr(":3653"),
-		gate.TCPAddr(":3563"),
+		gate.WsAddr(wsUrl),
+		gate.TCPAddr(tcpUrl),
+		gate.SetRouteHandler(router_custom.NewRouterCustom(this)),
 	)
+}
+
+func (this *Gate) Connect(session gate.Session) {
+	log.Println("gate connect")
+	agent, err := this.GetGateHandler().GetAgent(session.GetSessionID())
+	if err != nil {
+
+	}
+	agent.ConnTime()
 }

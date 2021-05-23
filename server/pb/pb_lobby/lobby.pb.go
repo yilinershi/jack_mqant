@@ -21,6 +21,290 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type ReqEntry_EnumPlatform int32
+
+const (
+	ReqEntry_None    ReqEntry_EnumPlatform = 0
+	ReqEntry_Android ReqEntry_EnumPlatform = 1
+	ReqEntry_Ios     ReqEntry_EnumPlatform = 2
+	ReqEntry_WinPC   ReqEntry_EnumPlatform = 3
+)
+
+// Enum value maps for ReqEntry_EnumPlatform.
+var (
+	ReqEntry_EnumPlatform_name = map[int32]string{
+		0: "None",
+		1: "Android",
+		2: "Ios",
+		3: "WinPC",
+	}
+	ReqEntry_EnumPlatform_value = map[string]int32{
+		"None":    0,
+		"Android": 1,
+		"Ios":     2,
+		"WinPC":   3,
+	}
+)
+
+func (x ReqEntry_EnumPlatform) Enum() *ReqEntry_EnumPlatform {
+	p := new(ReqEntry_EnumPlatform)
+	*p = x
+	return p
+}
+
+func (x ReqEntry_EnumPlatform) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ReqEntry_EnumPlatform) Descriptor() protoreflect.EnumDescriptor {
+	return file_lobby_proto_enumTypes[0].Descriptor()
+}
+
+func (ReqEntry_EnumPlatform) Type() protoreflect.EnumType {
+	return &file_lobby_proto_enumTypes[0]
+}
+
+func (x ReqEntry_EnumPlatform) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ReqEntry_EnumPlatform.Descriptor instead.
+func (ReqEntry_EnumPlatform) EnumDescriptor() ([]byte, []int) {
+	return file_lobby_proto_rawDescGZIP(), []int{0, 0}
+}
+
+type ReqEntry_EnumEnv int32
+
+const (
+	ReqEntry_Dev    ReqEntry_EnumEnv = 0 //开发服
+	ReqEntry_Alpha  ReqEntry_EnumEnv = 2 //内网测试服
+	ReqEntry_Office ReqEntry_EnumEnv = 1 //正式服
+)
+
+// Enum value maps for ReqEntry_EnumEnv.
+var (
+	ReqEntry_EnumEnv_name = map[int32]string{
+		0: "Dev",
+		2: "Alpha",
+		1: "Office",
+	}
+	ReqEntry_EnumEnv_value = map[string]int32{
+		"Dev":    0,
+		"Alpha":  2,
+		"Office": 1,
+	}
+)
+
+func (x ReqEntry_EnumEnv) Enum() *ReqEntry_EnumEnv {
+	p := new(ReqEntry_EnumEnv)
+	*p = x
+	return p
+}
+
+func (x ReqEntry_EnumEnv) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ReqEntry_EnumEnv) Descriptor() protoreflect.EnumDescriptor {
+	return file_lobby_proto_enumTypes[1].Descriptor()
+}
+
+func (ReqEntry_EnumEnv) Type() protoreflect.EnumType {
+	return &file_lobby_proto_enumTypes[1]
+}
+
+func (x ReqEntry_EnumEnv) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ReqEntry_EnumEnv.Descriptor instead.
+func (ReqEntry_EnumEnv) EnumDescriptor() ([]byte, []int) {
+	return file_lobby_proto_rawDescGZIP(), []int{0, 1}
+}
+
+type ReqEntry struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Secret      string                `protobuf:"bytes,1,opt,name=Secret,proto3" json:"Secret,omitempty"`                                          //密钥
+	UUID        string                `protobuf:"bytes,2,opt,name=UUID,proto3" json:"UUID,omitempty"`                                              //设备号
+	Platform    ReqEntry_EnumPlatform `protobuf:"varint,3,opt,name=Platform,proto3,enum=pb_lobby.ReqEntry_EnumPlatform" json:"Platform,omitempty"` //平台
+	Env         ReqEntry_EnumEnv      `protobuf:"varint,4,opt,name=Env,proto3,enum=pb_lobby.ReqEntry_EnumEnv" json:"Env,omitempty"`                //模式 0：正式 1：alpha 2：dev
+	ResVersion  string                `protobuf:"bytes,5,opt,name=ResVersion,proto3" json:"ResVersion,omitempty"`                                  //客户端资源版本号
+	GameVersion string                `protobuf:"bytes,6,opt,name=GameVersion,proto3" json:"GameVersion,omitempty"`                                //游戏版本号
+}
+
+func (x *ReqEntry) Reset() {
+	*x = ReqEntry{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_lobby_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReqEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReqEntry) ProtoMessage() {}
+
+func (x *ReqEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_lobby_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReqEntry.ProtoReflect.Descriptor instead.
+func (*ReqEntry) Descriptor() ([]byte, []int) {
+	return file_lobby_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ReqEntry) GetSecret() string {
+	if x != nil {
+		return x.Secret
+	}
+	return ""
+}
+
+func (x *ReqEntry) GetUUID() string {
+	if x != nil {
+		return x.UUID
+	}
+	return ""
+}
+
+func (x *ReqEntry) GetPlatform() ReqEntry_EnumPlatform {
+	if x != nil {
+		return x.Platform
+	}
+	return ReqEntry_None
+}
+
+func (x *ReqEntry) GetEnv() ReqEntry_EnumEnv {
+	if x != nil {
+		return x.Env
+	}
+	return ReqEntry_Dev
+}
+
+func (x *ReqEntry) GetResVersion() string {
+	if x != nil {
+		return x.ResVersion
+	}
+	return ""
+}
+
+func (x *ReqEntry) GetGameVersion() string {
+	if x != nil {
+		return x.GameVersion
+	}
+	return ""
+}
+
+//入口消息resp，服务端将登录、注册、长连接等地址下发
+type RespEntry struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrCode      pb_common.ErrorCode `protobuf:"varint,1,opt,name=ErrCode,proto3,enum=pb_common.ErrorCode" json:"ErrCode,omitempty"`
+	LoginUrl     string              `protobuf:"bytes,2,opt,name=LoginUrl,proto3" json:"LoginUrl,omitempty"`         //登录http地址
+	RegisterUrl  string              `protobuf:"bytes,3,opt,name=RegisterUrl,proto3" json:"RegisterUrl,omitempty"`   //注册http地址
+	TcpUrl       string              `protobuf:"bytes,4,opt,name=TcpUrl,proto3" json:"TcpUrl,omitempty"`             // TCP连接地址
+	WebSocketUrl string              `protobuf:"bytes,5,opt,name=WebSocketUrl,proto3" json:"WebSocketUrl,omitempty"` // Websocket连接地址
+	BundleUrl    string              `protobuf:"bytes,6,opt,name=BundleUrl,proto3" json:"BundleUrl,omitempty"`       //下补丁的链接
+	OpenLog      bool                `protobuf:"varint,7,opt,name=OpenLog,proto3" json:"OpenLog,omitempty"`          //客户端是否开日志
+}
+
+func (x *RespEntry) Reset() {
+	*x = RespEntry{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_lobby_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RespEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespEntry) ProtoMessage() {}
+
+func (x *RespEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_lobby_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespEntry.ProtoReflect.Descriptor instead.
+func (*RespEntry) Descriptor() ([]byte, []int) {
+	return file_lobby_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *RespEntry) GetErrCode() pb_common.ErrorCode {
+	if x != nil {
+		return x.ErrCode
+	}
+	return pb_common.ErrorCode_Default
+}
+
+func (x *RespEntry) GetLoginUrl() string {
+	if x != nil {
+		return x.LoginUrl
+	}
+	return ""
+}
+
+func (x *RespEntry) GetRegisterUrl() string {
+	if x != nil {
+		return x.RegisterUrl
+	}
+	return ""
+}
+
+func (x *RespEntry) GetTcpUrl() string {
+	if x != nil {
+		return x.TcpUrl
+	}
+	return ""
+}
+
+func (x *RespEntry) GetWebSocketUrl() string {
+	if x != nil {
+		return x.WebSocketUrl
+	}
+	return ""
+}
+
+func (x *RespEntry) GetBundleUrl() string {
+	if x != nil {
+		return x.BundleUrl
+	}
+	return ""
+}
+
+func (x *RespEntry) GetOpenLog() bool {
+	if x != nil {
+		return x.OpenLog
+	}
+	return false
+}
+
 type ReqLogin struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -33,7 +317,7 @@ type ReqLogin struct {
 func (x *ReqLogin) Reset() {
 	*x = ReqLogin{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_lobby_proto_msgTypes[0]
+		mi := &file_lobby_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -46,7 +330,7 @@ func (x *ReqLogin) String() string {
 func (*ReqLogin) ProtoMessage() {}
 
 func (x *ReqLogin) ProtoReflect() protoreflect.Message {
-	mi := &file_lobby_proto_msgTypes[0]
+	mi := &file_lobby_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -59,7 +343,7 @@ func (x *ReqLogin) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReqLogin.ProtoReflect.Descriptor instead.
 func (*ReqLogin) Descriptor() ([]byte, []int) {
-	return file_lobby_proto_rawDescGZIP(), []int{0}
+	return file_lobby_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ReqLogin) GetAccount() string {
@@ -87,7 +371,7 @@ type RespLogin struct {
 func (x *RespLogin) Reset() {
 	*x = RespLogin{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_lobby_proto_msgTypes[1]
+		mi := &file_lobby_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -100,7 +384,7 @@ func (x *RespLogin) String() string {
 func (*RespLogin) ProtoMessage() {}
 
 func (x *RespLogin) ProtoReflect() protoreflect.Message {
-	mi := &file_lobby_proto_msgTypes[1]
+	mi := &file_lobby_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -113,7 +397,7 @@ func (x *RespLogin) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RespLogin.ProtoReflect.Descriptor instead.
 func (*RespLogin) Descriptor() ([]byte, []int) {
-	return file_lobby_proto_rawDescGZIP(), []int{1}
+	return file_lobby_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *RespLogin) GetErrCode() pb_common.ErrorCode {
@@ -132,7 +416,7 @@ type ReqLobbyInfo struct {
 func (x *ReqLobbyInfo) Reset() {
 	*x = ReqLobbyInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_lobby_proto_msgTypes[2]
+		mi := &file_lobby_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -145,7 +429,7 @@ func (x *ReqLobbyInfo) String() string {
 func (*ReqLobbyInfo) ProtoMessage() {}
 
 func (x *ReqLobbyInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_lobby_proto_msgTypes[2]
+	mi := &file_lobby_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -158,7 +442,7 @@ func (x *ReqLobbyInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReqLobbyInfo.ProtoReflect.Descriptor instead.
 func (*ReqLobbyInfo) Descriptor() ([]byte, []int) {
-	return file_lobby_proto_rawDescGZIP(), []int{2}
+	return file_lobby_proto_rawDescGZIP(), []int{4}
 }
 
 type RespLobbyInfo struct {
@@ -172,7 +456,7 @@ type RespLobbyInfo struct {
 func (x *RespLobbyInfo) Reset() {
 	*x = RespLobbyInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_lobby_proto_msgTypes[3]
+		mi := &file_lobby_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -185,7 +469,7 @@ func (x *RespLobbyInfo) String() string {
 func (*RespLobbyInfo) ProtoMessage() {}
 
 func (x *RespLobbyInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_lobby_proto_msgTypes[3]
+	mi := &file_lobby_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -198,7 +482,7 @@ func (x *RespLobbyInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RespLobbyInfo.ProtoReflect.Descriptor instead.
 func (*RespLobbyInfo) Descriptor() ([]byte, []int) {
-	return file_lobby_proto_rawDescGZIP(), []int{3}
+	return file_lobby_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *RespLobbyInfo) GetErrCode() pb_common.ErrorCode {
@@ -213,23 +497,58 @@ var File_lobby_proto protoreflect.FileDescriptor
 var file_lobby_proto_rawDesc = []byte{
 	0x0a, 0x0b, 0x6c, 0x6f, 0x62, 0x62, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x70,
 	0x62, 0x5f, 0x6c, 0x6f, 0x62, 0x62, 0x79, 0x1a, 0x10, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x5f, 0x63,
-	0x6f, 0x64, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x40, 0x0a, 0x08, 0x52, 0x65, 0x71,
-	0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12,
-	0x1a, 0x0a, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x3b, 0x0a, 0x09, 0x52,
-	0x65, 0x73, 0x70, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x2e, 0x0a, 0x07, 0x45, 0x72, 0x72, 0x43,
-	0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x70, 0x62, 0x5f, 0x63,
-	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x52,
-	0x07, 0x45, 0x72, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x22, 0x0e, 0x0a, 0x0c, 0x52, 0x65, 0x71, 0x4c,
-	0x6f, 0x62, 0x62, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x22, 0x3f, 0x0a, 0x0d, 0x52, 0x65, 0x73, 0x70,
-	0x4c, 0x6f, 0x62, 0x62, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x2e, 0x0a, 0x07, 0x45, 0x72, 0x72,
-	0x43, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x70, 0x62, 0x5f,
-	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x43, 0x6f, 0x64, 0x65,
-	0x52, 0x07, 0x45, 0x72, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x42, 0x1f, 0x5a, 0x12, 0x73, 0x65, 0x72,
-	0x76, 0x65, 0x72, 0x2f, 0x70, 0x62, 0x2f, 0x70, 0x62, 0x5f, 0x6c, 0x6f, 0x62, 0x62, 0x79, 0xaa,
-	0x02, 0x08, 0x50, 0x62, 0x2e, 0x4c, 0x6f, 0x62, 0x62, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x6f, 0x64, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xc9, 0x02, 0x0a, 0x08, 0x52, 0x65,
+	0x71, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x12, 0x12,
+	0x0a, 0x04, 0x55, 0x55, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x55, 0x55,
+	0x49, 0x44, 0x12, 0x3b, 0x0a, 0x08, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x0e, 0x32, 0x1f, 0x2e, 0x70, 0x62, 0x5f, 0x6c, 0x6f, 0x62, 0x62, 0x79, 0x2e,
+	0x52, 0x65, 0x71, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x45, 0x6e, 0x75, 0x6d, 0x50, 0x6c, 0x61,
+	0x74, 0x66, 0x6f, 0x72, 0x6d, 0x52, 0x08, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x12,
+	0x2c, 0x0a, 0x03, 0x45, 0x6e, 0x76, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1a, 0x2e, 0x70,
+	0x62, 0x5f, 0x6c, 0x6f, 0x62, 0x62, 0x79, 0x2e, 0x52, 0x65, 0x71, 0x45, 0x6e, 0x74, 0x72, 0x79,
+	0x2e, 0x45, 0x6e, 0x75, 0x6d, 0x45, 0x6e, 0x76, 0x52, 0x03, 0x45, 0x6e, 0x76, 0x12, 0x1e, 0x0a,
+	0x0a, 0x52, 0x65, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0a, 0x52, 0x65, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x20, 0x0a,
+	0x0b, 0x47, 0x61, 0x6d, 0x65, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0b, 0x47, 0x61, 0x6d, 0x65, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22,
+	0x39, 0x0a, 0x0c, 0x45, 0x6e, 0x75, 0x6d, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x12,
+	0x08, 0x0a, 0x04, 0x4e, 0x6f, 0x6e, 0x65, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07, 0x41, 0x6e, 0x64,
+	0x72, 0x6f, 0x69, 0x64, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03, 0x49, 0x6f, 0x73, 0x10, 0x02, 0x12,
+	0x09, 0x0a, 0x05, 0x57, 0x69, 0x6e, 0x50, 0x43, 0x10, 0x03, 0x22, 0x29, 0x0a, 0x07, 0x45, 0x6e,
+	0x75, 0x6d, 0x45, 0x6e, 0x76, 0x12, 0x07, 0x0a, 0x03, 0x44, 0x65, 0x76, 0x10, 0x00, 0x12, 0x09,
+	0x0a, 0x05, 0x41, 0x6c, 0x70, 0x68, 0x61, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x4f, 0x66, 0x66,
+	0x69, 0x63, 0x65, 0x10, 0x01, 0x22, 0xed, 0x01, 0x0a, 0x09, 0x52, 0x65, 0x73, 0x70, 0x45, 0x6e,
+	0x74, 0x72, 0x79, 0x12, 0x2e, 0x0a, 0x07, 0x45, 0x72, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x70, 0x62, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
+	0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x52, 0x07, 0x45, 0x72, 0x72, 0x43,
+	0x6f, 0x64, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x55, 0x72, 0x6c, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x55, 0x72, 0x6c, 0x12,
+	0x20, 0x0a, 0x0b, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x72, 0x6c, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x72,
+	0x6c, 0x12, 0x16, 0x0a, 0x06, 0x54, 0x63, 0x70, 0x55, 0x72, 0x6c, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x54, 0x63, 0x70, 0x55, 0x72, 0x6c, 0x12, 0x22, 0x0a, 0x0c, 0x57, 0x65, 0x62,
+	0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x55, 0x72, 0x6c, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0c, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x55, 0x72, 0x6c, 0x12, 0x1c, 0x0a,
+	0x09, 0x42, 0x75, 0x6e, 0x64, 0x6c, 0x65, 0x55, 0x72, 0x6c, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x09, 0x42, 0x75, 0x6e, 0x64, 0x6c, 0x65, 0x55, 0x72, 0x6c, 0x12, 0x18, 0x0a, 0x07, 0x4f,
+	0x70, 0x65, 0x6e, 0x4c, 0x6f, 0x67, 0x18, 0x07, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x4f, 0x70,
+	0x65, 0x6e, 0x4c, 0x6f, 0x67, 0x22, 0x40, 0x0a, 0x08, 0x52, 0x65, 0x71, 0x4c, 0x6f, 0x67, 0x69,
+	0x6e, 0x12, 0x18, 0x0a, 0x07, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x07, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x50,
+	0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x50,
+	0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x3b, 0x0a, 0x09, 0x52, 0x65, 0x73, 0x70, 0x4c,
+	0x6f, 0x67, 0x69, 0x6e, 0x12, 0x2e, 0x0a, 0x07, 0x45, 0x72, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x70, 0x62, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
+	0x6e, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x52, 0x07, 0x45, 0x72, 0x72,
+	0x43, 0x6f, 0x64, 0x65, 0x22, 0x0e, 0x0a, 0x0c, 0x52, 0x65, 0x71, 0x4c, 0x6f, 0x62, 0x62, 0x79,
+	0x49, 0x6e, 0x66, 0x6f, 0x22, 0x3f, 0x0a, 0x0d, 0x52, 0x65, 0x73, 0x70, 0x4c, 0x6f, 0x62, 0x62,
+	0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x2e, 0x0a, 0x07, 0x45, 0x72, 0x72, 0x43, 0x6f, 0x64, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x70, 0x62, 0x5f, 0x63, 0x6f, 0x6d, 0x6d,
+	0x6f, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x52, 0x07, 0x45, 0x72,
+	0x72, 0x43, 0x6f, 0x64, 0x65, 0x42, 0x1f, 0x5a, 0x12, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2f,
+	0x70, 0x62, 0x2f, 0x70, 0x62, 0x5f, 0x6c, 0x6f, 0x62, 0x62, 0x79, 0xaa, 0x02, 0x08, 0x50, 0x62,
+	0x2e, 0x4c, 0x6f, 0x62, 0x62, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -244,22 +563,30 @@ func file_lobby_proto_rawDescGZIP() []byte {
 	return file_lobby_proto_rawDescData
 }
 
-var file_lobby_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_lobby_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_lobby_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_lobby_proto_goTypes = []interface{}{
-	(*ReqLogin)(nil),         // 0: pb_lobby.ReqLogin
-	(*RespLogin)(nil),        // 1: pb_lobby.RespLogin
-	(*ReqLobbyInfo)(nil),     // 2: pb_lobby.ReqLobbyInfo
-	(*RespLobbyInfo)(nil),    // 3: pb_lobby.RespLobbyInfo
-	(pb_common.ErrorCode)(0), // 4: pb_common.ErrorCode
+	(ReqEntry_EnumPlatform)(0), // 0: pb_lobby.ReqEntry.EnumPlatform
+	(ReqEntry_EnumEnv)(0),      // 1: pb_lobby.ReqEntry.EnumEnv
+	(*ReqEntry)(nil),           // 2: pb_lobby.ReqEntry
+	(*RespEntry)(nil),          // 3: pb_lobby.RespEntry
+	(*ReqLogin)(nil),           // 4: pb_lobby.ReqLogin
+	(*RespLogin)(nil),          // 5: pb_lobby.RespLogin
+	(*ReqLobbyInfo)(nil),       // 6: pb_lobby.ReqLobbyInfo
+	(*RespLobbyInfo)(nil),      // 7: pb_lobby.RespLobbyInfo
+	(pb_common.ErrorCode)(0),   // 8: pb_common.ErrorCode
 }
 var file_lobby_proto_depIdxs = []int32{
-	4, // 0: pb_lobby.RespLogin.ErrCode:type_name -> pb_common.ErrorCode
-	4, // 1: pb_lobby.RespLobbyInfo.ErrCode:type_name -> pb_common.ErrorCode
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	0, // 0: pb_lobby.ReqEntry.Platform:type_name -> pb_lobby.ReqEntry.EnumPlatform
+	1, // 1: pb_lobby.ReqEntry.Env:type_name -> pb_lobby.ReqEntry.EnumEnv
+	8, // 2: pb_lobby.RespEntry.ErrCode:type_name -> pb_common.ErrorCode
+	8, // 3: pb_lobby.RespLogin.ErrCode:type_name -> pb_common.ErrorCode
+	8, // 4: pb_lobby.RespLobbyInfo.ErrCode:type_name -> pb_common.ErrorCode
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_lobby_proto_init() }
@@ -269,7 +596,7 @@ func file_lobby_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_lobby_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReqLogin); i {
+			switch v := v.(*ReqEntry); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -281,7 +608,7 @@ func file_lobby_proto_init() {
 			}
 		}
 		file_lobby_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RespLogin); i {
+			switch v := v.(*RespEntry); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -293,7 +620,7 @@ func file_lobby_proto_init() {
 			}
 		}
 		file_lobby_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReqLobbyInfo); i {
+			switch v := v.(*ReqLogin); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -305,6 +632,30 @@ func file_lobby_proto_init() {
 			}
 		}
 		file_lobby_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RespLogin); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_lobby_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReqLobbyInfo); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_lobby_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RespLobbyInfo); i {
 			case 0:
 				return &v.state
@@ -322,13 +673,14 @@ func file_lobby_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_lobby_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   4,
+			NumEnums:      2,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_lobby_proto_goTypes,
 		DependencyIndexes: file_lobby_proto_depIdxs,
+		EnumInfos:         file_lobby_proto_enumTypes,
 		MessageInfos:      file_lobby_proto_msgTypes,
 	}.Build()
 	File_lobby_proto = out.File
