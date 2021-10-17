@@ -1,4 +1,4 @@
-package serverLobby
+package sv_lobby
 
 import (
 	"github.com/liangdas/mqant/gate"

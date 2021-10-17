@@ -44,10 +44,10 @@ func main() {
 	)
 	err = app.Run(
 		//模块都需要加到入口列表中传入框架
-		serverGate.NewServerGate(),
-		serverLobby.NewServerLobby(),
-		serverDB.NewServerDB(),
-		serverHttp.NewServerHttp(),
+		sv_gate.NewServerGate(),
+		sv_lobby.NewServerLobby(),
+		sv_db.NewServerDB(),
+		sv_http.NewServerHttp(),
 	)
 	if err != nil {
 		log.Error(err.Error())

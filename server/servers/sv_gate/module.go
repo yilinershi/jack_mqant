@@ -1,4 +1,4 @@
-package serverGate
+package sv_gate
 
 import (
 	"github.com/liangdas/mqant/conf"
@@ -6,7 +6,6 @@ import (
 	"github.com/liangdas/mqant/gate/base"
 	"github.com/liangdas/mqant/log"
 	"github.com/liangdas/mqant/module"
-	"server/servers/serverGate/router_custom"
 )
 
 func NewServerGate() module.Module {
@@ -28,12 +27,10 @@ func (this *ServerGate) Version() string {
 func (this *ServerGate) OnInit(app module.App, settings *conf.ModuleSettings) {
 	//wsUrl := app.GetSettings().Settings["WebsocketUrl"].(string)
 	tcpUrl := app.GetSettings().Settings["TcpUrl"].(string)
-	//gate.WsAddr(":3653"),
 	//注意这里一定要用 gate.ServerGate 而不是 module.BaseModule
 	this.Gate.OnInit(this, app, settings,
 		gate.TCPAddr(tcpUrl),
 		//gate.WsAddr(wsUrl),
-		gate.SetRouteHandler(router_custom.NewRouterCustom(this)),
 	)
 	this.Gate.SetCreateAgent(this.CreateCustomAgent)
 }

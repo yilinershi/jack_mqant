@@ -1,4 +1,4 @@
-package serverDB
+package sv_db
 
 import (
 	"encoding/json"

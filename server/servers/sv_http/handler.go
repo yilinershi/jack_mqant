@@ -1,4 +1,4 @@
-package serverHttp
+package sv_http
 
 import (
 	"context"

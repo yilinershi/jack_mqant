@@ -1,7 +1,7 @@
 /**
 一定要记得在confin.json配置这个模块的参数,否则无法使用
 */
-package serverHttp
+package sv_http
 
 import (
 	"github.com/liangdas/mqant/conf"

@@ -1,7 +1,7 @@
 /**
 一定要记得在confin.json配置这个模块的参数,否则无法使用
 */
-package serverLobby
+package sv_lobby
 
 import (
 	"github.com/liangdas/mqant/conf"

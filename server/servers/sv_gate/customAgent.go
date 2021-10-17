@@ -1,4 +1,4 @@
-package serverGate
+package sv_gate
 
 import (
 	"bufio"
@@ -19,6 +19,7 @@ import (
 	"time"
 )
 
+//NewCustomAgent 自定义agent复制来源于源mqant_agent,仅对recoverWorker该方法进行了修改
 func NewCustomAgent(module module.RPCModule) *CustomAgent {
 	a := &CustomAgent{
 		module: module,
@@ -132,9 +133,6 @@ func (this *CustomAgent) Run() (err error) {
 		log.Error("It's not this mqtt connection package.")
 		return
 	}
-	//id := info.GetUserName()
-	//psw := info.GetPassword()
-	//log.Debug("Read login pack %s %s %s %s",*id,*psw,info.GetProtocol(),info.GetVersion())
 	c := mqtt.NewClient(conf.Conf.Mqtt, this, this.r, this.w, this.conn, conn.GetKeepAlive(), this.gate.Options().MaxPackSize)
 	this.client = c
 	addr := this.conn.RemoteAddr()
