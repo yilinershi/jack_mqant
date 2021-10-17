@@ -2,46 +2,27 @@ syntax = "proto3";
 package pb_lobby;
 option go_package = "server/pb/pb_lobby"; //生成go时的package
 option csharp_namespace = "Pb.Lobby";     //给c#提供的选项
-import "error_code.proto";
+import "enum.proto";
 
-message ReqEntry {
-  enum EnumPlatform {
-    None = 0;
-    Android = 1;
-    Ios = 2;
-    WinPC = 3;
-  }
-  enum EnumEnv {
-    Dev = 0;    //开发服
-    Alpha = 2;  //内网测试服
-    Office = 1; //正式服
-  }
-  string Secret = 1;         //密钥
-  string UUID = 2;           //设备号
-  EnumPlatform Platform = 3; //平台
-  EnumEnv Env = 4;           //模式 0：正式 1：alpha 2：dev
-  string ResVersion = 5;     //客户端资源版本号
-  string GameVersion = 6;    //游戏版本号
+message ReqAuth { string Token = 1; }
+
+message RespAuth {
+  pb_enum.ErrorCode ErrCode=1;
+  int64 UID = 2;       //用户ID
+  string NickName = 3; //昵称
+  pb_enum.Sex Sex = 4; //性别
+  uint32 Gold = 5;     //金币
+  uint32 Diamond = 6;  //钻石
+  string Icon = 7;   //头像
 }
-
-//入口消息resp，服务端将登录、注册、长连接等地址下发
-message RespEntry {
-  pb_common.ErrorCode ErrCode = 1;
-  string LoginUrl = 2;     //登录http地址
-  string RegisterUrl = 3;  //注册http地址
-  string TcpUrl = 4;       // TCP连接地址
-  string WebSocketUrl = 5; // Websocket连接地址
-  string BundleUrl = 6;    //下补丁的链接
-  bool OpenLog = 7;        //客户端是否开日志
-}
-
-message ReqLogin {
-  string Account = 1;
-  string Password = 2;
-}
-
-message RespLogin { pb_common.ErrorCode ErrCode = 1; }
 
 message ReqLobbyInfo {}
 
-message RespLobbyInfo { pb_common.ErrorCode ErrCode = 1; }
+message RespLobbyInfo {
+  message LobbyInfo {
+    uint32 GameId = 1;   //游戏Id
+    string GameName = 2; //游戏名称
+    bool IsOpen = 3;     //该游戏是否已开启
+  }
+  repeated LobbyInfo Infos = 1;
+}

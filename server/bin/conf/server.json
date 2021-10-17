@@ -2,26 +2,35 @@
   "Settings": {
     "WebsocketUrl": "127.0.0.1:3653",
     "TcpUrl": "127.0.0.1:3563",
-    "LoginUrl": "127.0.0.1:8088/Login",
-    "RegisterUrl": "127.0.0.1:8088/Register"
+    "LoginUrl": "127.0.0.1:8088/login",
+    "RegisterUrl": "127.0.0.1:8088/register"
   },
-  "Module":{
-    "SV_Gate":[
+  "Module": {
+    "SV_Gate": [
       {
-        "Id":"SV_Gate",
-        "ProcessID":"development"
+        "Id": "SV_Gate",
+        "ProcessID": "development"
       }
     ],
-    "SV_Lobby":[
+    "SV_Lobby": [
       {
-        "Id":"SV_Lobby",
-        "ProcessID":"development"
+        "Id": "SV_Lobby",
+        "ProcessID": "development"
       }
     ],
-    "SV_Http":[
+    "SV_Http": [
       {
-        "Id":"SV_Http",
-        "ProcessID":"development"
+        "Id": "SV_Http",
+        "ProcessID": "development"
+      }
+    ],
+    "SV_DB": [
+      {
+        "Id": "SV_DB",
+        "ProcessID": "development",
+        "Settings": {
+          "RedisUri": "redis://127.0.0.1:6379/0"
+        }
       }
     ]
   }

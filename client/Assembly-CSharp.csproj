@@ -52,64 +52,24 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\M2Mqtt\Session\MqttBrokerSession.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgConnect.cs" />
-     <Compile Include="Assets\M2Mqtt\Net\MqttNetworkChannel.cs" />
-     <Compile Include="Assets\Pb\ErrorCode.cs" />
-     <Compile Include="Assets\M2Mqtt\Session\MqttSession.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgUnsubscribeEventArgs.cs" />
-     <Compile Include="Assets\M2Mqtt\IMqttNetworkChannel.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgSubscribeEventArgs.cs" />
-     <Compile Include="Assets\M2MqttUnity\Scripts\BrokerSettings.cs" />
-     <Compile Include="Assets\M2Mqtt\Utility\Trace.cs" />
-     <Compile Include="Assets\Script\MqttManager.cs" />
-     <Compile Include="Assets\M2Mqtt\WinRT\Fx.cs" />
-     <Compile Include="Assets\Script\TaskUtil.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPubrel.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgSubscribe.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgUnsuback.cs" />
+     <Compile Include="Assets\Script\Lobby\LobbyView.cs" />
+     <Compile Include="Assets\Script\Common\UIUtil.cs" />
+     <Compile Include="Assets\Pb\Http.cs" />
+     <Compile Include="Assets\Script\Login\LoginController.cs" />
+     <Compile Include="Assets\Script\Common\TaskUtil.cs" />
      <Compile Include="Assets\Pb\Game.cs" />
-     <Compile Include="Assets\M2Mqtt\Exceptions\MqttTimeoutException.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPingResp.cs" />
-     <Compile Include="Assets\M2Mqtt\MqttClient.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPublishedEventArgs.cs" />
-     <Compile Include="Assets\M2Mqtt\Session\MqttClientSession.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPuback.cs" />
-     <Compile Include="Assets\M2Mqtt\Internal\InternalEvent.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPubcomp.cs" />
-     <Compile Include="Assets\M2Mqtt\WinRT\MqttNetworkChannel.cs" />
-     <Compile Include="Assets\M2Mqtt\MqttSettings.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPublish.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgSubscribedEventArgs.cs" />
-     <Compile Include="Assets\M2Mqtt\Exceptions\MqttCommunicationException.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgSuback.cs" />
-     <Compile Include="Assets\M2Mqtt\Internal\MsgInternalEvent.cs" />
+     <Compile Include="Assets\Script\Lobby\LobbyModel.cs" />
+     <Compile Include="Assets\Script\Common\MqttManager.cs" />
+     <Compile Include="Assets\Pb\Enum.cs" />
+     <Compile Include="Assets\Script\Login\LoginView.cs" />
+     <Compile Include="Assets\Script\Common\UIBase.cs" />
      <Compile Include="Assets\Pb\Lobby.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPingReq.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgUnsubscribedEventArgs.cs" />
-     <Compile Include="Assets\M2Mqtt\Exceptions\MqttClientException.cs" />
-     <Compile Include="Assets\M2MqttUnity\Scripts\M2MqttUnityClient.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgUnsubscribe.cs" />
-     <Compile Include="Assets\M2MqttUnity\Examples\Scripts\M2MqttUnityTest.cs" />
-     <Compile Include="Assets\M2Mqtt\Properties\AssemblyInfo.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgDisconnect.cs" />
-     <Compile Include="Assets\M2Mqtt\MqttSecurity.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgConnack.cs" />
-     <Compile Include="Assets\M2Mqtt\Exceptions\MqttConnectionException.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgBase.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPublishEventArgs.cs" />
-     <Compile Include="Assets\M2Mqtt\Utility\QueueExtension.cs" />
-     <Compile Include="Assets\M2Mqtt\WinRT\Queue.cs" />
-     <Compile Include="Assets\M2Mqtt\WinRT\Hashtable.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgContext.cs" />
-     <Compile Include="Assets\M2Mqtt\Net\Fx.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgConnectEventArgs.cs" />
-     <Compile Include="Assets\M2Mqtt\Internal\MsgPublishedInternalEvent.cs" />
-     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPubrec.cs" />
-     <Compile Include="Assets\Script\HttpComponent.cs" />
-     <None Include="Assets\M2Mqtt\epl-v10.txt" />
-     <None Include="Assets\M2Mqtt\edl-v10.txt" />
-     <None Include="Assets\M2Mqtt\M2Mqtt_LICENSE.txt" />
+     <Compile Include="Assets\Script\Main.cs" />
+     <Compile Include="Assets\Script\Lobby\LobbyController.cs" />
+     <Compile Include="Assets\Script\Common\Http.cs" />
+     <Compile Include="Assets\Script\Login\LoginModel.cs" />
+     <Compile Include="Assets\Script\Session\Session.cs" />
+     <None Include="Assets\Resources\Txt\cacert.txt" />
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.1f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -333,16 +293,19 @@
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.1f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
  </Reference>
  <Reference Include="System.Buffers">
- <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Protobuf/System.Buffers.dll</HintPath>
+ <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Plugins/Protobuf/System.Buffers.dll</HintPath>
+ </Reference>
+ <Reference Include="Ionic.Zlib.CF">
+ <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Plugins/Http/Ionic.Zlib.CF.dll</HintPath>
  </Reference>
  <Reference Include="Google.Protobuf">
- <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Protobuf/Google.Protobuf.dll</HintPath>
+ <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Plugins/Protobuf/Google.Protobuf.dll</HintPath>
  </Reference>
  <Reference Include="System.Runtime.CompilerServices.Unsafe">
- <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Protobuf/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+ <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Plugins/Protobuf/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
  </Reference>
  <Reference Include="System.Memory">
- <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Protobuf/System.Memory.dll</HintPath>
+ <HintPath>/Users/emao/git_repository/jack_mqant/client/Assets/Plugins/Protobuf/System.Memory.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.1f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -724,6 +687,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{a0431b3a-6e27-fb34-197e-1acde9001a0f}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

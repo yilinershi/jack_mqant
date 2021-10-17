@@ -1,0 +1,22 @@
+syntax = "proto3";
+package pb_http;
+option go_package = "server/pb/pb_rpc"; //生成go时的package
+import "enum.proto";
+
+message DbAccount {
+  int64 UID = 1;
+  string Account = 2;
+  string Password = 3;
+  int64 CreateTime = 4;
+  int64 LastLoginTime = 5;
+  string Token = 6;
+}
+
+message DbUser {
+  int64 UID = 1;
+  string NickName = 2;
+  pb_enum.Sex Sex = 3;
+  string Icon = 4;
+  int64 Gold = 5;
+  int64 Diamond = 6;
+}
