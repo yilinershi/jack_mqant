@@ -46,7 +46,7 @@ func (this *SV_Http) startHttpServer() *http.Server {
 	srv := &http.Server{
 		Addr: ":8088",
 	}
-	http.HandleFunc("/entry", this.entry)
+	http.HandleFunc("/handshake", this.handshake)
 	http.HandleFunc("/login", this.login)
 	http.HandleFunc("/register", this.register)
 

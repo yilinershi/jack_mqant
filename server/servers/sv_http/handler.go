@@ -26,15 +26,15 @@ func md5V(str string) string {
 }
 
 
-func (this *SV_Http) entry(w http.ResponseWriter, r *http.Request) {
+func (this *SV_Http) handshake(w http.ResponseWriter, r *http.Request) {
 	buf, _ := ioutil.ReadAll(r.Body)
-	req := new(pb_http.ReqEntry)
+	req := new(pb_http.ReqHandShake)
 	if err := proto.Unmarshal(buf, req); err != nil {
 		return
 	}
-	log.Info("[entry], req.Secret=%s\n", req.Secret)
+	log.Info("[handshake], req.Secret=%s\n", req.Secret)
 	//如果客户端的包里不带密钥或是密钥错误，将无法获取真实的游戏服务器地址
-	resp := new(pb_http.RespEntry)
+	resp := new(pb_http.RespHandShake)
 	if strings.Contains(req.Secret, "天王盖地虎") && strings.Contains(req.Secret, "宝塔镇河妖") {
 		resp.ErrCode = pb_enum.ErrorCode_OK
 		resp.LoginUrl = this.loginUrl
@@ -45,7 +45,7 @@ func (this *SV_Http) entry(w http.ResponseWriter, r *http.Request) {
 		resp.ErrCode = pb_enum.ErrorCode_EntryError
 	}
 	bytes, err := proto.Marshal(resp)
-	log.Info("[entry] result=%v\n", resp)
+	log.Info("[handshake] result=%v\n", resp)
 	if err != nil {
 		return
 	}
@@ -80,7 +80,7 @@ func (this *SV_Http) register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bytes, err3 := proto.Marshal(resp)
-	log.Info("[entry] result=%v\n", resp)
+	log.Info("[handshake] result=%v\n", resp)
 	if err3 != nil {
 		return
 	}
@@ -129,7 +129,7 @@ func (this *SV_Http) login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bytes, err3 := proto.Marshal(resp)
-	log.Info("[entry] result=%v\n", resp)
+	log.Info("[handshake] result=%v\n", resp)
 	if err3 != nil {
 		return
 	}

@@ -103,6 +103,8 @@ github.com/liangdas/mqant v1.4.12 h1:odXpYx9ZvvrOqmew8d8FlRQSUSjQM1x6BIByzBuH3Gs
 github.com/liangdas/mqant v1.4.12/go.mod h1:vXyBtk3qU4UrkWwtLOgedV+8Jdd3E3/1t+TnkJBDiME=
 github.com/liangdas/mqant-modules v1.3.8 h1:pWiOQSN2HS0rXOMW3reh7Id4UTFSHLim/nnhhMnsZoQ=
 github.com/liangdas/mqant-modules v1.3.8/go.mod h1:OadvLghzeXabACyO3bACDK0tjd9Vt5vs7vz9AfQJaUY=
+github.com/looplab/fsm v0.3.0 h1:kIgNS3Yyud1tyxhG8kDqh853B7QqwnlWdgL3TD2s3Sw=
+github.com/looplab/fsm v0.3.0/go.mod h1:PmD3fFvQEIsjMEfvZdrCDZ6y8VwKTwWNjlpEr6IKPO4=
 github.com/mattn/go-colorable v0.0.9/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
 github.com/mattn/go-isatty v0.0.3/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
 github.com/matttproud/golang_protobuf_extensions v1.0.1/go.mod h1:D8He9yQNgCq6Z5Ld7szi9bcBfOoFv/3dc6xSMkL2PC0=
@@ -176,6 +178,7 @@ github.com/stretchr/testify v1.5.1 h1:nOGnQDM7FYENwehXlg/kFVnos3rEvtKTjRvOWSzb6H
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
+github.com/yireyun/go-queue v0.0.0-20180809062148-5e6897360dac h1:a4krU0HaACgZ1ai3epUH6U6Kji7WHiucldhzWv6oD2o=
 github.com/yireyun/go-queue v0.0.0-20180809062148-5e6897360dac/go.mod h1:NS8O3p7NiPwC1Yw9xTd9DnDBguxFJG/BL1VPTSfJ5Gw=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v3.3.15+incompatible/go.mod h1:yaeTdrJi5lOmYerz05bd8+V7KubZs8YSFZfzsF9A6aI=

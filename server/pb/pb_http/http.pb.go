@@ -21,24 +21,24 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type ReqEntry_EnumPlatform int32
+type ReqHandShake_EnumPlatform int32
 
 const (
-	ReqEntry_None    ReqEntry_EnumPlatform = 0
-	ReqEntry_Android ReqEntry_EnumPlatform = 1
-	ReqEntry_Ios     ReqEntry_EnumPlatform = 2
-	ReqEntry_WinPC   ReqEntry_EnumPlatform = 3
+	ReqHandShake_None    ReqHandShake_EnumPlatform = 0
+	ReqHandShake_Android ReqHandShake_EnumPlatform = 1
+	ReqHandShake_Ios     ReqHandShake_EnumPlatform = 2
+	ReqHandShake_WinPC   ReqHandShake_EnumPlatform = 3
 )
 
-// Enum value maps for ReqEntry_EnumPlatform.
+// Enum value maps for ReqHandShake_EnumPlatform.
 var (
-	ReqEntry_EnumPlatform_name = map[int32]string{
+	ReqHandShake_EnumPlatform_name = map[int32]string{
 		0: "None",
 		1: "Android",
 		2: "Ios",
 		3: "WinPC",
 	}
-	ReqEntry_EnumPlatform_value = map[string]int32{
+	ReqHandShake_EnumPlatform_value = map[string]int32{
 		"None":    0,
 		"Android": 1,
 		"Ios":     2,
@@ -46,94 +46,94 @@ var (
 	}
 )
 
-func (x ReqEntry_EnumPlatform) Enum() *ReqEntry_EnumPlatform {
-	p := new(ReqEntry_EnumPlatform)
+func (x ReqHandShake_EnumPlatform) Enum() *ReqHandShake_EnumPlatform {
+	p := new(ReqHandShake_EnumPlatform)
 	*p = x
 	return p
 }
 
-func (x ReqEntry_EnumPlatform) String() string {
+func (x ReqHandShake_EnumPlatform) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (ReqEntry_EnumPlatform) Descriptor() protoreflect.EnumDescriptor {
+func (ReqHandShake_EnumPlatform) Descriptor() protoreflect.EnumDescriptor {
 	return file_http_proto_enumTypes[0].Descriptor()
 }
 
-func (ReqEntry_EnumPlatform) Type() protoreflect.EnumType {
+func (ReqHandShake_EnumPlatform) Type() protoreflect.EnumType {
 	return &file_http_proto_enumTypes[0]
 }
 
-func (x ReqEntry_EnumPlatform) Number() protoreflect.EnumNumber {
+func (x ReqHandShake_EnumPlatform) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use ReqEntry_EnumPlatform.Descriptor instead.
-func (ReqEntry_EnumPlatform) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use ReqHandShake_EnumPlatform.Descriptor instead.
+func (ReqHandShake_EnumPlatform) EnumDescriptor() ([]byte, []int) {
 	return file_http_proto_rawDescGZIP(), []int{0, 0}
 }
 
-type ReqEntry_EnumEnv int32
+type ReqHandShake_EnumEnv int32
 
 const (
-	ReqEntry_Development ReqEntry_EnumEnv = 0 //开发服
-	ReqEntry_Production  ReqEntry_EnumEnv = 1 //正式服
+	ReqHandShake_Development ReqHandShake_EnumEnv = 0 //开发服
+	ReqHandShake_Production  ReqHandShake_EnumEnv = 1 //正式服
 )
 
-// Enum value maps for ReqEntry_EnumEnv.
+// Enum value maps for ReqHandShake_EnumEnv.
 var (
-	ReqEntry_EnumEnv_name = map[int32]string{
+	ReqHandShake_EnumEnv_name = map[int32]string{
 		0: "Development",
 		1: "Production",
 	}
-	ReqEntry_EnumEnv_value = map[string]int32{
+	ReqHandShake_EnumEnv_value = map[string]int32{
 		"Development": 0,
 		"Production":  1,
 	}
 )
 
-func (x ReqEntry_EnumEnv) Enum() *ReqEntry_EnumEnv {
-	p := new(ReqEntry_EnumEnv)
+func (x ReqHandShake_EnumEnv) Enum() *ReqHandShake_EnumEnv {
+	p := new(ReqHandShake_EnumEnv)
 	*p = x
 	return p
 }
 
-func (x ReqEntry_EnumEnv) String() string {
+func (x ReqHandShake_EnumEnv) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (ReqEntry_EnumEnv) Descriptor() protoreflect.EnumDescriptor {
+func (ReqHandShake_EnumEnv) Descriptor() protoreflect.EnumDescriptor {
 	return file_http_proto_enumTypes[1].Descriptor()
 }
 
-func (ReqEntry_EnumEnv) Type() protoreflect.EnumType {
+func (ReqHandShake_EnumEnv) Type() protoreflect.EnumType {
 	return &file_http_proto_enumTypes[1]
 }
 
-func (x ReqEntry_EnumEnv) Number() protoreflect.EnumNumber {
+func (x ReqHandShake_EnumEnv) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use ReqEntry_EnumEnv.Descriptor instead.
-func (ReqEntry_EnumEnv) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use ReqHandShake_EnumEnv.Descriptor instead.
+func (ReqHandShake_EnumEnv) EnumDescriptor() ([]byte, []int) {
 	return file_http_proto_rawDescGZIP(), []int{0, 1}
 }
 
-type ReqEntry struct {
+type ReqHandShake struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Secret      string                `protobuf:"bytes,1,opt,name=Secret,proto3" json:"Secret,omitempty"`                                         //密钥
-	UUID        string                `protobuf:"bytes,2,opt,name=UUID,proto3" json:"UUID,omitempty"`                                             //设备号
-	Platform    ReqEntry_EnumPlatform `protobuf:"varint,3,opt,name=Platform,proto3,enum=pb_http.ReqEntry_EnumPlatform" json:"Platform,omitempty"` //平台
-	Env         ReqEntry_EnumEnv      `protobuf:"varint,4,opt,name=Env,proto3,enum=pb_http.ReqEntry_EnumEnv" json:"Env,omitempty"`                //模式 0：正式 1：alpha 2：dev
-	ResVersion  string                `protobuf:"bytes,5,opt,name=ResVersion,proto3" json:"ResVersion,omitempty"`                                 //客户端资源版本号
-	GameVersion string                `protobuf:"bytes,6,opt,name=GameVersion,proto3" json:"GameVersion,omitempty"`                               //游戏版本号
+	Secret      string                    `protobuf:"bytes,1,opt,name=Secret,proto3" json:"Secret,omitempty"`                                             //密钥
+	UUID        string                    `protobuf:"bytes,2,opt,name=UUID,proto3" json:"UUID,omitempty"`                                                 //设备号
+	Platform    ReqHandShake_EnumPlatform `protobuf:"varint,3,opt,name=Platform,proto3,enum=pb_http.ReqHandShake_EnumPlatform" json:"Platform,omitempty"` //平台
+	Env         ReqHandShake_EnumEnv      `protobuf:"varint,4,opt,name=Env,proto3,enum=pb_http.ReqHandShake_EnumEnv" json:"Env,omitempty"`                //模式 0：正式 1：alpha 2：dev
+	ResVersion  string                    `protobuf:"bytes,5,opt,name=ResVersion,proto3" json:"ResVersion,omitempty"`                                     //客户端资源版本号
+	GameVersion string                    `protobuf:"bytes,6,opt,name=GameVersion,proto3" json:"GameVersion,omitempty"`                                   //游戏版本号
 }
 
-func (x *ReqEntry) Reset() {
-	*x = ReqEntry{}
+func (x *ReqHandShake) Reset() {
+	*x = ReqHandShake{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_http_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -141,13 +141,13 @@ func (x *ReqEntry) Reset() {
 	}
 }
 
-func (x *ReqEntry) String() string {
+func (x *ReqHandShake) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReqEntry) ProtoMessage() {}
+func (*ReqHandShake) ProtoMessage() {}
 
-func (x *ReqEntry) ProtoReflect() protoreflect.Message {
+func (x *ReqHandShake) ProtoReflect() protoreflect.Message {
 	mi := &file_http_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -159,47 +159,47 @@ func (x *ReqEntry) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ReqEntry.ProtoReflect.Descriptor instead.
-func (*ReqEntry) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReqHandShake.ProtoReflect.Descriptor instead.
+func (*ReqHandShake) Descriptor() ([]byte, []int) {
 	return file_http_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *ReqEntry) GetSecret() string {
+func (x *ReqHandShake) GetSecret() string {
 	if x != nil {
 		return x.Secret
 	}
 	return ""
 }
 
-func (x *ReqEntry) GetUUID() string {
+func (x *ReqHandShake) GetUUID() string {
 	if x != nil {
 		return x.UUID
 	}
 	return ""
 }
 
-func (x *ReqEntry) GetPlatform() ReqEntry_EnumPlatform {
+func (x *ReqHandShake) GetPlatform() ReqHandShake_EnumPlatform {
 	if x != nil {
 		return x.Platform
 	}
-	return ReqEntry_None
+	return ReqHandShake_None
 }
 
-func (x *ReqEntry) GetEnv() ReqEntry_EnumEnv {
+func (x *ReqHandShake) GetEnv() ReqHandShake_EnumEnv {
 	if x != nil {
 		return x.Env
 	}
-	return ReqEntry_Development
+	return ReqHandShake_Development
 }
 
-func (x *ReqEntry) GetResVersion() string {
+func (x *ReqHandShake) GetResVersion() string {
 	if x != nil {
 		return x.ResVersion
 	}
 	return ""
 }
 
-func (x *ReqEntry) GetGameVersion() string {
+func (x *ReqHandShake) GetGameVersion() string {
 	if x != nil {
 		return x.GameVersion
 	}
@@ -207,7 +207,7 @@ func (x *ReqEntry) GetGameVersion() string {
 }
 
 //入口消息resp，服务端将登录、注册、长连接等地址下发
-type RespEntry struct {
+type RespHandShake struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -219,8 +219,8 @@ type RespEntry struct {
 	WebSocketUrl string            `protobuf:"bytes,5,opt,name=WebSocketUrl,proto3" json:"WebSocketUrl,omitempty"` // Websocket连接地址
 }
 
-func (x *RespEntry) Reset() {
-	*x = RespEntry{}
+func (x *RespHandShake) Reset() {
+	*x = RespHandShake{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_http_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -228,13 +228,13 @@ func (x *RespEntry) Reset() {
 	}
 }
 
-func (x *RespEntry) String() string {
+func (x *RespHandShake) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RespEntry) ProtoMessage() {}
+func (*RespHandShake) ProtoMessage() {}
 
-func (x *RespEntry) ProtoReflect() protoreflect.Message {
+func (x *RespHandShake) ProtoReflect() protoreflect.Message {
 	mi := &file_http_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -246,40 +246,40 @@ func (x *RespEntry) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RespEntry.ProtoReflect.Descriptor instead.
-func (*RespEntry) Descriptor() ([]byte, []int) {
+// Deprecated: Use RespHandShake.ProtoReflect.Descriptor instead.
+func (*RespHandShake) Descriptor() ([]byte, []int) {
 	return file_http_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RespEntry) GetErrCode() pb_enum.ErrorCode {
+func (x *RespHandShake) GetErrCode() pb_enum.ErrorCode {
 	if x != nil {
 		return x.ErrCode
 	}
 	return pb_enum.ErrorCode_Default
 }
 
-func (x *RespEntry) GetLoginUrl() string {
+func (x *RespHandShake) GetLoginUrl() string {
 	if x != nil {
 		return x.LoginUrl
 	}
 	return ""
 }
 
-func (x *RespEntry) GetRegisterUrl() string {
+func (x *RespHandShake) GetRegisterUrl() string {
 	if x != nil {
 		return x.RegisterUrl
 	}
 	return ""
 }
 
-func (x *RespEntry) GetTcpUrl() string {
+func (x *RespHandShake) GetTcpUrl() string {
 	if x != nil {
 		return x.TcpUrl
 	}
 	return ""
 }
 
-func (x *RespEntry) GetWebSocketUrl() string {
+func (x *RespHandShake) GetWebSocketUrl() string {
 	if x != nil {
 		return x.WebSocketUrl
 	}
@@ -503,28 +503,29 @@ var File_http_proto protoreflect.FileDescriptor
 var file_http_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x68, 0x74, 0x74, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x70, 0x62,
 	0x5f, 0x68, 0x74, 0x74, 0x70, 0x1a, 0x0a, 0x65, 0x6e, 0x75, 0x6d, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x22, 0xc8, 0x02, 0x0a, 0x08, 0x52, 0x65, 0x71, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x16,
-	0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
-	0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x55, 0x55, 0x49, 0x44, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x55, 0x55, 0x49, 0x44, 0x12, 0x3a, 0x0a, 0x08, 0x50, 0x6c,
-	0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1e, 0x2e, 0x70,
-	0x62, 0x5f, 0x68, 0x74, 0x74, 0x70, 0x2e, 0x52, 0x65, 0x71, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e,
-	0x45, 0x6e, 0x75, 0x6d, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x52, 0x08, 0x50, 0x6c,
-	0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x12, 0x2b, 0x0a, 0x03, 0x45, 0x6e, 0x76, 0x18, 0x04, 0x20,
-	0x01, 0x28, 0x0e, 0x32, 0x19, 0x2e, 0x70, 0x62, 0x5f, 0x68, 0x74, 0x74, 0x70, 0x2e, 0x52, 0x65,
-	0x71, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x45, 0x6e, 0x75, 0x6d, 0x45, 0x6e, 0x76, 0x52, 0x03,
-	0x45, 0x6e, 0x76, 0x12, 0x1e, 0x0a, 0x0a, 0x52, 0x65, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f,
-	0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x52, 0x65, 0x73, 0x56, 0x65, 0x72, 0x73,
-	0x69, 0x6f, 0x6e, 0x12, 0x20, 0x0a, 0x0b, 0x47, 0x61, 0x6d, 0x65, 0x56, 0x65, 0x72, 0x73, 0x69,
-	0x6f, 0x6e, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x47, 0x61, 0x6d, 0x65, 0x56, 0x65,
-	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x39, 0x0a, 0x0c, 0x45, 0x6e, 0x75, 0x6d, 0x50, 0x6c, 0x61,
-	0x74, 0x66, 0x6f, 0x72, 0x6d, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x6f, 0x6e, 0x65, 0x10, 0x00, 0x12,
-	0x0b, 0x0a, 0x07, 0x41, 0x6e, 0x64, 0x72, 0x6f, 0x69, 0x64, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03,
-	0x49, 0x6f, 0x73, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x57, 0x69, 0x6e, 0x50, 0x43, 0x10, 0x03,
-	0x22, 0x2a, 0x0a, 0x07, 0x45, 0x6e, 0x75, 0x6d, 0x45, 0x6e, 0x76, 0x12, 0x0f, 0x0a, 0x0b, 0x44,
-	0x65, 0x76, 0x65, 0x6c, 0x6f, 0x70, 0x6d, 0x65, 0x6e, 0x74, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a,
-	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x10, 0x01, 0x22, 0xb3, 0x01, 0x0a,
-	0x09, 0x52, 0x65, 0x73, 0x70, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x2c, 0x0a, 0x07, 0x45, 0x72,
+	0x6f, 0x22, 0xd4, 0x02, 0x0a, 0x0c, 0x52, 0x65, 0x71, 0x48, 0x61, 0x6e, 0x64, 0x53, 0x68, 0x61,
+	0x6b, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x55, 0x55,
+	0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x55, 0x55, 0x49, 0x44, 0x12, 0x3e,
+	0x0a, 0x08, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e,
+	0x32, 0x22, 0x2e, 0x70, 0x62, 0x5f, 0x68, 0x74, 0x74, 0x70, 0x2e, 0x52, 0x65, 0x71, 0x48, 0x61,
+	0x6e, 0x64, 0x53, 0x68, 0x61, 0x6b, 0x65, 0x2e, 0x45, 0x6e, 0x75, 0x6d, 0x50, 0x6c, 0x61, 0x74,
+	0x66, 0x6f, 0x72, 0x6d, 0x52, 0x08, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x12, 0x2f,
+	0x0a, 0x03, 0x45, 0x6e, 0x76, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1d, 0x2e, 0x70, 0x62,
+	0x5f, 0x68, 0x74, 0x74, 0x70, 0x2e, 0x52, 0x65, 0x71, 0x48, 0x61, 0x6e, 0x64, 0x53, 0x68, 0x61,
+	0x6b, 0x65, 0x2e, 0x45, 0x6e, 0x75, 0x6d, 0x45, 0x6e, 0x76, 0x52, 0x03, 0x45, 0x6e, 0x76, 0x12,
+	0x1e, 0x0a, 0x0a, 0x52, 0x65, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0a, 0x52, 0x65, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12,
+	0x20, 0x0a, 0x0b, 0x47, 0x61, 0x6d, 0x65, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x06,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x47, 0x61, 0x6d, 0x65, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f,
+	0x6e, 0x22, 0x39, 0x0a, 0x0c, 0x45, 0x6e, 0x75, 0x6d, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72,
+	0x6d, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x6f, 0x6e, 0x65, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07, 0x41,
+	0x6e, 0x64, 0x72, 0x6f, 0x69, 0x64, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03, 0x49, 0x6f, 0x73, 0x10,
+	0x02, 0x12, 0x09, 0x0a, 0x05, 0x57, 0x69, 0x6e, 0x50, 0x43, 0x10, 0x03, 0x22, 0x2a, 0x0a, 0x07,
+	0x45, 0x6e, 0x75, 0x6d, 0x45, 0x6e, 0x76, 0x12, 0x0f, 0x0a, 0x0b, 0x44, 0x65, 0x76, 0x65, 0x6c,
+	0x6f, 0x70, 0x6d, 0x65, 0x6e, 0x74, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x50, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x10, 0x01, 0x22, 0xb7, 0x01, 0x0a, 0x0d, 0x52, 0x65, 0x73,
+	0x70, 0x48, 0x61, 0x6e, 0x64, 0x53, 0x68, 0x61, 0x6b, 0x65, 0x12, 0x2c, 0x0a, 0x07, 0x45, 0x72,
 	0x72, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x12, 0x2e, 0x70, 0x62,
 	0x5f, 0x65, 0x6e, 0x75, 0x6d, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x52,
 	0x07, 0x45, 0x72, 0x72, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x4c, 0x6f, 0x67, 0x69,
@@ -572,20 +573,20 @@ func file_http_proto_rawDescGZIP() []byte {
 var file_http_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_http_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_http_proto_goTypes = []interface{}{
-	(ReqEntry_EnumPlatform)(0), // 0: pb_http.ReqEntry.EnumPlatform
-	(ReqEntry_EnumEnv)(0),      // 1: pb_http.ReqEntry.EnumEnv
-	(*ReqEntry)(nil),           // 2: pb_http.ReqEntry
-	(*RespEntry)(nil),          // 3: pb_http.RespEntry
-	(*ReqRegister)(nil),        // 4: pb_http.ReqRegister
-	(*RespRegister)(nil),       // 5: pb_http.RespRegister
-	(*ReqLogin)(nil),           // 6: pb_http.ReqLogin
-	(*RespLogin)(nil),          // 7: pb_http.RespLogin
-	(pb_enum.ErrorCode)(0),     // 8: pb_enum.ErrorCode
+	(ReqHandShake_EnumPlatform)(0), // 0: pb_http.ReqHandShake.EnumPlatform
+	(ReqHandShake_EnumEnv)(0),      // 1: pb_http.ReqHandShake.EnumEnv
+	(*ReqHandShake)(nil),           // 2: pb_http.ReqHandShake
+	(*RespHandShake)(nil),          // 3: pb_http.RespHandShake
+	(*ReqRegister)(nil),            // 4: pb_http.ReqRegister
+	(*RespRegister)(nil),           // 5: pb_http.RespRegister
+	(*ReqLogin)(nil),               // 6: pb_http.ReqLogin
+	(*RespLogin)(nil),              // 7: pb_http.RespLogin
+	(pb_enum.ErrorCode)(0),         // 8: pb_enum.ErrorCode
 }
 var file_http_proto_depIdxs = []int32{
-	0, // 0: pb_http.ReqEntry.Platform:type_name -> pb_http.ReqEntry.EnumPlatform
-	1, // 1: pb_http.ReqEntry.Env:type_name -> pb_http.ReqEntry.EnumEnv
-	8, // 2: pb_http.RespEntry.ErrCode:type_name -> pb_enum.ErrorCode
+	0, // 0: pb_http.ReqHandShake.Platform:type_name -> pb_http.ReqHandShake.EnumPlatform
+	1, // 1: pb_http.ReqHandShake.Env:type_name -> pb_http.ReqHandShake.EnumEnv
+	8, // 2: pb_http.RespHandShake.ErrCode:type_name -> pb_enum.ErrorCode
 	8, // 3: pb_http.RespRegister.ErrCode:type_name -> pb_enum.ErrorCode
 	8, // 4: pb_http.RespLogin.ErrCode:type_name -> pb_enum.ErrorCode
 	5, // [5:5] is the sub-list for method output_type
@@ -602,7 +603,7 @@ func file_http_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_http_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReqEntry); i {
+			switch v := v.(*ReqHandShake); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -614,7 +615,7 @@ func file_http_proto_init() {
 			}
 		}
 		file_http_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RespEntry); i {
+			switch v := v.(*RespHandShake); i {
 			case 0:
 				return &v.state
 			case 1:

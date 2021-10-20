@@ -4,9 +4,11 @@ go 1.16
 
 require (
 	github.com/gomodule/redigo v2.0.0+incompatible
+	github.com/google/uuid v1.0.0
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/liangdas/mqant v1.4.12
 	github.com/liangdas/mqant-modules v1.3.8
+	github.com/looplab/fsm v0.3.0
 	github.com/nats-io/nats.go v1.9.1
 	github.com/pkg/errors v0.8.1
 	github.com/stretchr/testify v1.5.1 // indirect

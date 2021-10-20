@@ -195,6 +195,69 @@ func (x *DbUser) GetDiamond() uint32 {
 	return 0
 }
 
+type DbTable struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	RoomType  pb_enum.RoomType `protobuf:"varint,1,opt,name=RoomType,proto3,enum=pb_enum.RoomType" json:"RoomType,omitempty"`
+	TableName string           `protobuf:"bytes,2,opt,name=TableName,proto3" json:"TableName,omitempty"`
+	Password  string           `protobuf:"bytes,3,opt,name=Password,proto3" json:"Password,omitempty"`
+}
+
+func (x *DbTable) Reset() {
+	*x = DbTable{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DbTable) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DbTable) ProtoMessage() {}
+
+func (x *DbTable) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DbTable.ProtoReflect.Descriptor instead.
+func (*DbTable) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *DbTable) GetRoomType() pb_enum.RoomType {
+	if x != nil {
+		return x.RoomType
+	}
+	return pb_enum.RoomType_Tetris
+}
+
+func (x *DbTable) GetTableName() string {
+	if x != nil {
+		return x.TableName
+	}
+	return ""
+}
+
+func (x *DbTable) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
 var File_rpc_proto protoreflect.FileDescriptor
 
 var file_rpc_proto_rawDesc = []byte{
@@ -220,9 +283,16 @@ var file_rpc_proto_rawDesc = []byte{
 	0x63, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x49, 0x63, 0x6f, 0x6e, 0x12,
 	0x12, 0x0a, 0x04, 0x47, 0x6f, 0x6c, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x47,
 	0x6f, 0x6c, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x44, 0x69, 0x61, 0x6d, 0x6f, 0x6e, 0x64, 0x18, 0x06,
-	0x20, 0x01, 0x28, 0x0d, 0x52, 0x07, 0x44, 0x69, 0x61, 0x6d, 0x6f, 0x6e, 0x64, 0x42, 0x12, 0x5a,
-	0x10, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x70, 0x62, 0x2f, 0x70, 0x62, 0x5f, 0x72, 0x70,
-	0x63, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x20, 0x01, 0x28, 0x0d, 0x52, 0x07, 0x44, 0x69, 0x61, 0x6d, 0x6f, 0x6e, 0x64, 0x22, 0x72, 0x0a,
+	0x07, 0x44, 0x62, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x2d, 0x0a, 0x08, 0x52, 0x6f, 0x6f, 0x6d,
+	0x54, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x11, 0x2e, 0x70, 0x62, 0x5f,
+	0x65, 0x6e, 0x75, 0x6d, 0x2e, 0x52, 0x6f, 0x6f, 0x6d, 0x54, 0x79, 0x70, 0x65, 0x52, 0x08, 0x52,
+	0x6f, 0x6f, 0x6d, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x54, 0x61, 0x62, 0x6c, 0x65,
+	0x4e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x54, 0x61, 0x62, 0x6c,
+	0x65, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
+	0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
+	0x64, 0x42, 0x12, 0x5a, 0x10, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x70, 0x62, 0x2f, 0x70,
+	0x62, 0x5f, 0x72, 0x70, 0x63, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -237,19 +307,22 @@ func file_rpc_proto_rawDescGZIP() []byte {
 	return file_rpc_proto_rawDescData
 }
 
-var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_rpc_proto_goTypes = []interface{}{
-	(*DbAccount)(nil), // 0: pb_http.DbAccount
-	(*DbUser)(nil),    // 1: pb_http.DbUser
-	(pb_enum.Sex)(0),  // 2: pb_enum.Sex
+	(*DbAccount)(nil),     // 0: pb_http.DbAccount
+	(*DbUser)(nil),        // 1: pb_http.DbUser
+	(*DbTable)(nil),       // 2: pb_http.DbTable
+	(pb_enum.Sex)(0),      // 3: pb_enum.Sex
+	(pb_enum.RoomType)(0), // 4: pb_enum.RoomType
 }
 var file_rpc_proto_depIdxs = []int32{
-	2, // 0: pb_http.DbUser.Sex:type_name -> pb_enum.Sex
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	3, // 0: pb_http.DbUser.Sex:type_name -> pb_enum.Sex
+	4, // 1: pb_http.DbTable.RoomType:type_name -> pb_enum.RoomType
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_rpc_proto_init() }
@@ -282,6 +355,18 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
+		file_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DbTable); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -289,7 +374,7 @@ func file_rpc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
