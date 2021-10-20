@@ -21,3 +21,8 @@ enum Sex {
   Male = 1;   //男
   Female = 2; //女
 }
+
+enum RoomType {
+  Tetris = 1； //俄罗斯方块
+}
+

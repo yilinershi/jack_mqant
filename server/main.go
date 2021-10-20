@@ -9,10 +9,10 @@ import (
 	"github.com/liangdas/mqant/registry/consul"
 	"github.com/nats-io/nats.go"
 	"net/http"
-	"server/servers/serverDB"
-	"server/servers/serverGate"
-	"server/servers/serverHttp"
-	"server/servers/serverLobby"
+	"server/servers/sv_db"
+	"server/servers/sv_gate"
+	"server/servers/sv_http"
+	"server/servers/sv_lobby"
 	"time"
 )
 

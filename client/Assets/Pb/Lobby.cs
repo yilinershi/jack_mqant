@@ -24,19 +24,20 @@ namespace Pb.Lobby {
     static LobbyReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgtsb2JieS5wcm90bxIIcGJfbG9iYnkaCmVudW0ucHJvdG8iGAoHUmVxQXV0",
-            "aBINCgVUb2tlbhgBIAEoCSKWAQoIUmVzcEF1dGgSIwoHRXJyQ29kZRgBIAEo",
-            "DjISLnBiX2VudW0uRXJyb3JDb2RlEgsKA1VJRBgCIAEoAxIQCghOaWNrTmFt",
-            "ZRgDIAEoCRIZCgNTZXgYBCABKA4yDC5wYl9lbnVtLlNleBIMCgRHb2xkGAUg",
-            "ASgNEg8KB0RpYW1vbmQYBiABKA0SDAoESWNvbhgHIAEoCSIOCgxSZXFMb2Ji",
-            "eUluZm8igAEKDVJlc3BMb2JieUluZm8SMAoFSW5mb3MYASADKAsyIS5wYl9s",
-            "b2JieS5SZXNwTG9iYnlJbmZvLkxvYmJ5SW5mbxo9CglMb2JieUluZm8SDgoG",
-            "R2FtZUlkGAEgASgNEhAKCEdhbWVOYW1lGAIgASgJEg4KBklzT3BlbhgDIAEo",
-            "CEIfWhJzZXJ2ZXIvcGIvcGJfbG9iYnmqAghQYi5Mb2JieWIGcHJvdG8z"));
+            "Cgtsb2JieS5wcm90bxIIcGJfbG9iYnkaCmVudW0ucHJvdG8iKQoHUmVxQXV0",
+            "aBIPCgdBY2NvdW50GAEgASgJEg0KBVRva2VuGAIgASgJIpYBCghSZXNwQXV0",
+            "aBIjCgdFcnJDb2RlGAEgASgOMhIucGJfZW51bS5FcnJvckNvZGUSCwoDVUlE",
+            "GAIgASgDEhAKCE5pY2tOYW1lGAMgASgJEhkKA1NleBgEIAEoDjIMLnBiX2Vu",
+            "dW0uU2V4EgwKBEdvbGQYBSABKA0SDwoHRGlhbW9uZBgGIAEoDRIMCgRJY29u",
+            "GAcgASgJIg4KDFJlcUxvYmJ5SW5mbyKAAQoNUmVzcExvYmJ5SW5mbxIwCgVJ",
+            "bmZvcxgBIAMoCzIhLnBiX2xvYmJ5LlJlc3BMb2JieUluZm8uTG9iYnlJbmZv",
+            "Gj0KCUxvYmJ5SW5mbxIOCgZHYW1lSWQYASABKA0SEAoIR2FtZU5hbWUYAiAB",
+            "KAkSDgoGSXNPcGVuGAMgASgIQh9aEnNlcnZlci9wYi9wYl9sb2JieaoCCFBi",
+            "LkxvYmJ5YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Pb.Enum.EnumReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Lobby.ReqAuth), global::Pb.Lobby.ReqAuth.Parser, new[]{ "Token" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Lobby.ReqAuth), global::Pb.Lobby.ReqAuth.Parser, new[]{ "Account", "Token" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Lobby.RespAuth), global::Pb.Lobby.RespAuth.Parser, new[]{ "ErrCode", "UID", "NickName", "Sex", "Gold", "Diamond", "Icon" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Lobby.ReqLobbyInfo), global::Pb.Lobby.ReqLobbyInfo.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Lobby.RespLobbyInfo), global::Pb.Lobby.RespLobbyInfo.Parser, new[]{ "Infos" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Lobby.RespLobbyInfo.Types.LobbyInfo), global::Pb.Lobby.RespLobbyInfo.Types.LobbyInfo.Parser, new[]{ "GameId", "GameName", "IsOpen" }, null, null, null, null)})
@@ -80,6 +81,7 @@ namespace Pb.Lobby {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ReqAuth(ReqAuth other) : this() {
+      account_ = other.account_;
       token_ = other.token_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -90,8 +92,23 @@ namespace Pb.Lobby {
       return new ReqAuth(this);
     }
 
+    /// <summary>Field number for the "Account" field.</summary>
+    public const int AccountFieldNumber = 1;
+    private string account_ = "";
+    /// <summary>
+    ///用户账号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Account {
+      get { return account_; }
+      set {
+        account_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "Token" field.</summary>
-    public const int TokenFieldNumber = 1;
+    public const int TokenFieldNumber = 2;
     private string token_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -117,6 +134,7 @@ namespace Pb.Lobby {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Account != other.Account) return false;
       if (Token != other.Token) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -125,6 +143,7 @@ namespace Pb.Lobby {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Account.Length != 0) hash ^= Account.GetHashCode();
       if (Token.Length != 0) hash ^= Token.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -144,8 +163,12 @@ namespace Pb.Lobby {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Token.Length != 0) {
+      if (Account.Length != 0) {
         output.WriteRawTag(10);
+        output.WriteString(Account);
+      }
+      if (Token.Length != 0) {
+        output.WriteRawTag(18);
         output.WriteString(Token);
       }
       if (_unknownFields != null) {
@@ -158,8 +181,12 @@ namespace Pb.Lobby {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Token.Length != 0) {
+      if (Account.Length != 0) {
         output.WriteRawTag(10);
+        output.WriteString(Account);
+      }
+      if (Token.Length != 0) {
+        output.WriteRawTag(18);
         output.WriteString(Token);
       }
       if (_unknownFields != null) {
@@ -172,6 +199,9 @@ namespace Pb.Lobby {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Account.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Account);
+      }
       if (Token.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
       }
@@ -186,6 +216,9 @@ namespace Pb.Lobby {
     public void MergeFrom(ReqAuth other) {
       if (other == null) {
         return;
+      }
+      if (other.Account.Length != 0) {
+        Account = other.Account;
       }
       if (other.Token.Length != 0) {
         Token = other.Token;
@@ -206,6 +239,10 @@ namespace Pb.Lobby {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
+            Account = input.ReadString();
+            break;
+          }
+          case 18: {
             Token = input.ReadString();
             break;
           }
@@ -225,6 +262,10 @@ namespace Pb.Lobby {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
+            Account = input.ReadString();
+            break;
+          }
+          case 18: {
             Token = input.ReadString();
             break;
           }

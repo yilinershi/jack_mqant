@@ -65,6 +65,7 @@
      <Compile Include="Assets\Script\Common\UIBase.cs" />
      <Compile Include="Assets\Pb\Lobby.cs" />
      <Compile Include="Assets\Script\Main.cs" />
+     <Compile Include="Assets\Pb\Rpc.cs" />
      <Compile Include="Assets\Script\Lobby\LobbyController.cs" />
      <Compile Include="Assets\Script\Common\Http.cs" />
      <Compile Include="Assets\Script\Login\LoginModel.cs" />

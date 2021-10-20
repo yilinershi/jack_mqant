@@ -28,12 +28,9 @@ public class LoginView : MonoBehaviour
     {
         LoginController.Login(inputAccount.text,inputPassword.text, () =>
         {
-            //打开lobby
-            var prefab = Resources.Load("Prefab/UILobby");
-            var go = Instantiate(prefab) as GameObject;
-            go.AddComponent<LobbyView>();
+           
             
-            //打开新的UI后关闭自己
+          
             Destroy(this.gameObject);
         });
     }

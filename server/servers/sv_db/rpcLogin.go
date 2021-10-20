@@ -22,7 +22,7 @@ const (
 */
 
 //rpcIsAccountExist 通过rpc查询redis中账号是否已存在,
-func (this *ServerDB) rpcIsAccountExist(account string) (bool, string) {
+func (this *SV_DB) rpcIsAccountExist(account string) (bool, string) {
 	isExists, err := redis.Bool(this.redisConn.Do("HEXISTS", RedisKeyAccount, account))
 	if err != nil {
 		return false, err.Error()
@@ -31,7 +31,7 @@ func (this *ServerDB) rpcIsAccountExist(account string) (bool, string) {
 }
 
 //rpcCreatePlayerData 通过rpc创建账号
-func (this *ServerDB) rpcCreateAccount(account string, password string) (bool, string) {
+func (this *SV_DB) rpcCreateAccount(account string, password string) (bool, string) {
 	//step1:创建玩家账户
 	id, err := redis.Int(this.redisConn.Do("INCR", RedisKeyAutoIdAccount))
 	if err != nil {
@@ -62,7 +62,7 @@ func (this *ServerDB) rpcCreateAccount(account string, password string) (bool, s
 }
 
 //rpcLoadAccount 通过rpc加载玩家账户数据
-func (this *ServerDB) rpcLoadAccount(account string) (*pb_rpc.DbAccount, error) {
+func (this *SV_DB) rpcLoadAccount(account string) (*pb_rpc.DbAccount, error) {
 	res, err := redis.String(this.redisConn.Do("HGET", RedisKeyAccount, account))
 	if err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func (this *ServerDB) rpcLoadAccount(account string) (*pb_rpc.DbAccount, error) 
 }
 
 //rpcSaveAccount 保存玩家账户数据到数据库
-func (this *ServerDB) rpcSaveAccount(account string, a *pb_rpc.DbAccount) (bool, string) {
+func (this *SV_DB) rpcSaveAccount(account string, a *pb_rpc.DbAccount) (bool, string) {
 	_, err := this.saveAccount(account, a)
 	if err != nil {
 		return false, "save account error"
@@ -84,20 +84,20 @@ func (this *ServerDB) rpcSaveAccount(account string, a *pb_rpc.DbAccount) (bool,
 }
 
 //rpcLoadUser 加载用户数据
-func (this *ServerDB) rpcLoadUser(uid int64) (*pb_rpc.DbUser, error) {
+func (this *SV_DB) rpcLoadUser(uid int64) (*pb_rpc.DbUser, error) {
 	res, err := redis.String(this.redisConn.Do("HGET", RedisKeyUser, uid))
 	if err != nil {
 		return nil, err
 	}
-	var a = &pb_rpc.DbUser{}
-	if jsonErr := json.Unmarshal([]byte(res), a); jsonErr != nil {
+	var u = &pb_rpc.DbUser{}
+	if jsonErr := json.Unmarshal([]byte(res), u); jsonErr != nil {
 		return nil, jsonErr
 	}
-	return a, nil
+	return u, nil
 }
 
 //rpcSaveUser 保存玩家数据到数据库
-func (this *ServerDB) rpcSaveUser(uid int64, a *pb_rpc.DbUser) (string, error) {
+func (this *SV_DB) rpcSaveUser(uid int64, a *pb_rpc.DbUser) (string, error) {
 	isOk, err := this.saveUser(uid, a)
 	if err != nil {
 		return "false", err
@@ -109,7 +109,20 @@ func (this *ServerDB) rpcSaveUser(uid int64, a *pb_rpc.DbUser) (string, error) {
 	return "false", nil
 }
 
-func (this *ServerDB) saveAccount(account string, a *pb_rpc.DbAccount) (bool, error) {
+
+
+
+
+
+
+
+
+/************************************************************************************************************/
+
+
+
+
+func (this *SV_DB) saveAccount(account string, a *pb_rpc.DbAccount) (bool, error) {
 	buf, err1 := json.Marshal(a)
 	if err1 != nil {
 		return false, err1
@@ -122,7 +135,7 @@ func (this *ServerDB) saveAccount(account string, a *pb_rpc.DbAccount) (bool, er
 }
 
 //SaveUser 存储用户数据
-func (this *ServerDB) saveUser(uid int64, u *pb_rpc.DbUser) (bool, error) {
+func (this *SV_DB) saveUser(uid int64, u *pb_rpc.DbUser) (bool, error) {
 	buf, err1 := json.Marshal(u)
 	if err1 != nil {
 		return false, err1
@@ -133,3 +146,5 @@ func (this *ServerDB) saveUser(uid int64, u *pb_rpc.DbUser) (bool, error) {
 	}
 	return true, nil
 }
+
+

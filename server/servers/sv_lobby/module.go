@@ -11,44 +11,43 @@ import (
 )
 
 func NewServerLobby() module.Module {
-	return new(ServerLobby)
+	return new(SV_Lobby)
 }
 
-type ServerLobby struct {
+type SV_Lobby struct {
 	basemodule.BaseModule
 }
 
-func (this *ServerLobby) GetType() string {
+func (this *SV_Lobby) GetType() string {
 	//很关键,需要与配置文件中的Module配置对应
 	return "SV_Lobby"
 }
 
-func (this *ServerLobby) Version() string {
+func (this *SV_Lobby) Version() string {
 	//可以在监控时了解代码版本
 	return "1.0.0"
 }
 
-func (this *ServerLobby) OnAppConfigurationLoaded(app module.App) {
+func (this *SV_Lobby) OnAppConfigurationLoaded(app module.App) {
 	//当App初始化时调用，这个接口不管这个模块是否在这个进程运行都会调用
 	this.BaseModule.OnAppConfigurationLoaded(app)
 }
 
-func (this *ServerLobby) OnInit(app module.App, settings *conf.ModuleSettings) {
+func (this *SV_Lobby) OnInit(app module.App, settings *conf.ModuleSettings) {
 	this.BaseModule.OnInit(this, app, settings)
 	this.GetServer().Options().Metadata["state"] = "alive"
 	log.Info("%v模块初始化完成...", this.GetType())
 
-
-	this.GetServer().RegisterGO("HD_OnAuth", this.onAuth)
+	this.registerHandle()
 }
 
-func (this *ServerLobby) Run(closeSig chan bool) {
+func (this *SV_Lobby) Run(closeSig chan bool) {
 	log.Info("%v模块运行中...", this.GetType())
 	<-closeSig
 	log.Info("%v模块已停止...", this.GetType())
 }
 
-func (this *ServerLobby) OnDestroy() {
+func (this *SV_Lobby) OnDestroy() {
 	//一定继承
 	this.BaseModule.OnDestroy()
 	log.Info("%v模块已回收...", this.GetType())

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using M2MqttUnity;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using Google.Protobuf;
+using Pb.Enum;
 using UnityEngine;
 
 public class MqttManager : M2MqttUnityClient
 {
     public static MqttManager Instance;
-
 
     protected void Start()
     {
@@ -25,26 +25,27 @@ public class MqttManager : M2MqttUnityClient
     private readonly Dictionary<string, Action<byte[]>> _dicCall = new Dictionary<string, Action<byte[]>>();
     private readonly Dictionary<string, Action<byte[]>> _dicSync = new Dictionary<string, Action<byte[]>>();
 
-    public Task<TResp> Call<TReq, TResp>(string topic, TReq req) where TReq : IMessage<TReq>, new() where TResp : IMessage<TResp>, new()
+    public  Task<TResp> Call<TReq, TResp>(string topic, TReq req) where TReq : IMessage<TReq>, new() where TResp : IMessage<TResp>, new()
     {
-       
         var data = req.ToByteArray();
         client.Publish(topic, data, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-        return GenTask<TResp>(topic);
+        var t = GenTask<TResp>(topic);
+       
+        return t;
     }
 
-    public void Input<TInput>(string topic, TInput input) where TInput : IMessage<TInput>, new()
+    public  void Input<TInput>(string topic, TInput input) where TInput : IMessage<TInput>, new()
     {
         var data = input.ToByteArray();
         client.Publish(topic, data, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
     }
 
 
-    public void OnSync<TResp>(string topic, Action<TResp> resp) where TResp : IMessage<TResp>, new()
+    public static void OnSync<TResp>(string topic, Action<TResp> resp) where TResp : IMessage<TResp>, new()
     {
-        if (_dicSync.ContainsKey(topic))
+        if (Instance._dicSync.ContainsKey(topic))
         {
-            _dicSync[topic] += (msg) =>
+            Instance._dicSync[topic] += (msg) =>
             {
                 TResp k = new MessageParser<TResp>(() => new TResp()).ParseFrom(msg);
                 resp?.Invoke(k);
@@ -52,7 +53,7 @@ public class MqttManager : M2MqttUnityClient
         }
         else
         {
-            _dicSync[topic] = (msg) =>
+            Instance._dicSync[topic] = (msg) =>
             {
                 TResp k = new MessageParser<TResp>(() => new TResp()).ParseFrom(msg);
                 resp?.Invoke(k);
@@ -61,7 +62,7 @@ public class MqttManager : M2MqttUnityClient
     }
 
 
-    private Task<T> GenTask<T>(string topic) where T : IMessage<T>, new()
+    private static Task<T> GenTask<T>(string topic) where T : IMessage<T>, new()
     {
         var task = TaskUtil.GenSendTask(out Action<T> action, $"{typeof(T).Name} error");
 
@@ -73,14 +74,13 @@ public class MqttManager : M2MqttUnityClient
             action = null;
         }
 
-        _dicCall.Add(topic, Callback);
+        Instance._dicCall.Add(topic, Callback);
         return task;
     }
 
 
     protected override void DecodeMessage(string topic, byte[] message)
     {
-        
         //收到call类型的消息
         if (_dicCall.ContainsKey(topic))
         {
@@ -113,17 +113,7 @@ public class MqttManager : M2MqttUnityClient
     {
         base.OnConnected();
         Debug.Log("连接成功");
-        CallAuth();
+        LobbyController.CallAuth();
     }
-
-    public async void CallAuth()
-    {
-        var req = new Pb.Lobby.ReqAuth {Token = Session.Token};
-        Debug.Log("call auth req="+req);
-        var resp = await Call<Pb.Lobby.ReqAuth, Pb.Lobby.RespAuth>("SV_Lobby/HD_OnAuth/Call", req);
-        Debug.Log("-------------收到回复消息---------");
-        Debug.Log("call auth resp="+resp);
-    }
-
 
 }

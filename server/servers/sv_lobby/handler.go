@@ -1,63 +1,105 @@
 package sv_lobby
 
 import (
+	"context"
 	"github.com/liangdas/mqant/gate"
 	"github.com/liangdas/mqant/log"
+	mqrpc "github.com/liangdas/mqant/rpc"
 	"google.golang.org/protobuf/proto"
 	"server/pb/pb_enum"
 	"server/pb/pb_lobby"
+	"server/pb/pb_rpc"
+	"time"
 )
 
 //handler 用来处理来自客户端的消息
 //rpc  用来处理来自其它服务器的rpc消息
 
-func (self *ServerLobby) onAuth(session gate.Session,msg []byte) ([]byte, error) {
+//registerHandle 注册客户端请求服务
+func (this *SV_Lobby) registerHandle() {
+	this.GetServer().RegisterGO("HD_OnAuth", this.onAuth)
+}
 
-	log.Info("onAuth, session=%+v\n",session.GetSessionID())
+func (this *SV_Lobby) onAuth(session gate.Session, msg []byte) ([]byte, error) {
+	log.Info("onAuth, session=%+v\n", session.GetSessionID())
 	req := new(pb_lobby.ReqAuth)
-
 	if err := proto.Unmarshal(msg, req); err != nil {
 		log.Info("err---------")
 		return nil, err
 	}
 
 	log.Info("onAuth req =%+v\n", req)
+	ctx, _ := context.WithTimeout(context.TODO(), time.Second*3)
+	a := new(pb_rpc.DbAccount)
+	err := mqrpc.Proto(a, func() (reply interface{}, errStr interface{}) {
+		return this.Call(ctx, "SV_DB", "rpcLoadAccount", mqrpc.Param(req.Account))
+	})
+	log.Info("RpcCall ,account=%+v ,err= %v", a, err)
 
 	resp := new(pb_lobby.RespAuth)
-	resp.ErrCode = pb_enum.ErrorCode_OK
+	if a.Token == req.Token {
+		u := new(pb_rpc.DbUser)
+		err2 := mqrpc.Proto(u, func() (reply interface{}, errStr interface{}) {
+			return this.Call(ctx, "SV_DB", "rpcLoadUser", mqrpc.Param(a.UID))
+		})
+		log.Info("RpcCall ,a.UID=%d ,err= %v", a.UID, err2)
+		resp.ErrCode = pb_enum.ErrorCode_OK
+		resp.UID = u.UID
+		resp.Diamond = u.Diamond
+		resp.Gold = u.Gold
+		resp.Icon = u.Icon
+		resp.NickName = u.NickName
+		resp.Sex = u.Sex
+	} else {
+		resp.ErrCode = pb_enum.ErrorCode_AuthFailed
+	}
+
 	respByte, err := proto.Marshal(resp)
 	if err != nil {
 		return nil, err
 	}
-	//session.Send(topic, respByte)
 	return respByte, nil
 }
 
-//func (this *ServerLobby) onLogin(session gate.Session,topic string, msg []byte) error {
-//	log.Println(msg)
-//	log.Println("_____________login_______________")
-//	//解析客户端发送过来的user.LoginRequest结构体
-//	//req := &pb_lobby.ReqLogin{}
-//	req := new(pb_lobby.ReqLogin)
-//
-//	if err := proto.Unmarshal(msg, req); err != nil {
-//		log.Println("err---------")
-//		return err
-//	}
-//
-//	log.Printf("hi =%+v\n", req.Account)
-//
-//	resp:=new (pb_lobby.RespLogin)
-//	resp.ErrCode=pb_common.ErrorCode_OK
-//	respByte, err := proto.Marshal(resp)
-//	if err != nil {
-//		return err
-//	}
-//	log.Println("respByte=",respByte)
-//	session.Send(topic,respByte)
-//	return nil
-//}
 
-//func (this *ServerLobby) login(session gate.Session, msg map[string]interface{}) (result module.ProtocolMarshal, err string) {
-//	return this.App.ProtocolMarshal("","login success","")
-//}
+
+func (this *SV_Lobby) createTable(session gate.Session, msg []byte) ([]byte, error) {
+	log.Info("onAuth, session=%+v\n", session.GetSessionID())
+	req := new(pb_lobby.ReqAuth)
+	if err := proto.Unmarshal(msg, req); err != nil {
+		log.Info("err---------")
+		return nil, err
+	}
+
+	log.Info("onAuth req =%+v\n", req)
+	ctx, _ := context.WithTimeout(context.TODO(), time.Second*3)
+	a := new(pb_rpc.DbAccount)
+	err := mqrpc.Proto(a, func() (reply interface{}, errStr interface{}) {
+		return this.Call(ctx, "SV_DB", "rpcLoadAccount", mqrpc.Param(req.Account))
+	})
+	log.Info("RpcCall ,account=%+v ,err= %v", a, err)
+
+	resp := new(pb_lobby.RespAuth)
+	if a.Token == req.Token {
+		u := new(pb_rpc.DbUser)
+		err2 := mqrpc.Proto(u, func() (reply interface{}, errStr interface{}) {
+			return this.Call(ctx, "SV_DB", "rpcLoadUser", mqrpc.Param(a.UID))
+		})
+		log.Info("RpcCall ,a.UID=%d ,err= %v", a.UID, err2)
+		resp.ErrCode = pb_enum.ErrorCode_OK
+		resp.UID = u.UID
+		resp.Diamond = u.Diamond
+		resp.Gold = u.Gold
+		resp.Icon = u.Icon
+		resp.NickName = u.NickName
+		resp.Sex = u.Sex
+	} else {
+		resp.ErrCode = pb_enum.ErrorCode_AuthFailed
+	}
+
+	respByte, err := proto.Marshal(resp)
+	if err != nil {
+		return nil, err
+	}
+	return respByte, nil
+}

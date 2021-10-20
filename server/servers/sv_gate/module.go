@@ -9,25 +9,24 @@ import (
 )
 
 func NewServerGate() module.Module {
-	return new(ServerGate)
+	return new(SV_Gate)
 }
 
-type ServerGate struct {
+type SV_Gate struct {
 	basegate.Gate
 }
 
-func (this *ServerGate) GetType() string {
+func (this *SV_Gate) GetType() string {
 	return "SV_Gate"
 }
 
-func (this *ServerGate) Version() string {
+func (this *SV_Gate) Version() string {
 	return "1.0.0"
 }
 
-func (this *ServerGate) OnInit(app module.App, settings *conf.ModuleSettings) {
+func (this *SV_Gate) OnInit(app module.App, settings *conf.ModuleSettings) {
 	//wsUrl := app.GetSettings().Settings["WebsocketUrl"].(string)
 	tcpUrl := app.GetSettings().Settings["TcpUrl"].(string)
-	//注意这里一定要用 gate.ServerGate 而不是 module.BaseModule
 	this.Gate.OnInit(this, app, settings,
 		gate.TCPAddr(tcpUrl),
 		//gate.WsAddr(wsUrl),
@@ -35,15 +34,15 @@ func (this *ServerGate) OnInit(app module.App, settings *conf.ModuleSettings) {
 	this.Gate.SetCreateAgent(this.CreateCustomAgent)
 }
 
-func (this *ServerGate)CreateCustomAgent() gate.Agent{
+func (this *SV_Gate)CreateCustomAgent() gate.Agent{
 	agent:= NewCustomAgent(this)
 	return agent
 }
 
-func (m *ServerGate) Connect(session gate.Session) {
+func (m *SV_Gate) Connect(session gate.Session) {
 	log.Info("session connect from %v-%v", session.GetNetwork(), session.GetIP())
 }
 
-func (m *ServerGate) DisConnect(session gate.Session) {
+func (m *SV_Gate) DisConnect(session gate.Session) {
 	log.Info("session disconnect from %v-%v", session.GetNetwork(), session.GetIP())
 }

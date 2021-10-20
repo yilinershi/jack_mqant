@@ -10,24 +10,24 @@ import (
 )
 
 func NewServerDB() module.Module {
-	return new(ServerDB)
+	return new(SV_DB)
 }
 
-type ServerDB struct {
+type SV_DB struct {
 	basemodule.BaseModule
 	redisFactory *tools.RedisFactory
 	redisConn    redis.Conn
 }
 
-func (this *ServerDB) GetType() string {
+func (this *SV_DB) GetType() string {
 	return "SV_DB"
 }
 
-func (this *ServerDB) Version() string {
+func (this *SV_DB) Version() string {
 	return "1.0.0"
 }
 
-func (this *ServerDB) OnInit(app module.App, settings *conf.ModuleSettings) {
+func (this *SV_DB) OnInit(app module.App, settings *conf.ModuleSettings) {
 	this.BaseModule.OnInit(this, app, settings)
 
 	var redisUri = this.GetModuleSettings().Settings["RedisUri"].(string)
@@ -45,13 +45,15 @@ func (this *ServerDB) OnInit(app module.App, settings *conf.ModuleSettings) {
 	this.GetServer().Register("rpcSaveAccount", this.rpcSaveAccount)
 	this.GetServer().Register("rpcLoadUser", this.rpcLoadUser)
 	this.GetServer().Register("rpcSaveUser", this.rpcSaveUser)
-}
 
-func (this *ServerDB) Run(closeSig chan bool) {
 
 }
 
-func (this *ServerDB) OnDestroy() {
+func (this *SV_DB) Run(closeSig chan bool) {
+
+}
+
+func (this *SV_DB) OnDestroy() {
 	if err := this.GetServer().OnDestroy(); err != nil {
 		log.Warning("Module server destroy with err: %v", err)
 	}

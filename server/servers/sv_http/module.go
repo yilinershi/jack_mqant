@@ -12,10 +12,10 @@ import (
 )
 
 func NewServerHttp() module.Module {
-	return new(ServerHttp)
+	return new(SV_Http)
 }
 
-type ServerHttp struct {
+type SV_Http struct {
 	basemodule.BaseModule
 	loginUrl     string
 	registerUrl  string
@@ -23,17 +23,17 @@ type ServerHttp struct {
 	tcpUrl       string
 }
 
-func (this *ServerHttp) GetType() string {
+func (this *SV_Http) GetType() string {
 	//很关键,需要与配置文件中的Module配置对应
 	return "SV_Http"
 }
 
-func (this *ServerHttp) Version() string {
+func (this *SV_Http) Version() string {
 	//可以在监控时了解代码版本
 	return "1.0.0"
 }
 
-func (this *ServerHttp) OnInit(app module.App, settings *conf.ModuleSettings) {
+func (this *SV_Http) OnInit(app module.App, settings *conf.ModuleSettings) {
 	this.BaseModule.OnInit(this, app, settings)
 	this.SetListener(this)
 	this.loginUrl = app.GetSettings().Settings["LoginUrl"].(string)
@@ -42,7 +42,7 @@ func (this *ServerHttp) OnInit(app module.App, settings *conf.ModuleSettings) {
 	this.tcpUrl = app.GetSettings().Settings["TcpUrl"].(string)
 }
 
-func (this *ServerHttp) startHttpServer() *http.Server {
+func (this *SV_Http) startHttpServer() *http.Server {
 	srv := &http.Server{
 		Addr: ":8088",
 	}
@@ -58,18 +58,18 @@ func (this *ServerHttp) startHttpServer() *http.Server {
 	return srv
 }
 
-func (this *ServerHttp) Run(closeSig chan bool) {
-	log.Info("ServerHttp: starting HTTP server :8088")
+func (this *SV_Http) Run(closeSig chan bool) {
+	log.Info("SV_Http: starting HTTP server :8088")
 	srv := this.startHttpServer()
 	<-closeSig
-	log.Info("ServerHttp: stopping HTTP server")
+	log.Info("SV_Http: stopping HTTP server")
 
 	if err := srv.Shutdown(nil); err != nil {
 		panic(err)
 	}
-	log.Info("ServerHttp: done. exiting")
+	log.Info("SV_Http: done. exiting")
 }
 
-func (this *ServerHttp) OnDestroy() {
+func (this *SV_Http) OnDestroy() {
 	this.BaseModule.OnDestroy()
 }

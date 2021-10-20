@@ -25,7 +25,8 @@ func md5V(str string) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-func (this *ServerHttp) entry(w http.ResponseWriter, r *http.Request) {
+
+func (this *SV_Http) entry(w http.ResponseWriter, r *http.Request) {
 	buf, _ := ioutil.ReadAll(r.Body)
 	req := new(pb_http.ReqEntry)
 	if err := proto.Unmarshal(buf, req); err != nil {
@@ -52,7 +53,7 @@ func (this *ServerHttp) entry(w http.ResponseWriter, r *http.Request) {
 	w.Write(bytes)
 }
 
-func (this *ServerHttp) register(w http.ResponseWriter, r *http.Request) {
+func (this *SV_Http) register(w http.ResponseWriter, r *http.Request) {
 	buf, _ := ioutil.ReadAll(r.Body)
 	req := new(pb_http.ReqRegister)
 	if err := proto.Unmarshal(buf, req); err != nil {
@@ -88,7 +89,7 @@ func (this *ServerHttp) register(w http.ResponseWriter, r *http.Request) {
 }
 
 //login 用户通过http登录
-func (this *ServerHttp) login(w http.ResponseWriter, r *http.Request) {
+func (this *SV_Http) login(w http.ResponseWriter, r *http.Request) {
 	buf, _ := ioutil.ReadAll(r.Body)
 	req := new(pb_http.ReqLogin)
 	if err := proto.Unmarshal(buf, req); err != nil {

@@ -4,16 +4,19 @@ option go_package = "server/pb/pb_lobby"; //生成go时的package
 option csharp_namespace = "Pb.Lobby";     //给c#提供的选项
 import "enum.proto";
 
-message ReqAuth { string Token = 1; }
+message ReqAuth {
+  string Account = 1; //用户账号
+  string Token = 2;
+}
 
 message RespAuth {
-  pb_enum.ErrorCode ErrCode=1;
+  pb_enum.ErrorCode ErrCode = 1;
   int64 UID = 2;       //用户ID
   string NickName = 3; //昵称
   pb_enum.Sex Sex = 4; //性别
   uint32 Gold = 5;     //金币
   uint32 Diamond = 6;  //钻石
-  string Icon = 7;   //头像
+  string Icon = 7;     //头像
 }
 
 message ReqLobbyInfo {}

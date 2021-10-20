@@ -17,6 +17,12 @@ message DbUser {
   string NickName = 2;
   pb_enum.Sex Sex = 3;
   string Icon = 4;
-  int64 Gold = 5;
-  int64 Diamond = 6;
+  uint32 Gold = 5;
+  uint32 Diamond = 6;
+}
+
+message DbTable {
+  pb_enum.RoomType RoomType = 1;
+  string TableName = 2;
+  string Password = 3;
 }

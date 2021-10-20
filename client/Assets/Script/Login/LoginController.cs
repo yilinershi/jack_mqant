@@ -8,7 +8,7 @@ using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 
-public class LoginController
+public static class LoginController
 {
     public static void Register(string account, string password, Action callback = null)
     {
@@ -48,8 +48,8 @@ public class LoginController
             }
 
             Debug.Log("[http Login],resp = " + resp.ToString());
+            Session.Account = account;
             Session.Token = resp.Token;
-
             // MqttNet.InitMqtt();
             MqttManager.Instance.Init();
 
@@ -58,7 +58,5 @@ public class LoginController
     }
 
 
-    public static void GetUserInfo()
-    {
-    }
+    
 }
