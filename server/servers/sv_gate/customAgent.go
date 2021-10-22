@@ -144,7 +144,7 @@ func (this *CustomAgent) Run() (err error) {
 		"Settings":  make(map[string]string),
 	})
 
-	log.Info("on new session, session.sessionId=%s, ip=%s\n,",this.session.GetSessionID(),this.session.GetIP())
+	log.Info("on new session, session.sessionId=%s, ip=%s\n,", this.session.GetSessionID(), this.session.GetIP())
 
 	if err != nil {
 		log.Error("gate create agent fail", err.Error())
@@ -247,45 +247,34 @@ func (this *CustomAgent) recoverWorker(pack *mqtt.Pack) {
 		this.lock.Unlock()
 		pub := pack.GetVariable().(*mqtt.Publish)
 		msg := pub.GetMsg()
-		topics := strings.Split(*pub.GetTopic(), "/")
-		if len(topics) < 3 {
-			this.WriteMsg("System/Error", []byte("路由层次不能低于3层"))
+		topic := *pub.GetTopic()
+		log.Info("[router >> get message from client], topic=" + topic)
+		topicSplitStr := strings.Split(topic, "/")
+		if len(topicSplitStr) < 2 {
+			this.WriteMsg("System/Error", []byte("路由层次不能低于2层"))
 			return
 		}
-		routerSV := topics[0]
-		routerHD := topics[1]
-		routerMsgType := topics[2]
+		routerSV := topicSplitStr[0]
+		routerHD := topicSplitStr[1]
 		isStartsWithSV := strings.HasPrefix(routerSV, "SV_")
 		if !isStartsWithSV {
 			this.WriteMsg("System/Error", []byte("路由第1层必需以SV_开头"))
 			return
 		}
-		isStartsWithHD := strings.HasPrefix(routerHD, "HD_")
-		if !isStartsWithHD {
-			this.WriteMsg("System/Error", []byte("路由第2层必需以HD_开头"))
-			return
-		}
-		isStartsWithCall := strings.HasPrefix(routerMsgType, "Call")
-		//case：call类型为req-resp,需要回复
+
+		isStartsWithCall := strings.HasPrefix(routerHD, "Call_")
 		if isStartsWithCall {
-			ctx, _ := context.WithTimeout(context.TODO(), this.module.GetApp().Options().RPCExpired)
-			callRes, errCall := mqrpc.Bytes(this.module.Call(ctx, routerSV, routerHD, mqrpc.Param(this.session, msg)))
-			if errCall != nil {
-				this.WriteMsg("System/Error", nil)
-				return
-			}
-			this.WriteMsg(*pub.GetTopic(), callRes)
+			this.module.Call(context.Background(), routerSV, routerHD, mqrpc.Param(this.session, topic, msg))
 			return
 		}
 
-		//case:notify类型为req-noResp,不需要回复
-		isStartsWithNotify := strings.HasPrefix(routerMsgType, "Notify")
+		isStartsWithNotify := strings.HasPrefix(routerHD, "Notify_")
 		if isStartsWithNotify {
-			this.module.InvokeNR(routerSV, routerHD, mqrpc.Param(msg))
+			this.module.Call(context.Background(), routerSV, routerHD, mqrpc.Param(msg))
 			return
 		}
 
-		this.WriteMsg("System/Error", []byte("路由第3层必需以Call或Notify开头"))
+		this.WriteMsg("System/Error", []byte("路由第2层必需以Call或Notify开头"))
 	case mqtt.PINGREQ:
 		//客户端发送的心跳包
 		//if this.GetSession().GetUserId() != "" {
