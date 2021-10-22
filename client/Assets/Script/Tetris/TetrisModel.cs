@@ -1,7 +1,4 @@
-namespace Script.TetrisRoomInfo
+public class TetrisModel
 {
-    public class TetrisModel
-    {
-        
-    }
+    
 }

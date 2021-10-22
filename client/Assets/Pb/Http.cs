@@ -24,27 +24,27 @@ namespace Pb.Http {
     static HttpReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpodHRwLnByb3RvEgdwYl9odHRwGgplbnVtLnByb3RvIpICCghSZXFFbnRy",
-            "eRIOCgZTZWNyZXQYASABKAkSDAoEVVVJRBgCIAEoCRIwCghQbGF0Zm9ybRgD",
-            "IAEoDjIeLnBiX2h0dHAuUmVxRW50cnkuRW51bVBsYXRmb3JtEiYKA0VudhgE",
-            "IAEoDjIZLnBiX2h0dHAuUmVxRW50cnkuRW51bUVudhISCgpSZXNWZXJzaW9u",
-            "GAUgASgJEhMKC0dhbWVWZXJzaW9uGAYgASgJIjkKDEVudW1QbGF0Zm9ybRII",
-            "CgROb25lEAASCwoHQW5kcm9pZBABEgcKA0lvcxACEgkKBVdpblBDEAMiKgoH",
-            "RW51bUVudhIPCgtEZXZlbG9wbWVudBAAEg4KClByb2R1Y3Rpb24QASJ9CglS",
-            "ZXNwRW50cnkSIwoHRXJyQ29kZRgBIAEoDjISLnBiX2VudW0uRXJyb3JDb2Rl",
-            "EhAKCExvZ2luVXJsGAIgASgJEhMKC1JlZ2lzdGVyVXJsGAMgASgJEg4KBlRj",
-            "cFVybBgEIAEoCRIUCgxXZWJTb2NrZXRVcmwYBSABKAkiMAoLUmVxUmVnaXN0",
-            "ZXISDwoHQWNjb3VudBgBIAEoCRIQCghQYXNzd29yZBgCIAEoCSIzCgxSZXNw",
-            "UmVnaXN0ZXISIwoHRXJyQ29kZRgBIAEoDjISLnBiX2VudW0uRXJyb3JDb2Rl",
-            "Ii0KCFJlcUxvZ2luEg8KB0FjY291bnQYASABKAkSEAoIUGFzc3dvcmQYAiAB",
-            "KAkiPwoJUmVzcExvZ2luEiMKB0VyckNvZGUYASABKA4yEi5wYl9lbnVtLkVy",
-            "cm9yQ29kZRINCgVUb2tlbhgCIAEoCUIdWhFzZXJ2ZXIvcGIvcGJfaHR0cKoC",
-            "B1BiLkh0dHBiBnByb3RvMw=="));
+            "CgpodHRwLnByb3RvEgdwYl9odHRwGgplbnVtLnByb3RvIp4CCgxSZXFIYW5k",
+            "U2hha2USDgoGU2VjcmV0GAEgASgJEgwKBFVVSUQYAiABKAkSNAoIUGxhdGZv",
+            "cm0YAyABKA4yIi5wYl9odHRwLlJlcUhhbmRTaGFrZS5FbnVtUGxhdGZvcm0S",
+            "KgoDRW52GAQgASgOMh0ucGJfaHR0cC5SZXFIYW5kU2hha2UuRW51bUVudhIS",
+            "CgpSZXNWZXJzaW9uGAUgASgJEhMKC0dhbWVWZXJzaW9uGAYgASgJIjkKDEVu",
+            "dW1QbGF0Zm9ybRIICgROb25lEAASCwoHQW5kcm9pZBABEgcKA0lvcxACEgkK",
+            "BVdpblBDEAMiKgoHRW51bUVudhIPCgtEZXZlbG9wbWVudBAAEg4KClByb2R1",
+            "Y3Rpb24QASKBAQoNUmVzcEhhbmRTaGFrZRIjCgdFcnJDb2RlGAEgASgOMhIu",
+            "cGJfZW51bS5FcnJvckNvZGUSEAoITG9naW5VcmwYAiABKAkSEwoLUmVnaXN0",
+            "ZXJVcmwYAyABKAkSDgoGVGNwVXJsGAQgASgJEhQKDFdlYlNvY2tldFVybBgF",
+            "IAEoCSIwCgtSZXFSZWdpc3RlchIPCgdBY2NvdW50GAEgASgJEhAKCFBhc3N3",
+            "b3JkGAIgASgJIjMKDFJlc3BSZWdpc3RlchIjCgdFcnJDb2RlGAEgASgOMhIu",
+            "cGJfZW51bS5FcnJvckNvZGUiLQoIUmVxTG9naW4SDwoHQWNjb3VudBgBIAEo",
+            "CRIQCghQYXNzd29yZBgCIAEoCSI/CglSZXNwTG9naW4SIwoHRXJyQ29kZRgB",
+            "IAEoDjISLnBiX2VudW0uRXJyb3JDb2RlEg0KBVRva2VuGAIgASgJQh1aEXNl",
+            "cnZlci9wYi9wYl9odHRwqgIHUGIuSHR0cGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Pb.Enum.EnumReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Http.ReqEntry), global::Pb.Http.ReqEntry.Parser, new[]{ "Secret", "UUID", "Platform", "Env", "ResVersion", "GameVersion" }, null, new[]{ typeof(global::Pb.Http.ReqEntry.Types.EnumPlatform), typeof(global::Pb.Http.ReqEntry.Types.EnumEnv) }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Http.RespEntry), global::Pb.Http.RespEntry.Parser, new[]{ "ErrCode", "LoginUrl", "RegisterUrl", "TcpUrl", "WebSocketUrl" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Http.ReqHandShake), global::Pb.Http.ReqHandShake.Parser, new[]{ "Secret", "UUID", "Platform", "Env", "ResVersion", "GameVersion" }, null, new[]{ typeof(global::Pb.Http.ReqHandShake.Types.EnumPlatform), typeof(global::Pb.Http.ReqHandShake.Types.EnumEnv) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Http.RespHandShake), global::Pb.Http.RespHandShake.Parser, new[]{ "ErrCode", "LoginUrl", "RegisterUrl", "TcpUrl", "WebSocketUrl" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Http.ReqRegister), global::Pb.Http.ReqRegister.Parser, new[]{ "Account", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Http.RespRegister), global::Pb.Http.RespRegister.Parser, new[]{ "ErrCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Http.ReqLogin), global::Pb.Http.ReqLogin.Parser, new[]{ "Account", "Password" }, null, null, null, null),
@@ -55,16 +55,16 @@ namespace Pb.Http {
 
   }
   #region Messages
-  public sealed partial class ReqEntry : pb::IMessage<ReqEntry>
+  public sealed partial class ReqHandShake : pb::IMessage<ReqHandShake>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ReqEntry> _parser = new pb::MessageParser<ReqEntry>(() => new ReqEntry());
+    private static readonly pb::MessageParser<ReqHandShake> _parser = new pb::MessageParser<ReqHandShake>(() => new ReqHandShake());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ReqEntry> Parser { get { return _parser; } }
+    public static pb::MessageParser<ReqHandShake> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -80,7 +80,7 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ReqEntry() {
+    public ReqHandShake() {
       OnConstruction();
     }
 
@@ -88,7 +88,7 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ReqEntry(ReqEntry other) : this() {
+    public ReqHandShake(ReqHandShake other) : this() {
       secret_ = other.secret_;
       uUID_ = other.uUID_;
       platform_ = other.platform_;
@@ -100,8 +100,8 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ReqEntry Clone() {
-      return new ReqEntry(this);
+    public ReqHandShake Clone() {
+      return new ReqHandShake(this);
     }
 
     /// <summary>Field number for the "Secret" field.</summary>
@@ -136,13 +136,13 @@ namespace Pb.Http {
 
     /// <summary>Field number for the "Platform" field.</summary>
     public const int PlatformFieldNumber = 3;
-    private global::Pb.Http.ReqEntry.Types.EnumPlatform platform_ = global::Pb.Http.ReqEntry.Types.EnumPlatform.None;
+    private global::Pb.Http.ReqHandShake.Types.EnumPlatform platform_ = global::Pb.Http.ReqHandShake.Types.EnumPlatform.None;
     /// <summary>
     ///平台
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Pb.Http.ReqEntry.Types.EnumPlatform Platform {
+    public global::Pb.Http.ReqHandShake.Types.EnumPlatform Platform {
       get { return platform_; }
       set {
         platform_ = value;
@@ -151,13 +151,13 @@ namespace Pb.Http {
 
     /// <summary>Field number for the "Env" field.</summary>
     public const int EnvFieldNumber = 4;
-    private global::Pb.Http.ReqEntry.Types.EnumEnv env_ = global::Pb.Http.ReqEntry.Types.EnumEnv.Development;
+    private global::Pb.Http.ReqHandShake.Types.EnumEnv env_ = global::Pb.Http.ReqHandShake.Types.EnumEnv.Development;
     /// <summary>
     ///模式 0：正式 1：alpha 2：dev
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Pb.Http.ReqEntry.Types.EnumEnv Env {
+    public global::Pb.Http.ReqHandShake.Types.EnumEnv Env {
       get { return env_; }
       set {
         env_ = value;
@@ -197,12 +197,12 @@ namespace Pb.Http {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ReqEntry);
+      return Equals(other as ReqHandShake);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ReqEntry other) {
+    public bool Equals(ReqHandShake other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -224,8 +224,8 @@ namespace Pb.Http {
       int hash = 1;
       if (Secret.Length != 0) hash ^= Secret.GetHashCode();
       if (UUID.Length != 0) hash ^= UUID.GetHashCode();
-      if (Platform != global::Pb.Http.ReqEntry.Types.EnumPlatform.None) hash ^= Platform.GetHashCode();
-      if (Env != global::Pb.Http.ReqEntry.Types.EnumEnv.Development) hash ^= Env.GetHashCode();
+      if (Platform != global::Pb.Http.ReqHandShake.Types.EnumPlatform.None) hash ^= Platform.GetHashCode();
+      if (Env != global::Pb.Http.ReqHandShake.Types.EnumEnv.Development) hash ^= Env.GetHashCode();
       if (ResVersion.Length != 0) hash ^= ResVersion.GetHashCode();
       if (GameVersion.Length != 0) hash ^= GameVersion.GetHashCode();
       if (_unknownFields != null) {
@@ -254,11 +254,11 @@ namespace Pb.Http {
         output.WriteRawTag(18);
         output.WriteString(UUID);
       }
-      if (Platform != global::Pb.Http.ReqEntry.Types.EnumPlatform.None) {
+      if (Platform != global::Pb.Http.ReqHandShake.Types.EnumPlatform.None) {
         output.WriteRawTag(24);
         output.WriteEnum((int) Platform);
       }
-      if (Env != global::Pb.Http.ReqEntry.Types.EnumEnv.Development) {
+      if (Env != global::Pb.Http.ReqHandShake.Types.EnumEnv.Development) {
         output.WriteRawTag(32);
         output.WriteEnum((int) Env);
       }
@@ -288,11 +288,11 @@ namespace Pb.Http {
         output.WriteRawTag(18);
         output.WriteString(UUID);
       }
-      if (Platform != global::Pb.Http.ReqEntry.Types.EnumPlatform.None) {
+      if (Platform != global::Pb.Http.ReqHandShake.Types.EnumPlatform.None) {
         output.WriteRawTag(24);
         output.WriteEnum((int) Platform);
       }
-      if (Env != global::Pb.Http.ReqEntry.Types.EnumEnv.Development) {
+      if (Env != global::Pb.Http.ReqHandShake.Types.EnumEnv.Development) {
         output.WriteRawTag(32);
         output.WriteEnum((int) Env);
       }
@@ -320,10 +320,10 @@ namespace Pb.Http {
       if (UUID.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(UUID);
       }
-      if (Platform != global::Pb.Http.ReqEntry.Types.EnumPlatform.None) {
+      if (Platform != global::Pb.Http.ReqHandShake.Types.EnumPlatform.None) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Platform);
       }
-      if (Env != global::Pb.Http.ReqEntry.Types.EnumEnv.Development) {
+      if (Env != global::Pb.Http.ReqHandShake.Types.EnumEnv.Development) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Env);
       }
       if (ResVersion.Length != 0) {
@@ -340,7 +340,7 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ReqEntry other) {
+    public void MergeFrom(ReqHandShake other) {
       if (other == null) {
         return;
       }
@@ -350,10 +350,10 @@ namespace Pb.Http {
       if (other.UUID.Length != 0) {
         UUID = other.UUID;
       }
-      if (other.Platform != global::Pb.Http.ReqEntry.Types.EnumPlatform.None) {
+      if (other.Platform != global::Pb.Http.ReqHandShake.Types.EnumPlatform.None) {
         Platform = other.Platform;
       }
-      if (other.Env != global::Pb.Http.ReqEntry.Types.EnumEnv.Development) {
+      if (other.Env != global::Pb.Http.ReqHandShake.Types.EnumEnv.Development) {
         Env = other.Env;
       }
       if (other.ResVersion.Length != 0) {
@@ -386,11 +386,11 @@ namespace Pb.Http {
             break;
           }
           case 24: {
-            Platform = (global::Pb.Http.ReqEntry.Types.EnumPlatform) input.ReadEnum();
+            Platform = (global::Pb.Http.ReqHandShake.Types.EnumPlatform) input.ReadEnum();
             break;
           }
           case 32: {
-            Env = (global::Pb.Http.ReqEntry.Types.EnumEnv) input.ReadEnum();
+            Env = (global::Pb.Http.ReqHandShake.Types.EnumEnv) input.ReadEnum();
             break;
           }
           case 42: {
@@ -425,11 +425,11 @@ namespace Pb.Http {
             break;
           }
           case 24: {
-            Platform = (global::Pb.Http.ReqEntry.Types.EnumPlatform) input.ReadEnum();
+            Platform = (global::Pb.Http.ReqHandShake.Types.EnumPlatform) input.ReadEnum();
             break;
           }
           case 32: {
-            Env = (global::Pb.Http.ReqEntry.Types.EnumEnv) input.ReadEnum();
+            Env = (global::Pb.Http.ReqHandShake.Types.EnumEnv) input.ReadEnum();
             break;
           }
           case 42: {
@@ -446,7 +446,7 @@ namespace Pb.Http {
     #endif
 
     #region Nested types
-    /// <summary>Container for nested types declared in the ReqEntry message type.</summary>
+    /// <summary>Container for nested types declared in the ReqHandShake message type.</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static partial class Types {
@@ -476,16 +476,16 @@ namespace Pb.Http {
   /// <summary>
   ///入口消息resp，服务端将登录、注册、长连接等地址下发
   /// </summary>
-  public sealed partial class RespEntry : pb::IMessage<RespEntry>
+  public sealed partial class RespHandShake : pb::IMessage<RespHandShake>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<RespEntry> _parser = new pb::MessageParser<RespEntry>(() => new RespEntry());
+    private static readonly pb::MessageParser<RespHandShake> _parser = new pb::MessageParser<RespHandShake>(() => new RespHandShake());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RespEntry> Parser { get { return _parser; } }
+    public static pb::MessageParser<RespHandShake> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -501,7 +501,7 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RespEntry() {
+    public RespHandShake() {
       OnConstruction();
     }
 
@@ -509,7 +509,7 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RespEntry(RespEntry other) : this() {
+    public RespHandShake(RespHandShake other) : this() {
       errCode_ = other.errCode_;
       loginUrl_ = other.loginUrl_;
       registerUrl_ = other.registerUrl_;
@@ -520,8 +520,8 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RespEntry Clone() {
-      return new RespEntry(this);
+    public RespHandShake Clone() {
+      return new RespHandShake(this);
     }
 
     /// <summary>Field number for the "ErrCode" field.</summary>
@@ -599,12 +599,12 @@ namespace Pb.Http {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as RespEntry);
+      return Equals(other as RespHandShake);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RespEntry other) {
+    public bool Equals(RespHandShake other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -729,7 +729,7 @@ namespace Pb.Http {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RespEntry other) {
+    public void MergeFrom(RespHandShake other) {
       if (other == null) {
         return;
       }

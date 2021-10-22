@@ -520,3 +520,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 766edbfaaaf55476990fd9320a2e7c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brokerAddress: 127.0.0.1
+  brokerPort: 3563
+  isEncrypted: 0
+  connectionDelay: 500
+  timeoutOnConnection: 30000
+  autoConnect: 0
+  mqttUserName: 
+  mqttPassword: 

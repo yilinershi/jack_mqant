@@ -6,7 +6,7 @@ public class LobbyController
    
     public static async void CallAuth()
     {
-        var topic = "SV_Lobby/HD_OnAuth/Call";
+        var topic = "SV_Lobby/Call_Auth";
         var req = new Pb.Lobby.ReqAuth {Token = Session.Token,Account = Session.Account};
         var resp = await MqttManager.Instance.Call<Pb.Lobby.ReqAuth, Pb.Lobby.RespAuth>(topic, req);
         Debug.Log("【CallAuth】，[topic]=" + topic + "\n[req]=" + req + "\n[resp]=" + resp);
@@ -25,5 +25,10 @@ public class LobbyController
         var prefab = Resources.Load("Prefab/UILobby");
         var go =  Object.Instantiate(prefab) as GameObject;
         go.AddComponent<LobbyView>();
+        
+        
     }
+    
+    
+    
 }

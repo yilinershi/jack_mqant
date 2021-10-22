@@ -58,11 +58,7 @@ namespace M2MqttUnity.Examples
 
         public void TestPublish()
         {
-            client.Publish("SV_Lobby/HD_Register/Call_01", System.Text.Encoding.UTF8.GetBytes("{\"name\":\"jack\"}"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-            Debug.Log("Test message published");
             AddUiMessage("Test message published.");
-            
-            
         }
 
         public void SetBrokerAddress(string brokerAddress)

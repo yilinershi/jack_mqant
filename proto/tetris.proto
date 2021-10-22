@@ -1,0 +1,50 @@
+syntax = "proto3";
+package pb_tetris;
+option go_package = "server/pb/pb_tetris"; //生成go时的package
+option csharp_namespace = "Pb.Tetris";     //给c#提供的选项
+import "enum.proto";
+
+message ReqCreateTetris {
+  string TableName = 1; //游戏桌子名称
+}
+
+message RespCreteTetris {
+  pb_enum.ErrorCode ErrCode = 1;
+  string ID = 2; //服务器创建成功后返回的桌子的ID
+}
+
+//是否订阅房间消息
+message ReqSubscribeRoomInfo {
+  bool IsSubscribe = 1; // true,开始订阅，false,取消订阅
+}
+
+//服务器向客户端同步房间信息
+message TableInfo {
+  string TableId = 1;
+  string Name = 2;
+  string CreatorUId = 3;
+  string CreatorNickName = 4;
+}
+
+message RespSubscribeRoomInfo {
+  pb_enum.ErrorCode ErrCode = 1;
+  repeated TableInfo AllTableInfo = 2;
+}
+
+message PushRoomInfoChange {
+  enum EnumChangeType {
+    OnCreate = 0;  //创建
+    OnDestroy = 1; //销毁
+  }
+  EnumChangeType ChangeType = 1;
+  TableInfo onChangeTableInfo = 2;     //变化量
+  repeated TableInfo AllTableInfo = 3; //总量
+}
+
+message ReqJoinTable {
+  string TableId = 1; //要加入的桌子Id
+}
+
+message RespJoinTable {
+  pb_enum.ErrorCode ErrCode = 1; // ok或err
+}

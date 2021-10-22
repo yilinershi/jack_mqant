@@ -4,7 +4,7 @@ option go_package = "server/pb/pb_http"; //生成go时的package
 option csharp_namespace = "Pb.Http";     //给c#提供的选项
 import "enum.proto";
 
-message ReqEntry {
+message ReqHandShake {
   enum EnumPlatform {
     None = 0;
     Android = 1;
@@ -24,7 +24,7 @@ message ReqEntry {
 }
 
 //入口消息resp，服务端将登录、注册、长连接等地址下发
-message RespEntry {
+message RespHandShake {
   pb_enum.ErrorCode ErrCode = 1;
   string LoginUrl = 2;     //登录http地址
   string RegisterUrl = 3;  //注册http地址

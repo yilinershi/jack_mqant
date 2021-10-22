@@ -53,7 +53,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Script\Lobby\LobbyView.cs" />
-     <Compile Include="Assets\Script\Common\UIUtil.cs" />
      <Compile Include="Assets\Pb\Http.cs" />
      <Compile Include="Assets\Script\Login\LoginController.cs" />
      <Compile Include="Assets\Script\Common\TaskUtil.cs" />
@@ -65,10 +64,14 @@
      <Compile Include="Assets\Script\Common\UIBase.cs" />
      <Compile Include="Assets\Pb\Lobby.cs" />
      <Compile Include="Assets\Script\Main.cs" />
+     <Compile Include="Assets\Script\Tetris\TetrisModel.cs" />
      <Compile Include="Assets\Pb\Rpc.cs" />
+     <Compile Include="Assets\Pb\Tetris.cs" />
      <Compile Include="Assets\Script\Lobby\LobbyController.cs" />
+     <Compile Include="Assets\Script\Tetris\TetrisView.cs" />
      <Compile Include="Assets\Script\Common\Http.cs" />
      <Compile Include="Assets\Script\Login\LoginModel.cs" />
+     <Compile Include="Assets\Script\Tetris\TetrisController.cs" />
      <Compile Include="Assets\Script\Session\Session.cs" />
      <None Include="Assets\Resources\Txt\cacert.txt" />
  <Reference Include="UnityEngine">

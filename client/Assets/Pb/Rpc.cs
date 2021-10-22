@@ -29,13 +29,16 @@ namespace PbHttp {
             "ASgJEhIKCkNyZWF0ZVRpbWUYBCABKAMSFQoNTGFzdExvZ2luVGltZRgFIAEo",
             "AxINCgVUb2tlbhgGIAEoCSJvCgZEYlVzZXISCwoDVUlEGAEgASgDEhAKCE5p",
             "Y2tOYW1lGAIgASgJEhkKA1NleBgDIAEoDjIMLnBiX2VudW0uU2V4EgwKBElj",
-            "b24YBCABKAkSDAoER29sZBgFIAEoDRIPCgdEaWFtb25kGAYgASgNQhJaEHNl",
-            "cnZlci9wYi9wYl9ycGNiBnByb3RvMw=="));
+            "b24YBCABKAkSDAoER29sZBgFIAEoDRIPCgdEaWFtb25kGAYgASgNIlMKB0Ri",
+            "VGFibGUSIwoIUm9vbVR5cGUYASABKA4yES5wYl9lbnVtLlJvb21UeXBlEhEK",
+            "CVRhYmxlTmFtZRgCIAEoCRIQCghQYXNzd29yZBgDIAEoCUISWhBzZXJ2ZXIv",
+            "cGIvcGJfcnBjYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Pb.Enum.EnumReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::PbHttp.DbAccount), global::PbHttp.DbAccount.Parser, new[]{ "UID", "Account", "Password", "CreateTime", "LastLoginTime", "Token" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbHttp.DbUser), global::PbHttp.DbUser.Parser, new[]{ "UID", "NickName", "Sex", "Icon", "Gold", "Diamond" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::PbHttp.DbUser), global::PbHttp.DbUser.Parser, new[]{ "UID", "NickName", "Sex", "Icon", "Gold", "Diamond" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::PbHttp.DbTable), global::PbHttp.DbTable.Parser, new[]{ "RoomType", "TableName", "Password" }, null, null, null, null)
           }));
     }
     #endregion
@@ -781,6 +784,269 @@ namespace PbHttp {
           }
           case 48: {
             Diamond = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class DbTable : pb::IMessage<DbTable>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<DbTable> _parser = new pb::MessageParser<DbTable>(() => new DbTable());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<DbTable> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::PbHttp.RpcReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DbTable() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DbTable(DbTable other) : this() {
+      roomType_ = other.roomType_;
+      tableName_ = other.tableName_;
+      password_ = other.password_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DbTable Clone() {
+      return new DbTable(this);
+    }
+
+    /// <summary>Field number for the "RoomType" field.</summary>
+    public const int RoomTypeFieldNumber = 1;
+    private global::Pb.Enum.RoomType roomType_ = global::Pb.Enum.RoomType.Tetris;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Pb.Enum.RoomType RoomType {
+      get { return roomType_; }
+      set {
+        roomType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "TableName" field.</summary>
+    public const int TableNameFieldNumber = 2;
+    private string tableName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string TableName {
+      get { return tableName_; }
+      set {
+        tableName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Password" field.</summary>
+    public const int PasswordFieldNumber = 3;
+    private string password_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Password {
+      get { return password_; }
+      set {
+        password_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as DbTable);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(DbTable other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RoomType != other.RoomType) return false;
+      if (TableName != other.TableName) return false;
+      if (Password != other.Password) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RoomType != global::Pb.Enum.RoomType.Tetris) hash ^= RoomType.GetHashCode();
+      if (TableName.Length != 0) hash ^= TableName.GetHashCode();
+      if (Password.Length != 0) hash ^= Password.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (RoomType != global::Pb.Enum.RoomType.Tetris) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) RoomType);
+      }
+      if (TableName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(TableName);
+      }
+      if (Password.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Password);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (RoomType != global::Pb.Enum.RoomType.Tetris) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) RoomType);
+      }
+      if (TableName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(TableName);
+      }
+      if (Password.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Password);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (RoomType != global::Pb.Enum.RoomType.Tetris) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) RoomType);
+      }
+      if (TableName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TableName);
+      }
+      if (Password.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(DbTable other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RoomType != global::Pb.Enum.RoomType.Tetris) {
+        RoomType = other.RoomType;
+      }
+      if (other.TableName.Length != 0) {
+        TableName = other.TableName;
+      }
+      if (other.Password.Length != 0) {
+        Password = other.Password;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            RoomType = (global::Pb.Enum.RoomType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            TableName = input.ReadString();
+            break;
+          }
+          case 26: {
+            Password = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            RoomType = (global::Pb.Enum.RoomType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            TableName = input.ReadString();
+            break;
+          }
+          case 26: {
+            Password = input.ReadString();
             break;
           }
         }

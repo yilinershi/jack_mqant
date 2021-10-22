@@ -4,14 +4,14 @@ using UnityEngine;
 
 public static class HttpNet
 {
-    public static void Entry(Action callback)
+    public static void Handshake(Action callback)
     {
-        var req = new Pb.Http.ReqEntry {Secret = "天王盖地虎,宝塔镇河妖"};
-        UnityHTTP.Request theRequest = new UnityHTTP.Request("post", "http://127.0.0.1:8088/entry", req.ToByteArray());
+        var req = new Pb.Http.ReqHandShake {Secret = "天王盖地虎,宝塔镇河妖"};
+        UnityHTTP.Request theRequest = new UnityHTTP.Request("post", "http://127.0.0.1:8088/handshake", req.ToByteArray());
         Debug.Log( "[http entry],req = "+req.ToString());
         theRequest.Send((request) =>
         {
-            var resp = new Pb.Http.RespEntry();
+            var resp = new Pb.Http.RespHandShake();
             resp.MergeFrom(request.response.bytes);
             if (resp.ErrCode != Pb.Enum.ErrorCode.Ok)
             {

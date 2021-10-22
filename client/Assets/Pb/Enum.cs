@@ -29,11 +29,12 @@ namespace Pb.Enum {
             "RXhpeHRlbnQQAxIWChJMb2dpblBhc3N3b3JkRXJyb3IQBBIXChNSZWdpc3Rl",
             "ckFjY291bnRFeGl0EAUSDgoKQXV0aEZhaWxlZBAGEhIKDlJvb21VbkV4aXN0",
             "ZW50EAcSEgoORGVza1VuRXhpc3RlbnQQCBISCg5EZXNrUGxheWVyRnVsbBAJ",
-            "KicKA1NleBIKCgZVbmtub3cQABIICgRNYWxlEAESCgoGRmVtYWxlEAJCHVoR",
-            "c2VydmVyL3BiL3BiX2VudW2qAgdQYi5FbnVtYgZwcm90bzM="));
+            "KicKA1NleBIKCgZVbmtub3cQABIICgRNYWxlEAESCgoGRmVtYWxlEAIqFgoI",
+            "Um9vbVR5cGUSCgoGVGV0cmlzEABCHVoRc2VydmVyL3BiL3BiX2VudW2qAgdQ",
+            "Yi5FbnVtYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Pb.Enum.ErrorCode), typeof(global::Pb.Enum.Sex), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Pb.Enum.ErrorCode), typeof(global::Pb.Enum.Sex), typeof(global::Pb.Enum.RoomType), }, null, null));
     }
     #endregion
 
@@ -95,6 +96,13 @@ namespace Pb.Enum {
     ///女
     /// </summary>
     [pbr::OriginalName("Female")] Female = 2,
+  }
+
+  public enum RoomType {
+    /// <summary>
+    ///俄罗斯方块
+    /// </summary>
+    [pbr::OriginalName("Tetris")] Tetris = 0,
   }
 
   #endregion

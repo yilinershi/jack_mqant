@@ -19,45 +19,38 @@ public class MqttManager : M2MqttUnityClient
     public void Init()
     {
         base.Connect();
+        Instance.RegisterPush<Pb.Tetris.PushRoomInfoChange>("SV_Tetris/Push_RoomInfoChange", TetrisController.OnPushRoomInfo);
     }
 
 
     private readonly Dictionary<string, Action<byte[]>> _dicCall = new Dictionary<string, Action<byte[]>>();
     private readonly Dictionary<string, Action<byte[]>> _dicSync = new Dictionary<string, Action<byte[]>>();
 
-    public  Task<TResp> Call<TReq, TResp>(string topic, TReq req) where TReq : IMessage<TReq>, new() where TResp : IMessage<TResp>, new()
+    public Task<TResp> Call<TReq, TResp>(string topic, TReq req) where TReq : IMessage<TReq>, new() where TResp : IMessage<TResp>, new()
     {
         var data = req.ToByteArray();
         client.Publish(topic, data, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         var t = GenTask<TResp>(topic);
-       
         return t;
     }
 
-    public  void Input<TInput>(string topic, TInput input) where TInput : IMessage<TInput>, new()
+    public void Input<TInput>(string topic, TInput input) where TInput : IMessage<TInput>, new()
     {
         var data = input.ToByteArray();
         client.Publish(topic, data, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
     }
 
 
-    public static void OnSync<TResp>(string topic, Action<TResp> resp) where TResp : IMessage<TResp>, new()
+    public void RegisterPush<TPush>(string topic, Action<TPush> resp) where TPush : IMessage<TPush>, new()
     {
-        if (Instance._dicSync.ContainsKey(topic))
+        
+        if (!Instance._dicSync.ContainsKey(topic))
         {
-            Instance._dicSync[topic] += (msg) =>
+            Instance._dicSync.Add(topic,(msg) =>
             {
-                TResp k = new MessageParser<TResp>(() => new TResp()).ParseFrom(msg);
+                TPush k = new MessageParser<TPush>(() => new TPush()).ParseFrom(msg);
                 resp?.Invoke(k);
-            };
-        }
-        else
-        {
-            Instance._dicSync[topic] = (msg) =>
-            {
-                TResp k = new MessageParser<TResp>(() => new TResp()).ParseFrom(msg);
-                resp?.Invoke(k);
-            };
+            });
         }
     }
 
@@ -95,7 +88,6 @@ public class MqttManager : M2MqttUnityClient
         {
             Debug.Log("Received Sync >> topic = " + topic);
             _dicSync[topic](message);
-            _dicSync.Remove(topic);
             return;
         }
 
@@ -115,5 +107,4 @@ public class MqttManager : M2MqttUnityClient
         Debug.Log("连接成功");
         LobbyController.CallAuth();
     }
-
 }

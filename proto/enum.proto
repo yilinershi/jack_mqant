@@ -23,6 +23,6 @@ enum Sex {
 }
 
 enum RoomType {
-  Tetris = 1； //俄罗斯方块
+  Tetris = 0; //俄罗斯方块
 }
 
