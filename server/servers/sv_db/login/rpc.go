@@ -1,4 +1,4 @@
-package sv_db
+package login
 
 import (
 	"encoding/json"
@@ -9,12 +9,6 @@ import (
 	"time"
 )
 
-const (
-	RedisKeyAccount        = "account"
-	RedisKeyAutoIdAccount  = "auto_id_account"
-	RedisAccountStartIndex = 10000
-	RedisKeyUser           = "user"
-)
 
 /**
 1.普通格式的rpc，返回系统变量及string,即 return (bool,string)
@@ -22,8 +16,8 @@ const (
 */
 
 //rpcIsAccountExist 通过rpc查询redis中账号是否已存在,
-func (this *SV_DB) rpcIsAccountExist(account string) (bool, string) {
-	isExists, err := redis.Bool(this.redisConn.Do("HEXISTS", RedisKeyAccount, account))
+func (this *loginComponent) rpcIsAccountExist(account string) (bool, string) {
+	isExists, err := redis.Bool(this.redisConn.Do("HEXISTS", this.RedisKeyAccount, account))
 	if err != nil {
 		return false, err.Error()
 	}
@@ -31,14 +25,14 @@ func (this *SV_DB) rpcIsAccountExist(account string) (bool, string) {
 }
 
 //rpcCreatePlayerData 通过rpc创建账号
-func (this *SV_DB) rpcCreateAccount(account string, password string) (bool, string) {
+func (this *loginComponent) rpcCreateAccount(account string, password string) (bool, string) {
 	//step1:创建玩家账户
-	id, err := redis.Int(this.redisConn.Do("INCR", RedisKeyAutoIdAccount))
+	id, err := redis.Int(this.redisConn.Do("INCR", this.RedisKeyAutoIdAccount))
 	if err != nil {
 		return false, "create user uid fail"
 	}
 	a := &pb_rpc.DbAccount{}
-	a.UID = RedisAccountStartIndex + int64(id)
+	a.UID = this.RedisAccountStartIndex + int64(id)
 	a.Account = account
 	a.Password = password
 	a.CreateTime = time.Now().Unix()
@@ -62,8 +56,8 @@ func (this *SV_DB) rpcCreateAccount(account string, password string) (bool, stri
 }
 
 //rpcLoadAccount 通过rpc加载玩家账户数据
-func (this *SV_DB) rpcLoadAccount(account string) (*pb_rpc.DbAccount, error) {
-	res, err := redis.String(this.redisConn.Do("HGET", RedisKeyAccount, account))
+func (this *loginComponent) rpcLoadAccount(account string) (*pb_rpc.DbAccount, error) {
+	res, err := redis.String(this.redisConn.Do("HGET", this.RedisKeyAccount, account))
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +69,7 @@ func (this *SV_DB) rpcLoadAccount(account string) (*pb_rpc.DbAccount, error) {
 }
 
 //rpcSaveAccount 保存玩家账户数据到数据库
-func (this *SV_DB) rpcSaveAccount(account string, a *pb_rpc.DbAccount) (bool, string) {
+func (this *loginComponent) rpcSaveAccount(account string, a *pb_rpc.DbAccount) (bool, string) {
 	_, err := this.saveAccount(account, a)
 	if err != nil {
 		return false, "save account error"
@@ -84,8 +78,8 @@ func (this *SV_DB) rpcSaveAccount(account string, a *pb_rpc.DbAccount) (bool, st
 }
 
 //rpcLoadUser 加载用户数据
-func (this *SV_DB) rpcLoadUser(uid int64) (*pb_rpc.DbUser, error) {
-	res, err := redis.String(this.redisConn.Do("HGET", RedisKeyUser, uid))
+func (this *loginComponent) rpcLoadUser(uid int64) (*pb_rpc.DbUser, error) {
+	res, err := redis.String(this.redisConn.Do("HGET", this.RedisKeyUser, uid))
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +91,7 @@ func (this *SV_DB) rpcLoadUser(uid int64) (*pb_rpc.DbUser, error) {
 }
 
 //rpcSaveUser 保存玩家数据到数据库
-func (this *SV_DB) rpcSaveUser(uid int64, a *pb_rpc.DbUser) (string, error) {
+func (this *loginComponent) rpcSaveUser(uid int64, a *pb_rpc.DbUser) (string, error) {
 	isOk, err := this.saveUser(uid, a)
 	if err != nil {
 		return "false", err
@@ -109,42 +103,29 @@ func (this *SV_DB) rpcSaveUser(uid int64, a *pb_rpc.DbUser) (string, error) {
 	return "false", nil
 }
 
-
-
-
-
-
-
-
-
 /************************************************************************************************************/
 
-
-
-
-func (this *SV_DB) saveAccount(account string, a *pb_rpc.DbAccount) (bool, error) {
+func (this *loginComponent) saveAccount(account string, a *pb_rpc.DbAccount) (bool, error) {
 	buf, err1 := json.Marshal(a)
 	if err1 != nil {
 		return false, err1
 	}
 	buffer := string(buf)
-	if _, err2 := this.redisConn.Do("HSET", RedisKeyAccount, account, buffer); err2 != nil {
+	if _, err2 := this.redisConn.Do("HSET", this.RedisKeyAccount, account, buffer); err2 != nil {
 		return false, err2
 	}
 	return true, nil
 }
 
 //SaveUser 存储用户数据
-func (this *SV_DB) saveUser(uid int64, u *pb_rpc.DbUser) (bool, error) {
+func (this *loginComponent) saveUser(uid int64, u *pb_rpc.DbUser) (bool, error) {
 	buf, err1 := json.Marshal(u)
 	if err1 != nil {
 		return false, err1
 	}
 	buffer := string(buf)
-	if _, err2 := this.redisConn.Do("HSET", RedisKeyUser, uid, buffer); err2 != nil {
+	if _, err2 := this.redisConn.Do("HSET", this.RedisKeyUser, uid, buffer); err2 != nil {
 		return false, err2
 	}
 	return true, nil
 }
-
-

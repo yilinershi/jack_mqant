@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Pb.Tetris;
+using Pb.Bjl;
 using UnityEngine;
-public static class TetrisController
+public static class TetrisRoomController
 {
 
     public static List<TableInfo> allTableInfos = new List<TableInfo>();
@@ -21,9 +20,9 @@ public static class TetrisController
             allTableInfos.Add(item);
         }
         
-        var prefab = Resources.Load("Prefab/UITetris");
+        var prefab = Resources.Load("Prefab/UITetrisRoom");
         var go = Object.Instantiate(prefab) as GameObject;
-        go.AddComponent<TetrisView>();
+        go.AddComponent<TetrisRoomView>();
     }
 
     public static void OnPushRoomInfo(PushRoomInfoChange data)
@@ -34,23 +33,23 @@ public static class TetrisController
         {
             allTableInfos.Add(item);
         }
-        TetrisView.Instance.RefreshTableList();
+        TetrisRoomView.Instance.RefreshTableList();
     }
     
     
     //创建俄罗斯方法
-    public static async void CallCreateTetris( string tableName)
+    public static async void CallCreateTetrisTable( string tableName)
     {
-        var topic = "SV_Tetris/Call_CreateTable";
-        var req = new ReqCreateTetris { TableName = tableName};
-        var resp = await MqttManager.Instance.Call<ReqCreateTetris, RespCreteTetris>(topic, req);
+        var topic = "SV_Bjl/Call_CreateTable";
+        var req = new ReqCreateBjl { TableName = tableName};
+        var resp = await MqttManager.Instance.Call<ReqCreateBjl, RespCreteBjl>(topic, req);
         Debug.Log("【CallAuth】，[topic]=" + topic + "\n[req]=" + req + "\n[resp]=" + resp);
         if (resp.ErrCode != Pb.Enum.ErrorCode.Ok)
         {
             return;
         }
-        
-       
-        
     }
+    
+    
+    
 }

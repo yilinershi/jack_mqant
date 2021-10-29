@@ -2,15 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TetrisView : MonoBehaviour
+public class TetrisRoomView : MonoBehaviour
 {
-    public static TetrisView Instance;
+    public static TetrisRoomView Instance;
 
     private Button btnCreate;
     private Button btnJoin;
     private GameObject tableInfoGo;
     private Transform scrollRoot;
     private InputField labelTableName;
+    private string curSelectedTableId;
 
     public void Start()
     {
@@ -27,12 +28,12 @@ public class TetrisView : MonoBehaviour
 
     private void OnBtnCreateTetrisClick()
     {
-        TetrisController.CallCreateTetris(labelTableName.text);
+        TetrisRoomController.CallCreateTetrisTable(labelTableName.text);
     }
 
     private void OnBtnJoinTetrisClick()
     {
-        Debug.Log("OnBtnJoinTetrisClick");
+        TetrisTableController.CallJoinTetrisTable(curSelectedTableId);
     }
 
     public void RefreshTableList()
@@ -49,16 +50,21 @@ public class TetrisView : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-
         //重新加上新的
-        foreach (var tableInfo in TetrisController.allTableInfos)
+        foreach (var tableInfo in TetrisRoomController.allTableInfos)
         {
             var go = Instantiate(tableInfoGo, scrollRoot, true);
             go.SetActive(true);
             var nameLabel = go.transform.Find("Name").GetComponent<Text>();
             var creatorLabel = go.transform.Find("Creator").GetComponent<Text>();
+            var btn = go.GetComponent<Button>();
             nameLabel.text = tableInfo.Name;
             creatorLabel.text = tableInfo.CreatorNickName;
+            btn.onClick.AddListener(() =>
+            {
+                curSelectedTableId = tableInfo.TableId;
+                Debug.Log("curSelectedTableId=" + curSelectedTableId);
+            });
         }
     }
 }

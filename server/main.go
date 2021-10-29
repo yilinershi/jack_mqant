@@ -9,11 +9,11 @@ import (
 	"github.com/liangdas/mqant/registry/consul"
 	"github.com/nats-io/nats.go"
 	"net/http"
+	"server/servers/sv_bjl"
 	"server/servers/sv_db"
 	"server/servers/sv_gate"
 	"server/servers/sv_http"
 	"server/servers/sv_lobby"
-	"server/servers/sv_tetris"
 	"time"
 )
 
@@ -49,7 +49,7 @@ func main() {
 		sv_lobby.NewServerLobby(),
 		sv_db.NewServerDB(),
 		sv_http.NewServerHttp(),
-		sv_tetris.NewServerTetris(),
+		sv_bjl.NewServerBjl(),
 	)
 	if err != nil {
 		log.Error(err.Error())
