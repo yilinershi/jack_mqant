@@ -9,8 +9,8 @@ import (
 
 //PokerBjl 一组牌
 type PokerBjl struct {
-	index    uint
-	allPoker []*Poker
+	index    uint      //当前发牌发到的扑克index
+	allPoker []*Poker  //一副扑克
 }
 
 //NewPokerBjl 新建一副牌

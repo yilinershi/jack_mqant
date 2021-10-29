@@ -13,7 +13,6 @@ import (
 	"time"
 )
 
-
 //registerHandle 注册客户端请求服务
 func (this *SV_Lobby) registerHandle() {
 	this.GetServer().RegisterGO("Call_Auth", this.callAuth)
@@ -43,6 +42,7 @@ func (this *SV_Lobby) callAuth(session gate.Session, topic string, req *pb_lobby
 		resp.NickName = u.NickName
 		resp.Sex = u.Sex
 
+		session.Bind(strconv.Itoa(int(a.UID)))
 		session.Set("isLogin", "true")
 		session.Set("account", a.Account)
 		session.Set("uid", strconv.Itoa(int(a.UID)))

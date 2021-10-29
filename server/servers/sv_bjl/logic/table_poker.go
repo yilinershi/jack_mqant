@@ -128,17 +128,27 @@ func (this *tablePoker) CalResult() *pb_bjl.Result {
 		result.WinType = pb_bjl.EnumWinType_He
 	}
 
-	if this.xian1.Point == this.xian2.Point {
-		result.IsXianDui = true
-	} else {
-		result.IsXianDui = false
-	}
-
-	if this.zhuang1.Point == this.zhuang2.Point {
-		result.IsZhuangDui = true
-	} else {
-		result.IsZhuangDui = false
-	}
+	result.IsXianDui = this.xian1.Point == this.xian2.Point
+	result.IsZhuangDui = this.zhuang1.Point == this.zhuang2.Point
 
 	return result
+}
+
+func resultToString(result *pb_bjl.Result ) string {
+	str:=""
+	if result.WinType==pb_bjl.EnumWinType_Xian{
+		str+="闲赢"
+	}else if result.WinType==pb_bjl.EnumWinType_Zhuang{
+		str+="庄赢"
+	}else{
+		str+="和"
+	}
+
+	if result.IsXianDui{
+		str+="，闲对"
+	}
+	if result.IsZhuangDui{
+		str+="闲对"
+	}
+	return str
 }

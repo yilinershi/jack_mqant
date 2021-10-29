@@ -77,10 +77,15 @@ func (this *Table) OnEnterStatusReady(e *fsm.Event) {
 	}
 	this.curRoundIndex++
 
-	str:=time.Now().Format( "2006-01-02-15-04-05")  //这里格式必需是这个格式，据说是go的生日，记忆方法6-1-2-3-4-5
+	str := time.Now().Format("2006-01-02-15-04-05") //这里格式必需是这个格式，据说是go的生日，记忆方法6-1-2-3-4-5
 	this.curRoundId = fmt.Sprintf("%s-%s", this.TableId(), str)
 	//每局开始时，先清掉当局的下注流水
 	this.curRoundBetInfo = make([]*pb_bjl.BetInfo, 0)
+
+	//每局开始，每个玩家下注信息重置
+	for _, p := range this.players {
+		p.Reset()
+	}
 
 	this.broadcastStateReady(isShuffle)
 }
@@ -112,5 +117,35 @@ func (this *Table) OnEnterStatusSettle(e *fsm.Event) {
 		this.histories = this.histories[1:]
 	}
 	this.histories = append(this.histories, history)
-	log.Info(fmt.Sprintf("状态机状态切换，tableId=[%s],当前state=[%s]，[结算]=[%+v]\n", this.TableId(), this.tableFSM.Current(), result))
+	log.Info(fmt.Sprintf("状态机状态切换，tableId=[%s],当前state=[%s]，[结算]=[%+v]\n", this.TableId(), this.tableFSM.Current(), resultToString(result)))
+
+	for _, info := range this.curRoundBetInfo {
+		p:=this.FindPlayerByUserID(info.UID)
+		if p != nil {
+			if result.WinType == pb_bjl.EnumWinType_Xian && info.Area == pb_bjl.EnumBetArea_AreaXian {
+				p.winCount += 0.95 * float32(info.Count)
+			}
+			if result.WinType == pb_bjl.EnumWinType_Zhuang && info.Area == pb_bjl.EnumBetArea_AreaZhuang {
+				p.winCount += float32(info.Count)
+			}
+			if result.WinType == pb_bjl.EnumWinType_He && info.Area == pb_bjl.EnumBetArea_AreaHe {
+				p.winCount += float32(info.Count) * 8
+			}
+			if result.IsZhuangDui && info.Area == pb_bjl.EnumBetArea_AreaZhuangDui {
+				p.winCount += float32(info.Count) * 10
+			}
+			if result.IsXianDui && info.Area == pb_bjl.EnumBetArea_AreaXianDui {
+				p.winCount += float32(info.Count) * 10
+			}
+		}
+	}
+
+
+	for _, p := range this.players {
+		p.gold+=p.winCount
+
+		//todo : rpc save player db
+	}
+
+	this.broadcastStateSettle(result)
 }

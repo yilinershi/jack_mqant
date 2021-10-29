@@ -26,7 +26,9 @@ func (this *SV_Bjl) callJoinTable(session gate.Session, topic string, req *pb_bj
 	}
 
 	resp.ErrCode = pb_enum.ErrorCode_OK
-	b, _ := proto.Marshal(resp)
-	session.Send(topic, b)
+	bytes, _ := proto.Marshal(resp)
+	session.Send(topic, bytes)
+
+	session.SetPush("tableId",req.TableId) //加入桌子后，绑定session所在的tableId
 	table.PutQueue("Table/CallPlayerJoin", session, topic)
 }

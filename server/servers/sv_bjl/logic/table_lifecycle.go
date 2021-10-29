@@ -14,7 +14,11 @@ func (this *Table) GetApp() module.App {
 }
 
 func (this *Table) GetSeats() map[string]room.BasePlayer {
-	return this.players
+	m := map[string]room.BasePlayer{}
+	for _, v := range this.players {
+		m[fmt.Sprintf("%d", v.UserID)] = v
+	}
+	return m
 }
 
 func (this *Table) OnDestroy() {

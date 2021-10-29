@@ -8,79 +8,71 @@ import (
 	"time"
 )
 
-func (this *Table) broadcastTablePlayerChange(onChangePlayer *Player, changeType pb_bjl.PushTablePlayerChange_EnumChangeType) {
+func (this *Table) broadcastTablePlayerChange(onChangePlayer *Player, changeType pb_bjl.BroadcastTablePlayerChange_EnumChangeType) {
 	var pbAllPlayer []*pb_bjl.BjlPlayer
-	for _, basePlayer := range this.players {
-		p := basePlayer.(*Player)
+	for _, p := range this.players {
 		pbAllPlayer = append(pbAllPlayer, &pb_bjl.BjlPlayer{
 			NickName: p.NickName,
-			Score:    p.Score,
+			Gold:     p.gold,
 		})
 	}
 	var pbOnChangePlayer = &pb_bjl.BjlPlayer{
 		NickName: onChangePlayer.NickName,
-		Score:    onChangePlayer.Score,
+		Gold:     onChangePlayer.gold,
 	}
-	pushData := &pb_bjl.PushTablePlayerChange{
+	data := &pb_bjl.BroadcastTablePlayerChange{
 		ChangeType:     changeType,
 		OnChangePlayer: pbOnChangePlayer,
 		AllPlayer:      pbAllPlayer,
 	}
-	pushDataByte, err := proto.Marshal(pushData)
+	bytes, err := proto.Marshal(data)
 	if err != nil {
 		return
 	}
-	log.Info("[broadcastTablePlayerChange]  pushData=%+v\n", pushData)
-	for _, basePlayer := range this.players {
-		basePlayer.Session().Send("SV_Bjl/Push_TablePlayerChange", pushDataByte)
-	}
+	log.Info("[broadcastTablePlayerChange]  data=%+v\n", data)
+
+	this.NotifyCallBackMsgNR("SV_Bjl/Table/BroadcastTablePlayerChange", bytes)
 }
 
 func (this *Table) broadcastStateReady(isShuffle bool) {
-	broadcastInfo := &pb_bjl.BroadcastStatusReady{
+	data := &pb_bjl.BroadcastStatusReady{
 		GameStatus: stateToPb(this.tableFSM.Current()),
 		IsShuffle:  isShuffle,
 		RoundId:    this.curRoundId,
 		Time:       uint32(this.fsmTimer / time.Second),
 	}
-	b, err := proto.Marshal(broadcastInfo)
+	bytes, err := proto.Marshal(data)
 	if err != nil {
 		return
 	}
-	log.Info("[broadcastStateReady]  broadcastInfo=%+v\n", broadcastInfo)
-	for _, basePlayer := range this.players {
-		basePlayer.Session().Send("SV_Bjl/Table/BroadcastStateReady", b)
-	}
+	log.Info("[broadcastStateReady]  data=%+v\n", data)
+	this.NotifyCallBackMsgNR("SV_Bjl/Table/BroadcastStateReady", bytes)
 }
 
 func (this *Table) broadcastStateBet() {
-	broadcastInfo := &pb_bjl.BroadcastStatusBet{
+	data := &pb_bjl.BroadcastStatusBet{
 		GameStatus: stateToPb(this.tableFSM.Current()),
 		Time:       uint32(this.fsmTimer / time.Second),
 	}
-	b, err := proto.Marshal(broadcastInfo)
+	bytes, err := proto.Marshal(data)
 	if err != nil {
 		return
 	}
-	log.Info("[broadcastStateBet]  broadcastInfo=%+v\n", broadcastInfo)
-	for _, basePlayer := range this.players {
-		basePlayer.Session().Send("SV_Bjl/Table/BroadcastStatusBet", b)
-	}
+	log.Info("[broadcastStateBet]  data=%+v\n", data)
+	this.NotifyCallBackMsgNR("SV_Bjl/Table/BroadcastStateBet", bytes)
 }
 
 func (this *Table) broadcastStateSend() {
-	broadcastInfo := &pb_bjl.BroadcastStatusSend{
+	data := &pb_bjl.BroadcastStatusSend{
 		GameStatus: stateToPb(this.tableFSM.Current()),
 		Time:       uint32(this.fsmTimer / time.Second),
 	}
-	b, err := proto.Marshal(broadcastInfo)
+	bytes, err := proto.Marshal(data)
 	if err != nil {
 		return
 	}
-	log.Info("[broadcastStateSend]  broadcastInfo=%+v\n", broadcastInfo)
-	for _, basePlayer := range this.players {
-		basePlayer.Session().Send("SV_Bjl/Table/BroadcastStateSend", b)
-	}
+	log.Info("[broadcastStateSend]  data=%+v\n", data)
+	this.NotifyCallBackMsgNR("SV_Bjl/Table/BroadcastStateSend", bytes)
 }
 
 func (this *Table) broadcastStateShow() {
@@ -97,18 +89,35 @@ func (this *Table) broadcastStateShow() {
 		zhuang = append(zhuang, &this.curTablePoker.zhuang3.Poker)
 	}
 
-	broadcastInfo := &pb_bjl.BroadcastStatusShow{
+	data := &pb_bjl.BroadcastStatusShow{
 		GameStatus: stateToPb(this.tableFSM.Current()),
 		Time:       uint32(this.fsmTimer / time.Second),
 		Xian:       xian,
+		Zhuang:     zhuang,
 	}
-	b, err := proto.Marshal(broadcastInfo)
+	bytes, err := proto.Marshal(data)
 	if err != nil {
 		return
 	}
-	log.Info("[broadcastStateReady]  broadcastInfo=%+v\n", broadcastInfo)
-	for _, basePlayer := range this.players {
-		basePlayer.Session().Send("SV_Bjl/Table/BroadcastStatusChange", b)
+	log.Info("[broadcastStateReady]  data=%+v\n", data)
+	this.NotifyCallBackMsgNR("SV_Bjl/Table/BroadcastStateShow", bytes)
+}
+
+func (this *Table) broadcastStateSettle(result *pb_bjl.Result) {
+	data := &pb_bjl.BroadcastStatusSettle{
+		GameStatus: stateToPb(this.tableFSM.Current()),
+		Time:       uint32(this.fsmTimer / time.Second),
+		Result:     result,
+	}
+	for _, p := range this.players {
+		data.GoldChange = p.winCount
+		data.Gold = p.gold
+		log.Info("[broadcastStateReady]  data=%+v\n", data)
+		bytes, err := proto.Marshal(data)
+		if err != nil {
+			return
+		}
+		this.SendCallBackMsgNR([]string{p.Session().GetSessionID()}, "SV_Bjl/Table/BroadcastStateSettle", bytes)
 	}
 }
 

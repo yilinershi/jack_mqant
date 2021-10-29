@@ -6,11 +6,11 @@ import (
 )
 
 type Poker struct {
-	pb_common.Poker
-	Score int //分值
+	pb_common.Poker     //继承protobuf
+	Score           int //分值,每个游戏的分值不同
 }
 
-// NewPoker 新建卡牌
+// NewPoker 新建一张牌
 func NewPoker(hua pb_enum.PokerHua, point pb_enum.PokerPoint) *Poker {
 	p := new(Poker)
 	p.Hua = hua
@@ -21,24 +21,24 @@ func NewPoker(hua pb_enum.PokerHua, point pb_enum.PokerPoint) *Poker {
 
 //String 转换成字符串
 func (this *Poker) String() string {
-	strResult := ""
+	str := ""
 	// 花色
 	switch this.Hua {
 	case pb_enum.PokerHua_Tao:
 		{
-			strResult = "♠"
+			str = "♠"
 		}
 	case pb_enum.PokerHua_Xin:
 		{
-			strResult = "♥"
+			str = "♥"
 		}
 	case pb_enum.PokerHua_Mei:
 		{
-			strResult = "♣"
+			str = "♣"
 		}
 	case pb_enum.PokerHua_Fang:
 		{
-			strResult = "♦"
+			str = "♦"
 		}
 	}
 
@@ -46,146 +46,89 @@ func (this *Poker) String() string {
 	switch this.Point {
 	case pb_enum.PokerPoint_Point3:
 		{
-			strResult = strResult + "3"
+			str = str + "3"
 		}
 	case pb_enum.PokerPoint_Point4:
 		{
-			strResult = strResult + "4"
+			str = str + "4"
 		}
 	case pb_enum.PokerPoint_Point5:
 		{
-			strResult = strResult + "5"
+			str = str + "5"
 		}
 	case pb_enum.PokerPoint_Point6:
 		{
-			strResult = strResult + "6"
+			str = str + "6"
 		}
 	case pb_enum.PokerPoint_Point7:
 		{
-			strResult = strResult + "7"
+			str = str + "7"
 		}
 	case pb_enum.PokerPoint_Point8:
 		{
-			strResult = strResult + "8"
+			str = str + "8"
 		}
 	case pb_enum.PokerPoint_Point9:
 		{
-			strResult = strResult + "9"
+			str = str + "9"
 		}
 	case pb_enum.PokerPoint_PointT:
 		{
-			strResult = strResult + "T"
+			str = str + "T"
 		}
 	case pb_enum.PokerPoint_PointJ:
 		{
-			strResult = strResult + "J"
+			str = str + "J"
 		}
 	case pb_enum.PokerPoint_PointQ:
 		{
-			strResult = strResult + "Q"
+			str = str + "Q"
 		}
 	case pb_enum.PokerPoint_PointK:
 		{
-			strResult = strResult + "K"
+			str = str + "K"
 		}
 	case pb_enum.PokerPoint_PointA:
 		{
-			strResult = strResult + "A"
+			str = str + "A"
 		}
 	case pb_enum.PokerPoint_Point2:
 		{
-			strResult = strResult + "2"
+			str = str + "2"
 		}
-
 	}
-	return strResult
+	return str
 }
 
 func toBjlPokerScore(pokerPoint pb_enum.PokerPoint) int {
 	switch pokerPoint {
 	case pb_enum.PokerPoint_Point3:
-		{
-			return 3
-		}
+		return 3
 	case pb_enum.PokerPoint_Point4:
-		{
-			return 4
-		}
+		return 4
 	case pb_enum.PokerPoint_Point5:
-		{
-			return 5
-		}
+		return 5
 	case pb_enum.PokerPoint_Point6:
-		{
-			return 6
-		}
+		return 6
 	case pb_enum.PokerPoint_Point7:
-		{
-			return 7
-		}
+		return 7
 	case pb_enum.PokerPoint_Point8:
-		{
-			return 8
-		}
+		return 8
 	case pb_enum.PokerPoint_Point9:
-		{
-			return 9
-		}
+		return 9
 	case pb_enum.PokerPoint_PointT:
-		{
-			return 0
-		}
+		return 0
 	case pb_enum.PokerPoint_PointJ:
-		{
-			return 0
-		}
+		return 0
 	case pb_enum.PokerPoint_PointQ:
-		{
-			return 0
-		}
+		return 0
 	case pb_enum.PokerPoint_PointK:
-		{
-			return 0
-		}
+		return 0
 	case pb_enum.PokerPoint_PointA:
-		{
-			return 1
-		}
+		return 1
 	case pb_enum.PokerPoint_Point2:
-		{
-			return 2
-		}
+		return 2
 	default:
 		return 0
 	}
-
 }
-
-//
-//// 从牌值获取花色
-//func toFlower(id int) int {
-//	if id <= 0 || id > 54 {
-//		return flowerNIL
-//	}
-//	return ((id - 1) / 13) + 1
-//}
-////
-////// 从牌值获取点数
-////func toPointAndScore(id int) (point int, score int) {
-////	if id <= 0 {
-////		return cardPointNIL, 0
-////	}
-////	if id == 53 {
-////		return cardPointX, 0 // 小王
-////	}
-////	if id == 54 {
-////		return cardPointY, 0 // 大王
-////	}
-////	point = (id-1)%13 + 1
-////	if point == cardPointT || point == cardPointJ || point == cardPointQ || point == cardPointK {
-////		score = 0
-////	} else {
-////		score = point
-////	}
-////	return point, score
-////}
