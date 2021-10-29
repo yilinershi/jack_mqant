@@ -73,3 +73,23 @@ func (this *Table) FindPlayerByUserID(uid int64) *Player {
 	}
 	return nil
 }
+
+//GetCurState 获取当前状态机的状态(protobuf格式)
+func (this *Table) GetCurState()pb_bjl.EnumGameStatus  {
+	switch this.tableFSM.Current() {
+	case fsmState.none:
+		return pb_bjl.EnumGameStatus_None
+	case fsmState.ready:
+		return pb_bjl.EnumGameStatus_Ready
+	case fsmState.bet:
+		return pb_bjl.EnumGameStatus_Bet
+	case fsmState.send:
+		return pb_bjl.EnumGameStatus_Send
+	case fsmState.show:
+		return pb_bjl.EnumGameStatus_Show
+	case fsmState.settle:
+		return pb_bjl.EnumGameStatus_Settle
+	default:
+		return pb_bjl.EnumGameStatus_None
+	}
+}

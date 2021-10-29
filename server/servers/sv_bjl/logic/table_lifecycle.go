@@ -33,10 +33,10 @@ func (this *Table) OnCreate() {
 
 	//初始化状态机
 	this.tableFSM = fsm.NewFSM(
-		fsmState.none, //起始状态
+		"none", //起始状态
 		fsm.Events{
 			{Name: fsmEvent.enterReady, Src: []string{fsmState.none, fsmState.settle}, Dst: fsmState.ready}, //定义可以由哪些状态切换到下注状态，可以由none或settle切换到ready
-			{Name: fsmEvent.enterBet, Src: []string{fsmState.ready}, Dst: fsmState.bet},                     //定义可以由哪些状态切换到下注状态
+			{Name: fsmEvent.enterBet, Src: []string{fsmState.ready}, Dst: fsmState.bet},                                                                     //定义可以由哪些状态切换到下注状态
 			{Name: fsmEvent.enterSend, Src: []string{fsmState.bet}, Dst: fsmState.send},
 			{Name: fsmEvent.enterShow, Src: []string{fsmState.send}, Dst: fsmState.show},
 			{Name: fsmEvent.enterSettle, Src: []string{fsmState.show}, Dst: fsmState.settle},

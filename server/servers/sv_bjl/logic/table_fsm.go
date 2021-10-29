@@ -34,7 +34,7 @@ var fsmEvent = struct {
 	enterShow   string
 	enterSettle string
 }{
-	enterAny:    "enter_state", //进入任意阶段，key的规则可以自己看fsm库源码
+	enterAny:    "enter_state", //进入任意阶段的key
 	enterReady:  "enter_ready",
 	enterBet:    "enter_bet",
 	enterSend:   "enter_send",
@@ -61,11 +61,11 @@ var fsmTimeOut = struct {
 
 //OnEnterStatusAny 进入任意阶段,都给房间内的所有session广播状态机状态改变
 func (this *Table) OnEnterStatusAny(e *fsm.Event) {
-	log.Info(fmt.Sprintf("状态机状态切换，tableId=%s,当前state=%s\n", this.TableId(), this.tableFSM.Current()))
+	log.Info(fmt.Sprintf("on enter_any，tableId=%s,当前state=%s\n", this.TableId(), this.tableFSM.Current()))
 }
 
 func (this *Table) OnEnterStatusReady(e *fsm.Event) {
-	log.Info(fmt.Sprintf("状态机状态切换，tableId=[%s],当前state=[%s]，event=%+v\n", this.TableId(), this.tableFSM.Current(), e))
+	log.Info(fmt.Sprintf("on enter_ready，tableId=[%s],当前state=[%s]，event=%+v\n", this.TableId(), this.tableFSM.Current(), e))
 	//每5局重取一副牌，洗一次牌
 	isShuffle := false
 	if this.curRoundIndex%5 == 0 {
@@ -120,7 +120,7 @@ func (this *Table) OnEnterStatusSettle(e *fsm.Event) {
 	log.Info(fmt.Sprintf("状态机状态切换，tableId=[%s],当前state=[%s]，[结算]=[%+v]\n", this.TableId(), this.tableFSM.Current(), resultToString(result)))
 
 	for _, info := range this.curRoundBetInfo {
-		p:=this.FindPlayerByUserID(info.UID)
+		p := this.FindPlayerByUserID(info.UID)
 		if p != nil {
 			if result.WinType == pb_bjl.EnumWinType_Xian && info.Area == pb_bjl.EnumBetArea_AreaXian {
 				p.winCount += 0.95 * float32(info.Count)
@@ -140,9 +140,8 @@ func (this *Table) OnEnterStatusSettle(e *fsm.Event) {
 		}
 	}
 
-
 	for _, p := range this.players {
-		p.gold+=p.winCount
+		p.gold += p.winCount
 
 		//todo : rpc save player db
 	}

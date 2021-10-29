@@ -36,7 +36,7 @@ func (this *Table) broadcastTablePlayerChange(onChangePlayer *Player, changeType
 
 func (this *Table) broadcastStateReady(isShuffle bool) {
 	data := &pb_bjl.BroadcastStatusReady{
-		GameStatus: stateToPb(this.tableFSM.Current()),
+		GameStatus: this.GetCurState(),
 		IsShuffle:  isShuffle,
 		RoundId:    this.curRoundId,
 		Time:       uint32(this.fsmTimer / time.Second),
@@ -51,7 +51,7 @@ func (this *Table) broadcastStateReady(isShuffle bool) {
 
 func (this *Table) broadcastStateBet() {
 	data := &pb_bjl.BroadcastStatusBet{
-		GameStatus: stateToPb(this.tableFSM.Current()),
+		GameStatus: this.GetCurState(),
 		Time:       uint32(this.fsmTimer / time.Second),
 	}
 	bytes, err := proto.Marshal(data)
@@ -64,7 +64,7 @@ func (this *Table) broadcastStateBet() {
 
 func (this *Table) broadcastStateSend() {
 	data := &pb_bjl.BroadcastStatusSend{
-		GameStatus: stateToPb(this.tableFSM.Current()),
+		GameStatus: this.GetCurState(),
 		Time:       uint32(this.fsmTimer / time.Second),
 	}
 	bytes, err := proto.Marshal(data)
@@ -90,7 +90,7 @@ func (this *Table) broadcastStateShow() {
 	}
 
 	data := &pb_bjl.BroadcastStatusShow{
-		GameStatus: stateToPb(this.tableFSM.Current()),
+		GameStatus: this.GetCurState(),
 		Time:       uint32(this.fsmTimer / time.Second),
 		Xian:       xian,
 		Zhuang:     zhuang,
@@ -105,37 +105,18 @@ func (this *Table) broadcastStateShow() {
 
 func (this *Table) broadcastStateSettle(result *pb_bjl.Result) {
 	data := &pb_bjl.BroadcastStatusSettle{
-		GameStatus: stateToPb(this.tableFSM.Current()),
+		GameStatus: this.GetCurState(),
 		Time:       uint32(this.fsmTimer / time.Second),
 		Result:     result,
 	}
 	for _, p := range this.players {
 		data.GoldChange = p.winCount
 		data.Gold = p.gold
-		log.Info("[broadcastStateReady]  data=%+v\n", data)
+		log.Info("[broadcastStateSettle]  data=%+v\n", data)
 		bytes, err := proto.Marshal(data)
 		if err != nil {
 			return
 		}
 		this.SendCallBackMsgNR([]string{p.Session().GetSessionID()}, "SV_Bjl/Table/BroadcastStateSettle", bytes)
-	}
-}
-
-func stateToPb(state string) pb_bjl.EnumGameStatus {
-	switch state {
-	case fsmState.none:
-		return pb_bjl.EnumGameStatus_None
-	case fsmState.ready:
-		return pb_bjl.EnumGameStatus_Ready
-	case fsmState.bet:
-		return pb_bjl.EnumGameStatus_Bet
-	case fsmState.send:
-		return pb_bjl.EnumGameStatus_Send
-	case fsmState.show:
-		return pb_bjl.EnumGameStatus_Show
-	case fsmState.settle:
-		return pb_bjl.EnumGameStatus_Settle
-	default:
-		return pb_bjl.EnumGameStatus_None
 	}
 }
