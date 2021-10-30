@@ -10,7 +10,7 @@ public class LobbyView : MonoBehaviour
     private Text LabelDiamond;
     private Text LabelGold;
 
-    private Button btnTetris;
+    private Button btnBjl;
 
     public void Start()
     {
@@ -19,7 +19,7 @@ public class LobbyView : MonoBehaviour
         LabelDiamond = transform.Find("Canvas/LabelDiamond").GetComponent<Text>();
         LabelGold = transform.Find("Canvas/LabelGold").GetComponent<Text>();
         ImageUerIcon = transform.Find("Canvas/Image/UserIcon").GetComponent<Image>();
-        btnTetris = transform.Find("Canvas/ButtonCreateTetris").GetComponent<Button>();
+        btnBjl = transform.Find("Canvas/ButtonBjl").GetComponent<Button>();
         RefreshAll();
     }
 
@@ -29,7 +29,7 @@ public class LobbyView : MonoBehaviour
         RefreshGold();
         RefreshNickName();
         RefreshUserId();
-        btnTetris.onClick.AddListener(onBtnTetrisClick);
+        btnBjl.onClick.AddListener(onBtnBjlClick);
     }
 
     private void RefreshNickName()
@@ -52,8 +52,8 @@ public class LobbyView : MonoBehaviour
         LabelGold.text = "金币:" + Session.User.Gold;
     }
 
-    private void onBtnTetrisClick()
+    private void onBtnBjlClick()
     {
-        TetrisController.CallSubscribeRoomInfo(true);
+        BjlRoomController.CallSubscribeRoomInfo(true);
     }
 }

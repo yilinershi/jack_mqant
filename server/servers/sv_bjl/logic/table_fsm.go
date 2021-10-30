@@ -80,7 +80,7 @@ func (this *Table) OnEnterStatusReady(e *fsm.Event) {
 	str := time.Now().Format("2006-01-02-15-04-05") //这里格式必需是这个格式，据说是go的生日，记忆方法6-1-2-3-4-5
 	this.curRoundId = fmt.Sprintf("%s-%s", this.TableId(), str)
 	//每局开始时，先清掉当局的下注流水
-	this.curRoundBetInfo = make([]*pb_bjl.BetInfo, 0)
+	this.curRoundBetWaterList = make([]*pb_bjl.BetInfo, 0)
 
 	//每局开始，每个玩家下注信息重置
 	for _, p := range this.players {
@@ -111,7 +111,7 @@ func (this *Table) OnEnterStatusShow(e *fsm.Event) {
 
 func (this *Table) OnEnterStatusSettle(e *fsm.Event) {
 	result := this.curTablePoker.CalResult()
-	history := NewHistory(this.curRoundIndex, this.curRoundBetInfo, this.curTablePoker, result)
+	history := NewHistory(this.curRoundIndex, this.curRoundBetWaterList, this.curTablePoker, result)
 	//只记录该桌子上最近20局的记录，如果记录太多，删掉前记录
 	if len(this.histories) >= 20 {
 		this.histories = this.histories[1:]
@@ -119,32 +119,32 @@ func (this *Table) OnEnterStatusSettle(e *fsm.Event) {
 	this.histories = append(this.histories, history)
 	log.Info(fmt.Sprintf("状态机状态切换，tableId=[%s],当前state=[%s]，[结算]=[%+v]\n", this.TableId(), this.tableFSM.Current(), resultToString(result)))
 
-	for _, info := range this.curRoundBetInfo {
-		p := this.FindPlayerByUserID(info.UID)
-		if p != nil {
+	for _, info := range this.curRoundBetWaterList {
+		if p, isOk := this.players[info.UID]; isOk {
 			if result.WinType == pb_bjl.EnumWinType_Xian && info.Area == pb_bjl.EnumBetArea_AreaXian {
-				p.winCount += 0.95 * float32(info.Count)
+				p.winCount += 0.95 * info.Count
+				p.gold += p.winCount + info.Count //加钱时，要把下注的钱也加回来
 			}
 			if result.WinType == pb_bjl.EnumWinType_Zhuang && info.Area == pb_bjl.EnumBetArea_AreaZhuang {
-				p.winCount += float32(info.Count)
+				p.winCount += info.Count
+				p.gold += p.winCount + info.Count
 			}
 			if result.WinType == pb_bjl.EnumWinType_He && info.Area == pb_bjl.EnumBetArea_AreaHe {
-				p.winCount += float32(info.Count) * 8
+				p.winCount += info.Count * 8
+				p.gold += p.winCount + info.Count
 			}
 			if result.IsZhuangDui && info.Area == pb_bjl.EnumBetArea_AreaZhuangDui {
-				p.winCount += float32(info.Count) * 10
+				p.winCount += info.Count * 10
+				p.gold += p.winCount + info.Count
 			}
 			if result.IsXianDui && info.Area == pb_bjl.EnumBetArea_AreaXianDui {
-				p.winCount += float32(info.Count) * 10
+				p.winCount += info.Count * 10
+				p.gold += p.winCount + info.Count
 			}
 		}
 	}
 
-	for _, p := range this.players {
-		p.gold += p.winCount
-
-		//todo : rpc save player db
-	}
+	//todo: save player gold to redis
 
 	this.broadcastStateSettle(result)
 }

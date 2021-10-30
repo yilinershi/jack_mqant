@@ -24,17 +24,24 @@ namespace Pb.Enum {
     static EnumReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgplbnVtLnByb3RvEgdwYl9lbnVtKskBCglFcnJvckNvZGUSCwoHRGVmYXVs",
+            "CgplbnVtLnByb3RvEgdwYl9lbnVtKqICCglFcnJvckNvZGUSCwoHRGVmYXVs",
             "dBAAEgYKAk9LEAESDgoKRW50cnlFcnJvchACEhoKFkxvZ2luQWNjb3VudFVu",
             "RXhpeHRlbnQQAxIWChJMb2dpblBhc3N3b3JkRXJyb3IQBBIXChNSZWdpc3Rl",
-            "ckFjY291bnRFeGl0EAUSDgoKQXV0aEZhaWxlZBAGEhIKDlJvb21VbkV4aXN0",
-            "ZW50EAcSEgoORGVza1VuRXhpc3RlbnQQCBISCg5EZXNrUGxheWVyRnVsbBAJ",
-            "KicKA1NleBIKCgZVbmtub3cQABIICgRNYWxlEAESCgoGRmVtYWxlEAIqFgoI",
-            "Um9vbVR5cGUSCgoGVGV0cmlzEABCHVoRc2VydmVyL3BiL3BiX2VudW2qAgdQ",
-            "Yi5FbnVtYgZwcm90bzM="));
+            "ckFjY291bnRFeGl0EAUSDgoKQXV0aEZhaWxlZBAGEhMKD1RhYmxlVW5FeGlz",
+            "dGVudBAHEhMKD1RhYmxlUGxheWVyRnVsbBAIEhIKDlRhYmxlSXNTdGFydGVk",
+            "EAkSIQodVGFibGVHYW1lU3RhcnRQZXJtaXNzaW9uTGltaXQQChIXChNUYWJs",
+            "ZVN0YXRlQ2FuTm90QmV0EAsSGQoVVGFibGVCZXRNb25leVVuRW5vdWdoEAwq",
+            "JwoDU2V4EgoKBlVua25vdxAAEggKBE1hbGUQARIKCgZGZW1hbGUQAioWCghS",
+            "b29tVHlwZRIKCgZUZXRyaXMQACo4CghQb2tlckh1YRIHCgNOaWwQABIHCgNU",
+            "YW8QARIHCgNYaW4QAhIHCgNNZWkQAxIICgRGYW5nEAQqtgEKClBva2VyUG9p",
+            "bnQSDAoIUG9pbnROaWwQABIKCgZQb2ludEEQARIKCgZQb2ludDIQAhIKCgZQ",
+            "b2ludDMQAxIKCgZQb2ludDQQBBIKCgZQb2ludDUQBRIKCgZQb2ludDYQBhIK",
+            "CgZQb2ludDcQBxIKCgZQb2ludDgQCBIKCgZQb2ludDkQCRIKCgZQb2ludFQQ",
+            "ChIKCgZQb2ludEoQCxIKCgZQb2ludFEQDBIKCgZQb2ludEsQDUIdWhFzZXJ2",
+            "ZXIvcGIvcGJfZW51baoCB1BiLkVudW1iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Pb.Enum.ErrorCode), typeof(global::Pb.Enum.Sex), typeof(global::Pb.Enum.RoomType), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Pb.Enum.ErrorCode), typeof(global::Pb.Enum.Sex), typeof(global::Pb.Enum.RoomType), typeof(global::Pb.Enum.PokerHua), typeof(global::Pb.Enum.PokerPoint), }, null, null));
     }
     #endregion
 
@@ -70,17 +77,29 @@ namespace Pb.Enum {
     /// </summary>
     [pbr::OriginalName("AuthFailed")] AuthFailed = 6,
     /// <summary>
-    ///房间不存在
-    /// </summary>
-    [pbr::OriginalName("RoomUnExistent")] RoomUnExistent = 7,
-    /// <summary>
     ///桌子不存在
     /// </summary>
-    [pbr::OriginalName("DeskUnExistent")] DeskUnExistent = 8,
+    [pbr::OriginalName("TableUnExistent")] TableUnExistent = 7,
     /// <summary>
     ///桌子上玩家已满
     /// </summary>
-    [pbr::OriginalName("DeskPlayerFull")] DeskPlayerFull = 9,
+    [pbr::OriginalName("TablePlayerFull")] TablePlayerFull = 8,
+    /// <summary>
+    ///桌子上的游戏已经开始了
+    /// </summary>
+    [pbr::OriginalName("TableIsStarted")] TableIsStarted = 9,
+    /// <summary>
+    ///桌子上开始游戏的权限不对
+    /// </summary>
+    [pbr::OriginalName("TableGameStartPermissionLimit")] TableGameStartPermissionLimit = 10,
+    /// <summary>
+    ///桌子当前状态下不能下注
+    /// </summary>
+    [pbr::OriginalName("TableStateCanNotBet")] TableStateCanNotBet = 11,
+    /// <summary>
+    ///下注的钱不足
+    /// </summary>
+    [pbr::OriginalName("TableBetMoneyUnEnough")] TableBetMoneyUnEnough = 12,
   }
 
   public enum Sex {
@@ -103,6 +122,31 @@ namespace Pb.Enum {
     ///俄罗斯方块
     /// </summary>
     [pbr::OriginalName("Tetris")] Tetris = 0,
+  }
+
+  public enum PokerHua {
+    [pbr::OriginalName("Nil")] Nil = 0,
+    [pbr::OriginalName("Tao")] Tao = 1,
+    [pbr::OriginalName("Xin")] Xin = 2,
+    [pbr::OriginalName("Mei")] Mei = 3,
+    [pbr::OriginalName("Fang")] Fang = 4,
+  }
+
+  public enum PokerPoint {
+    [pbr::OriginalName("PointNil")] PointNil = 0,
+    [pbr::OriginalName("PointA")] PointA = 1,
+    [pbr::OriginalName("Point2")] Point2 = 2,
+    [pbr::OriginalName("Point3")] Point3 = 3,
+    [pbr::OriginalName("Point4")] Point4 = 4,
+    [pbr::OriginalName("Point5")] Point5 = 5,
+    [pbr::OriginalName("Point6")] Point6 = 6,
+    [pbr::OriginalName("Point7")] Point7 = 7,
+    [pbr::OriginalName("Point8")] Point8 = 8,
+    [pbr::OriginalName("Point9")] Point9 = 9,
+    [pbr::OriginalName("PointT")] PointT = 10,
+    [pbr::OriginalName("PointJ")] PointJ = 11,
+    [pbr::OriginalName("PointQ")] PointQ = 12,
+    [pbr::OriginalName("PointK")] PointK = 13,
   }
 
   #endregion

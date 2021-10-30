@@ -7,31 +7,34 @@ import (
 	"github.com/liangdas/mqant/log"
 	"github.com/liangdas/mqant/module"
 	"github.com/looplab/fsm"
+	"google.golang.org/protobuf/proto"
 	"reflect"
 	"server/pb/pb_bjl"
+	"server/pb/pb_common"
+	"server/pb/pb_enum"
 	"time"
 )
 
 type Table struct {
-	room.QTable                       //基类
-	tableFSM        *fsm.FSM          //桌子的状态机
-	module          module.RPCModule  //所在module
-	players         []*Player         //桌子上的玩家
-	fsmTimer        time.Duration     //状态机计时器
-	curRoundIndex   uint32            //当前桌子的第几轮
-	curRoundId      string            //当前桌子的Id
-	curRoundBetInfo []*pb_bjl.BetInfo //当前桌子上当前局的下注流水
-	minBet          uint32            //最小下注额度
-	maxBet          uint32            //最大下注额度
-	histories       []*deskHistory    //桌子上历史结果，只记录近20局的记录
-	allPoker        *PokerBjl         //所有的扑克牌
-	curTablePoker   *tablePoker       //当前桌子上发的牌
+	room.QTable                            //基类
+	tableFSM             *fsm.FSM          //桌子的状态机
+	module               module.RPCModule  //所在module
+	players              map[int64]*Player //桌子上的玩家
+	fsmTimer             time.Duration     //状态机计时器
+	curRoundIndex        uint32            //当前桌子的第几轮
+	curRoundId           string            //当前桌子的Id
+	curRoundBetWaterList []*pb_bjl.BetInfo //当前桌子上当前局的下注流水
+	minBet               uint32            //最小下注额度
+	maxBet               uint32            //最大下注额度
+	histories            []*deskHistory    //桌子上历史结果，只记录近20局的记录
+	allPoker             *PokerBjl         //所有的扑克牌
+	curTablePoker        *tablePoker       //当前桌子上发的牌
 }
 
 func NewTable(module module.RPCModule, opts ...room.Option) (*Table, error) {
 	t := &Table{
 		module:        module,
-		players:       make([]*Player, 0),
+		players:       make(map[int64]*Player, 0),
 		curRoundIndex: 0,
 	}
 	opts = append(opts, room.TimeOut(100*365*24*60*60))         //房间内没有消息活动的超时时间，这里100年不自动关闭
@@ -53,6 +56,22 @@ func NewTable(module module.RPCModule, opts ...room.Option) (*Table, error) {
 
 func (this *Table) registerRouter() {
 	this.Register("Table/CallPlayerJoin", this.onPlayerJoin)
+	this.Register("Table/CallBet", this.onPlayerBet)
+	this.Register("Table/CallHeartbeat", this.onPlayerHeartbeat)
+}
+
+func (this *Table) onPlayerHeartbeat(session gate.Session, topic string,req *pb_common.ReqHeartbeat) {
+	basePlayer := this.FindPlayer(session)
+	basePlayer.OnRequest(session)  //记录桌子上的玩家在发送消息
+	resp:=&pb_common.RespHeartbeat{
+		Pong: "pong",
+	}
+	bytes, err := proto.Marshal(resp)
+	if err != nil {
+		return
+	}
+	log.Info("[onPlayerHeartbeat]  data=%+v\n", resp)
+	session.Send(topic,bytes)
 }
 
 func (this *Table) onPlayerJoin(session gate.Session, topic string) {
@@ -60,22 +79,49 @@ func (this *Table) onPlayerJoin(session gate.Session, topic string) {
 	player.Bind(session)
 	player.OnRequest(session)
 	player.UserID = session.GetUserIdInt64()
-	this.players = append(this.players, player)
+	this.players[player.UserID] = player
 	//向桌子上广播玩家进入
 	this.broadcastTablePlayerChange(player, pb_bjl.BroadcastTablePlayerChange_Join)
 }
 
-func (this *Table) FindPlayerByUserID(uid int64) *Player {
-	for _, p := range this.players {
-		if p.UserID == uid {
-			return p
+func (this *Table) onPlayerBet(session gate.Session, topic string, req *pb_bjl.ReqBet) {
+	basePlayer := this.FindPlayer(session)
+	basePlayer.OnRequest(session)  //记录桌子上的玩家在发送消息
+	resp := new(pb_bjl.RespBet)
+	if this.tableFSM.Current() != fsmState.bet {
+		resp.ErrCode = pb_enum.ErrorCode_TableStateCanNotBet
+	} else {
+		p := basePlayer.(*Player)
+		if p.gold < req.Count {
+			resp.ErrCode = pb_enum.ErrorCode_TableBetMoneyUnEnough
+		} else {
+			p.gold = p.gold - req.Count
+			resp.ErrCode = pb_enum.ErrorCode_OK
+			resp.Gold = p.gold
 		}
 	}
-	return nil
+
+	bytes, err := proto.Marshal(resp)
+	if err != nil {
+		return
+	}
+	log.Info("[onPlayerBet]  resp=%+v\n", resp)
+	session.Send(topic, bytes)
+
+	if resp.ErrCode == pb_enum.ErrorCode_OK {
+		uid := session.GetUserIdInt64()
+		betInfo := &pb_bjl.BetInfo{
+			UID:   uid,
+			Count: req.Count,
+			Area:  req.Area,
+		}
+		this.curRoundBetWaterList = append(this.curRoundBetWaterList, betInfo)
+		this.broadcastPlayerBet(betInfo)
+	}
 }
 
 //GetCurState 获取当前状态机的状态(protobuf格式)
-func (this *Table) GetCurState()pb_bjl.EnumGameStatus  {
+func (this *Table) GetCurState() pb_bjl.EnumGameStatus {
 	switch this.tableFSM.Current() {
 	case fsmState.none:
 		return pb_bjl.EnumGameStatus_None

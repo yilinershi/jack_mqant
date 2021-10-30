@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 889332753696098879}
   - component: {fileID: 1234143138197462944}
   m_Layer: 5
-  m_Name: ButtonCreateTetris
+  m_Name: ButtonBjl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,7 +632,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: tetris
+  m_Text: Bjl
 --- !u!1 &5625240829907617362
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,8 +15,8 @@ func (this *Table) GetApp() module.App {
 
 func (this *Table) GetSeats() map[string]room.BasePlayer {
 	m := map[string]room.BasePlayer{}
-	for _, v := range this.players {
-		m[fmt.Sprintf("%d", v.UserID)] = v
+	for k, v := range this.players {
+		m[fmt.Sprintf("%d", k)] = v
 	}
 	return m
 }

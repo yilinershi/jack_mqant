@@ -76,6 +76,100 @@ func (x *Poker) GetPoint() pb_enum.PokerPoint {
 	return pb_enum.PokerPoint_PointNil
 }
 
+type ReqHeartbeat struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ping string `protobuf:"bytes,1,opt,name=Ping,proto3" json:"Ping,omitempty"`
+}
+
+func (x *ReqHeartbeat) Reset() {
+	*x = ReqHeartbeat{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_common_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReqHeartbeat) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReqHeartbeat) ProtoMessage() {}
+
+func (x *ReqHeartbeat) ProtoReflect() protoreflect.Message {
+	mi := &file_common_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReqHeartbeat.ProtoReflect.Descriptor instead.
+func (*ReqHeartbeat) Descriptor() ([]byte, []int) {
+	return file_common_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ReqHeartbeat) GetPing() string {
+	if x != nil {
+		return x.Ping
+	}
+	return ""
+}
+
+type RespHeartbeat struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Pong string `protobuf:"bytes,1,opt,name=Pong,proto3" json:"Pong,omitempty"`
+}
+
+func (x *RespHeartbeat) Reset() {
+	*x = RespHeartbeat{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_common_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RespHeartbeat) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespHeartbeat) ProtoMessage() {}
+
+func (x *RespHeartbeat) ProtoReflect() protoreflect.Message {
+	mi := &file_common_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespHeartbeat.ProtoReflect.Descriptor instead.
+func (*RespHeartbeat) Descriptor() ([]byte, []int) {
+	return file_common_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *RespHeartbeat) GetPong() string {
+	if x != nil {
+		return x.Pong
+	}
+	return ""
+}
+
 var File_common_proto protoreflect.FileDescriptor
 
 var file_common_proto_rawDesc = []byte{
@@ -86,10 +180,15 @@ var file_common_proto_rawDesc = []byte{
 	0x5f, 0x65, 0x6e, 0x75, 0x6d, 0x2e, 0x50, 0x6f, 0x6b, 0x65, 0x72, 0x48, 0x75, 0x61, 0x52, 0x03,
 	0x48, 0x75, 0x61, 0x12, 0x29, 0x0a, 0x05, 0x50, 0x6f, 0x69, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x0e, 0x32, 0x13, 0x2e, 0x70, 0x62, 0x5f, 0x65, 0x6e, 0x75, 0x6d, 0x2e, 0x50, 0x6f, 0x6b,
-	0x65, 0x72, 0x50, 0x6f, 0x69, 0x6e, 0x74, 0x52, 0x05, 0x50, 0x6f, 0x69, 0x6e, 0x74, 0x42, 0x21,
-	0x5a, 0x13, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x70, 0x62, 0x2f, 0x70, 0x62, 0x5f, 0x63,
-	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0xaa, 0x02, 0x09, 0x50, 0x62, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f,
-	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x72, 0x50, 0x6f, 0x69, 0x6e, 0x74, 0x52, 0x05, 0x50, 0x6f, 0x69, 0x6e, 0x74, 0x22, 0x22,
+	0x0a, 0x0c, 0x52, 0x65, 0x71, 0x48, 0x65, 0x61, 0x72, 0x74, 0x62, 0x65, 0x61, 0x74, 0x12, 0x12,
+	0x0a, 0x04, 0x50, 0x69, 0x6e, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x50, 0x69,
+	0x6e, 0x67, 0x22, 0x23, 0x0a, 0x0d, 0x52, 0x65, 0x73, 0x70, 0x48, 0x65, 0x61, 0x72, 0x74, 0x62,
+	0x65, 0x61, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x50, 0x6f, 0x6e, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x50, 0x6f, 0x6e, 0x67, 0x42, 0x21, 0x5a, 0x13, 0x73, 0x65, 0x72, 0x76, 0x65,
+	0x72, 0x2f, 0x70, 0x62, 0x2f, 0x70, 0x62, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0xaa, 0x02,
+	0x09, 0x50, 0x62, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -104,15 +203,17 @@ func file_common_proto_rawDescGZIP() []byte {
 	return file_common_proto_rawDescData
 }
 
-var file_common_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_common_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_common_proto_goTypes = []interface{}{
 	(*Poker)(nil),           // 0: pb_common.Poker
-	(pb_enum.PokerHua)(0),   // 1: pb_enum.PokerHua
-	(pb_enum.PokerPoint)(0), // 2: pb_enum.PokerPoint
+	(*ReqHeartbeat)(nil),    // 1: pb_common.ReqHeartbeat
+	(*RespHeartbeat)(nil),   // 2: pb_common.RespHeartbeat
+	(pb_enum.PokerHua)(0),   // 3: pb_enum.PokerHua
+	(pb_enum.PokerPoint)(0), // 4: pb_enum.PokerPoint
 }
 var file_common_proto_depIdxs = []int32{
-	1, // 0: pb_common.Poker.Hua:type_name -> pb_enum.PokerHua
-	2, // 1: pb_common.Poker.Point:type_name -> pb_enum.PokerPoint
+	3, // 0: pb_common.Poker.Hua:type_name -> pb_enum.PokerHua
+	4, // 1: pb_common.Poker.Point:type_name -> pb_enum.PokerPoint
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -138,6 +239,30 @@ func file_common_proto_init() {
 				return nil
 			}
 		}
+		file_common_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReqHeartbeat); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_common_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RespHeartbeat); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -145,7 +270,7 @@ func file_common_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_common_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

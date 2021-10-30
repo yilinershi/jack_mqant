@@ -2,15 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TetrisRoomView : MonoBehaviour
+public class BjlRoomView : MonoBehaviour
 {
-    public static TetrisRoomView Instance;
+    public static BjlRoomView Instance;
 
     private Button btnCreate;
     private Button btnJoin;
     private GameObject tableInfoGo;
     private Transform scrollRoot;
-    private InputField labelTableName;
+    private InputField labelCreate;
+    private InputField labelJoin;
     private string curSelectedTableId;
 
     public void Start()
@@ -22,18 +23,19 @@ public class TetrisRoomView : MonoBehaviour
         btnJoin.onClick.AddListener(OnBtnJoinTetrisClick);
         tableInfoGo = transform.Find("Canvas/TableInfo").gameObject;
         scrollRoot = transform.Find("Canvas/Scroll View/Viewport/Content");
-        labelTableName = transform.Find("Canvas/InputField").GetComponent<InputField>();
+        labelCreate = transform.Find("Canvas/InputCreate").GetComponent<InputField>();
+        labelJoin = transform.Find("Canvas/InputJoin").GetComponent<InputField>();
         RefreshTableList();
     }
 
     private void OnBtnCreateTetrisClick()
     {
-        TetrisRoomController.CallCreateTetrisTable(labelTableName.text);
+        BjlRoomController.CallCreateTable(labelCreate.text);
     }
 
     private void OnBtnJoinTetrisClick()
     {
-        TetrisTableController.CallJoinTetrisTable(curSelectedTableId);
+        BjlTableController.CallJoinTable(labelJoin.text);
     }
 
     public void RefreshTableList()
@@ -51,7 +53,7 @@ public class TetrisRoomView : MonoBehaviour
         }
 
         //重新加上新的
-        foreach (var tableInfo in TetrisRoomController.allTableInfos)
+        foreach (var tableInfo in BjlRoomController.allTableInfos)
         {
             var go = Instantiate(tableInfoGo, scrollRoot, true);
             go.SetActive(true);

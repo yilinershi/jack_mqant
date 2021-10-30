@@ -1,0 +1,18 @@
+syntax = "proto3";
+package pb_common;
+option go_package = "server/pb/pb_common"; //生成go时的package
+option csharp_namespace = "Pb.Common";     //给c#提供的选项
+import "enum.proto";
+
+message Poker{
+  pb_enum.PokerHua Hua=1;
+  pb_enum.PokerPoint Point=2;
+}
+
+message ReqHeartbeat{
+  string Ping=1;
+}
+
+message RespHeartbeat{
+  string Pong=1;
+}

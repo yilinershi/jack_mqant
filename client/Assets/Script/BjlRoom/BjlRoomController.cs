@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using Pb.Bjl;
 using UnityEngine;
-public static class TetrisRoomController
+public static class BjlRoomController
 {
 
     public static List<TableInfo> allTableInfos = new List<TableInfo>();
     
     public static async void CallSubscribeRoomInfo(bool isSubscribe)
     {
-        var topic = "SV_Tetris/Call_SubscribeRoomInfo";
+        var topic = "SV_DB/Call_SubscribeRoomInfo";
         var req = new ReqSubscribeRoomInfo() {IsSubscribe = isSubscribe};
         var resp = await MqttManager.Instance.Call<ReqSubscribeRoomInfo, RespSubscribeRoomInfo>(topic, req);
         Debug.Log("【CallSubscribeRoomInfo】，[topic]=" + topic + "\n[req]=" + req + "\n[resp]=" + resp);
@@ -20,9 +20,9 @@ public static class TetrisRoomController
             allTableInfos.Add(item);
         }
         
-        var prefab = Resources.Load("Prefab/UITetrisRoom");
+        var prefab = Resources.Load("Prefab/UIBjlRoom");
         var go = Object.Instantiate(prefab) as GameObject;
-        go.AddComponent<TetrisRoomView>();
+        go.AddComponent<BjlRoomView>();
     }
 
     public static void OnPushRoomInfo(PushRoomInfoChange data)
@@ -33,12 +33,12 @@ public static class TetrisRoomController
         {
             allTableInfos.Add(item);
         }
-        TetrisRoomView.Instance.RefreshTableList();
+        BjlRoomView.Instance.RefreshTableList();
     }
     
     
     //创建俄罗斯方法
-    public static async void CallCreateTetrisTable( string tableName)
+    public static async void CallCreateTable( string tableName)
     {
         var topic = "SV_Bjl/Call_CreateTable";
         var req = new ReqCreateBjl { TableName = tableName};

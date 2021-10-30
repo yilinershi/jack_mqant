@@ -28,9 +28,6 @@ public class LoginView : MonoBehaviour
     {
         LoginController.Login(inputAccount.text,inputPassword.text, () =>
         {
-           
-            
-          
             Destroy(this.gameObject);
         });
     }

@@ -11,9 +11,12 @@ enum ErrorCode {
   LoginPasswordError = 4;     //登录密码错误
   RegisterAccountExit = 5;    //注册账号已存在
   AuthFailed = 6;             //授权失败（先登录再进行长连接）
-  RoomUnExistent = 7;         //房间不存在
-  DeskUnExistent = 8;         //桌子不存在
-  DeskPlayerFull = 9;         //桌子上玩家已满
+  TableUnExistent = 7;        //桌子不存在
+  TablePlayerFull = 8;        //桌子上玩家已满
+  TableIsStarted = 9;         //桌子上的游戏已经开始了
+  TableGameStartPermissionLimit = 10; //桌子上开始游戏的权限不对
+  TableStateCanNotBet = 11;           //桌子当前状态下不能下注
+  TableBetMoneyUnEnough=12;  //下注的钱不足
 }
 
 enum Sex {
@@ -26,3 +29,27 @@ enum RoomType {
   Tetris = 0; //俄罗斯方块
 }
 
+enum PokerHua {
+  Nil = 0;
+  Tao = 1;
+  Xin = 2;
+  Mei = 3;
+  Fang = 4;
+}
+
+enum PokerPoint {
+  PointNil = 0;
+  PointA = 1;
+  Point2 = 2;
+  Point3 = 3;
+  Point4 = 4;
+  Point5 = 5;
+  Point6 = 6;
+  Point7 = 7;
+  Point8 = 8;
+  Point9 = 9;
+  PointT = 10;
+  PointJ = 11;
+  PointQ = 12;
+  PointK = 13;
+}

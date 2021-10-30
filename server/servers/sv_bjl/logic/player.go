@@ -7,7 +7,7 @@ import (
 type Player struct {
 	room.BasePlayerImp
 	UserID int64
-	NickName string
+	nickName string
 	winCount float32
 	gold     float32
 }
@@ -26,4 +26,11 @@ func (this *Player) Reset() {
 
 func (this *Player) GetUserID() int64 {
 	return this.UserID
+}
+
+func (this *Player) GetNickName() string {
+	if this.nickName==""{
+		this.nickName=this.Session().Get("nickName")
+	}
+	return this.nickName
 }

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using M2MqttUnity;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using Google.Protobuf;
-using Pb.Enum;
 using UnityEngine;
 
 public class MqttManager : M2MqttUnityClient
@@ -14,17 +13,24 @@ public class MqttManager : M2MqttUnityClient
     protected void Start()
     {
         Instance = this;
+        // this.brokerPort=Session.WebSocketUrl
     }
 
     public void Init()
     {
         base.Connect();
-        Instance.RegisterPush<Pb.Tetris.PushRoomInfoChange>("SV_Tetris/Push_RoomInfoChange", TetrisController.OnPushRoomInfo);
+        Instance.RegisterPush<Pb.Bjl.PushRoomInfoChange>("SV_DB/Record_Bjl/RoomInfoChange", BjlRoomController.OnPushRoomInfo);
+        Instance.RegisterPush<Pb.Bjl.BroadcastTablePlayerChange>("SV_Bjl/Table/BroadcastTablePlayerChange", BjlTableController.BroadcastTablePlayerChange);
+        Instance.RegisterPush<Pb.Bjl.BroadcastStatusReady>("SV_Bjl/Table/BroadcastStateReady", BjlTableController.BroadcastGameStatusReady);
+        Instance.RegisterPush<Pb.Bjl.BroadcastStatusBet>("SV_Bjl/Table/BroadcastStateBet", BjlTableController.BroadcastGameStatusBet);
+        Instance.RegisterPush<Pb.Bjl.BroadcastStatusSend>("SV_Bjl/Table/BroadcastStateSend", BjlTableController.BroadcastGameStatusSend);
+        Instance.RegisterPush<Pb.Bjl.BroadcastStatusShow>("SV_Bjl/Table/BroadcastStateShow", BjlTableController.BroadcastGameStatusShow);
+        Instance.RegisterPush<Pb.Bjl.BroadcastStatusSettle>("SV_Bjl/Table/BroadcastStateSettle", BjlTableController.BroadcastGameStatusSettle);
+        Instance.RegisterPush<Pb.Bjl.BroadcastPlayerBet>("SV_Bjl/Table/BroadcastTablePlayerBet", BjlTableController.BroadcastPlayerBet);
     }
 
-
     private readonly Dictionary<string, Action<byte[]>> _dicCall = new Dictionary<string, Action<byte[]>>();
-    private readonly Dictionary<string, Action<byte[]>> _dicSync = new Dictionary<string, Action<byte[]>>();
+    private readonly Dictionary<string, Action<byte[]>> _dicPush = new Dictionary<string, Action<byte[]>>();
 
     public Task<TResp> Call<TReq, TResp>(string topic, TReq req) where TReq : IMessage<TReq>, new() where TResp : IMessage<TResp>, new()
     {
@@ -40,25 +46,21 @@ public class MqttManager : M2MqttUnityClient
         client.Publish(topic, data, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
     }
 
-
-    public void RegisterPush<TPush>(string topic, Action<TPush> resp) where TPush : IMessage<TPush>, new()
+    private void RegisterPush<TPush>(string topic, Action<TPush> resp) where TPush : IMessage<TPush>, new()
     {
-        
-        if (!Instance._dicSync.ContainsKey(topic))
-        {
-            Instance._dicSync.Add(topic,(msg) =>
+        // if (!Instance._dicPush.ContainsKey(topic))
+        // {
+            Instance._dicPush.Add(topic, (msg) =>
             {
                 TPush k = new MessageParser<TPush>(() => new TPush()).ParseFrom(msg);
                 resp?.Invoke(k);
             });
-        }
+        // }
     }
-
 
     private static Task<T> GenTask<T>(string topic) where T : IMessage<T>, new()
     {
         var task = TaskUtil.GenSendTask(out Action<T> action, $"{typeof(T).Name} error");
-
         void Callback(byte[] msg)
         {
             T resp = new T();
@@ -66,11 +68,9 @@ public class MqttManager : M2MqttUnityClient
             action.Invoke(resp);
             action = null;
         }
-
-        Instance._dicCall.Add(topic, Callback);
+        Instance._dicCall[topic] = Callback;
         return task;
     }
-
 
     protected override void DecodeMessage(string topic, byte[] message)
     {
@@ -84,10 +84,11 @@ public class MqttManager : M2MqttUnityClient
         }
 
         //收到sync类型的消息
-        if (_dicSync.ContainsKey(topic))
+        if (_dicPush.ContainsKey(topic))
         {
-            Debug.Log("Received Sync >> topic = " + topic);
-            _dicSync[topic](message);
+            Debug.Log("Received push >> topic = " + topic);
+            _dicPush[topic](message);
+            _dicCall.Remove(topic);
             return;
         }
 
@@ -98,7 +99,7 @@ public class MqttManager : M2MqttUnityClient
         }
 
         string msg = System.Text.Encoding.UTF8.GetString(message);
-        Debug.Log("Received Unknown >> topic = " + topic + " ,msg=" + msg);
+        Debug.LogWarning("Received Unknown >> topic = " + topic + " ,msg=" + msg);
     }
 
     protected override void OnConnected()

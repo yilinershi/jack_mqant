@@ -1,4 +1,4 @@
-public class TetrisRoomModel
+public class BjlRoomModel
 {
     
 }

@@ -1,0 +1,167 @@
+syntax = "proto3";
+package pb_bjl;
+option go_package = "server/pb/pb_bjl"; //生成go时的package
+option csharp_namespace = "Pb.Bjl";     //给c#提供的选项
+import "enum.proto";
+import "common.proto";
+
+message ReqCreateBjl {
+  string TableName = 1; //游戏桌子名称
+}
+
+message RespCreteBjl {
+  pb_enum.ErrorCode ErrCode = 1;
+  string ID = 2; //服务器创建成功后返回的桌子的ID
+}
+
+//是否订阅房间消息
+message ReqSubscribeRoomInfo {
+  bool IsSubscribe = 1; // true,开始订阅，false,取消订阅
+}
+
+//服务器向客户端同步房间信息
+message TableInfo {
+  string TableId = 1;
+  string Name = 2;
+  string CreatorUId = 3;
+  string CreatorNickName = 4;
+}
+
+message RespSubscribeRoomInfo {
+  pb_enum.ErrorCode ErrCode = 1;
+  repeated TableInfo AllTableInfo = 2;
+}
+
+message PushRoomInfoChange {
+  enum EnumChangeType {
+    OnCreate = 0;  //创建
+    OnDestroy = 1; //销毁
+  }
+  EnumChangeType ChangeType = 1;
+  TableInfo onChangeTableInfo = 2;     //变化量
+  repeated TableInfo AllTableInfo = 3; //总量
+}
+
+message ReqJoinTable {
+  string TableId = 1; //要加入的桌子Id
+}
+
+message RespJoinTable {
+  pb_enum.ErrorCode ErrCode = 1; // ok或err
+}
+
+message BroadcastTablePlayerChange {
+  enum EnumChangeType {
+    Join = 0;  //加入桌子
+    Leave = 1; //离开桌子坐位
+  }
+  EnumChangeType ChangeType = 1;
+  BjlPlayer OnChangePlayer = 2;     //变量
+  repeated BjlPlayer AllPlayer = 3; //总量
+}
+
+message BjlPlayer {
+  string NickName = 1;
+  float Gold = 2;
+  int64 UID = 3;
+}
+
+message ReqJoinDesk { string DeskId = 1; }
+
+message RespJoinDesk {
+  string GameStatus = 1;         //当前房间的状态
+  repeated BetInfo BetInfos = 2; //桌子上下注信息
+}
+
+//下注区域
+enum EnumBetArea {
+  AreaNone = 0;
+  AreaXian = 1;
+  AreaZhuang = 2;
+  AreaHe = 3;
+  AreaXianDui = 4;
+  AreaZhuangDui = 5;
+}
+
+message BetInfo {
+  int64 UID = 1;        //下注的人
+  EnumBetArea Area = 2; //下注区域
+  float Count = 3;     //区域内下注额
+}
+
+enum EnumGameStatus {
+  None = 0;
+  Ready = 1;
+  Bet = 2;
+  Send = 3;
+  Show = 4;
+  Settle = 5;
+}
+
+//状态机变化
+message BroadcastStatusReady {
+  EnumGameStatus GameStatus = 1; //状态变化
+  uint32 Time = 2;               //当前状态CD（单位秒）
+  string RoundId = 3;
+  bool IsShuffle = 4; //是否洗牌（表现动画）
+}
+
+message BroadcastStatusBet {
+  EnumGameStatus GameStatus = 1; //状态变化
+  uint32 Time = 2;               //当前状态CD（单位秒）
+}
+
+message BroadcastStatusSend {
+  EnumGameStatus GameStatus = 1; //状态变化
+  uint32 Time = 2;               //当前状态CD（单位秒）
+}
+
+message BroadcastStatusShow {
+  EnumGameStatus GameStatus = 1;       //状态变化
+  uint32 Time = 2;                     //当前状态CD（单位秒）
+  repeated pb_common.Poker Xian = 3;   //闲区域的扑克牌id
+  repeated pb_common.Poker Zhuang = 4; //庄区域的扑克牌id
+}
+
+//同步玩家下注
+message BroadcastPlayerBet {
+  BetInfo Info = 1; //下注信息
+}
+
+//玩家自己下注
+message ReqBet {
+  EnumBetArea Area = 1; //下注区域
+  float Count = 2;     //区域内下注总额
+}
+
+message RespBet {
+  pb_enum.ErrorCode ErrCode = 1; // ok或err
+  float Gold = 2;               //下注后的金币
+}
+
+enum EnumWinType {
+  Xian = 0;   //闲赢
+  Zhuang = 1; //庄赢
+  He = 2;     //和
+}
+
+message Result {
+  EnumWinType WinType = 1;
+  bool IsXianDui = 2;
+  bool IsZhuangDui = 3;
+}
+
+message BroadcastStatusSettle {
+  message WinInfo{
+    int64 UID = 1;        //下注的人
+    float GoldChange = 2;          //每个玩家自己的钱的增量
+    float Gold = 3;                //每个玩家自己的钱的总量
+  }
+
+  EnumGameStatus GameStatus = 1; //状态变化
+  uint32 Time = 2;               //当前状态CD（单位秒）
+  Result Result = 3;             //结算结果
+  repeated WinInfo Info=4;
+}
+
+

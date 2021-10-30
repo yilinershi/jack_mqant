@@ -53,25 +53,30 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Script\Lobby\LobbyView.cs" />
+     <Compile Include="Assets\Script\BjlTable\Controller\BjlTableController.cs" />
      <Compile Include="Assets\Pb\Http.cs" />
      <Compile Include="Assets\Script\Login\LoginController.cs" />
+     <Compile Include="Assets\Script\BjlTable\Model\BjlTableModel.cs" />
      <Compile Include="Assets\Script\Common\TaskUtil.cs" />
      <Compile Include="Assets\Pb\Game.cs" />
      <Compile Include="Assets\Script\Lobby\LobbyModel.cs" />
+     <Compile Include="Assets\Pb\Bjl.cs" />
+     <Compile Include="Assets\Script\BjlTable\View\BjlPlayerView.cs" />
      <Compile Include="Assets\Script\Common\MqttManager.cs" />
      <Compile Include="Assets\Pb\Enum.cs" />
      <Compile Include="Assets\Script\Login\LoginView.cs" />
      <Compile Include="Assets\Script\Common\UIBase.cs" />
      <Compile Include="Assets\Pb\Lobby.cs" />
-     <Compile Include="Assets\Script\Main.cs" />
-     <Compile Include="Assets\Script\Tetris\TetrisModel.cs" />
      <Compile Include="Assets\Pb\Rpc.cs" />
-     <Compile Include="Assets\Pb\Tetris.cs" />
+     <Compile Include="Assets\Script\Main.cs" />
+     <Compile Include="Assets\Script\BjlRoom\BjlRoomModel.cs" />
      <Compile Include="Assets\Script\Lobby\LobbyController.cs" />
-     <Compile Include="Assets\Script\Tetris\TetrisView.cs" />
+     <Compile Include="Assets\Script\BjlRoom\BjlRoomView.cs" />
      <Compile Include="Assets\Script\Common\Http.cs" />
      <Compile Include="Assets\Script\Login\LoginModel.cs" />
-     <Compile Include="Assets\Script\Tetris\TetrisController.cs" />
+     <Compile Include="Assets\Pb\Common.cs" />
+     <Compile Include="Assets\Script\BjlRoom\BjlRoomController.cs" />
+     <Compile Include="Assets\Script\BjlTable\View\BjlTableView.cs" />
      <Compile Include="Assets\Script\Session\Session.cs" />
      <None Include="Assets\Resources\Txt\cacert.txt" />
  <Reference Include="UnityEngine">

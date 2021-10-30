@@ -270,7 +270,7 @@ func (this *CustomAgent) recoverWorker(pack *mqtt.Pack) {
 
 		isStartsWithNotify := strings.HasPrefix(routerHD, "Notify_")
 		if isStartsWithNotify {
-			this.module.Call(context.Background(), routerSV, routerHD, mqrpc.Param(msg))
+			this.module.Call(context.Background(), routerSV, routerHD, mqrpc.Param(this.session,msg))
 			return
 		}
 

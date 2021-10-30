@@ -4,6 +4,8 @@ option go_package = "server/pb/pb_lobby"; //生成go时的package
 option csharp_namespace = "Pb.Lobby";     //给c#提供的选项
 import "enum.proto";
 
+
+
 message ReqAuth {
   string Account = 1; //用户账号
   string Token = 2;
